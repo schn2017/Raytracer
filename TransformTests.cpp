@@ -6,14 +6,14 @@ TEST_CASE("Transform: LookAt Matrix")
 
 }
 
-TEST_CASE("Transform: Perspective Matrix")
+TEST_CASE("Transform: Normalize the up direction")
 {
 
 }
 
-TEST_CASE("Transform: Normalize the up direction")
+TEST_CASE("Transform: Perspective Matrix")
 {
-  
+
 }
 
 TEST_CASE("Transform: Rotation Matrix - Construction")

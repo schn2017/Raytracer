@@ -10,6 +10,10 @@ Camera::Camera(float lookFromX, float lookFromY, float lookFromZ,
   fov = fovy;
 }
 
+Camera::Camera()
+{  
+}
+
 Vector3 Camera::getLookFrom()
 {
   return lookFrom;

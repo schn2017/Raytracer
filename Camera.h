@@ -7,6 +7,8 @@ public:
          float lookAtX, float lookAtY, float lookAtZ,
          float upX, float upY, float upZ, float fov);
 
+  Camera();
+
   Vector3 getLookFrom();
   Vector3 getLookAt();
   Vector3 getUp();
