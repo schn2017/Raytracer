@@ -6,48 +6,12 @@ Sample::Sample(float xPos, float yPos)
   y = yPos;
 }
 
-bool Sample::hasNextSample()
+float Sample::getX()
 {
-  if (pixelX > width && pixelY > height)
-  {
-    return false;
-  }
-  else
-  {
-    return true;
-  }
+  return x;
 }
 
-float Sample::getHeight()
+float Sample::getY()
 {
-  return height;
-}
-
-float Sample::getWidth()
-{
-  return width;
-}
-
-float Sample::getPixelX()
-{
-  return pixelX;
-}
-
-float Sample::getPixelY()
-{
-  return pixelY;
-}
-
-Sample Sample::getSample()
-{
-  if (pixelX > width)
-  {
-    pixelX = 0;
-    pixelY++;
-  }
-
-  Sample imageSample = Sample(pixelX, pixelY);
-  pixelX++;
-
-  return imageSample;
+  return y;
 }

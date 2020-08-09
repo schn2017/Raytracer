@@ -1,19 +1,20 @@
 #include "Sample.h"
+#include <iostream>
 
 class SceneSampler
 {
 public:
-  SceneSampler(float imageHeight, float imageWidth);
+  SceneSampler(int imageHeight, int imageWidth);
   Sample getSample();
-  bool hasNextSample();
-  float getHeight();
-  float getWidth();
-  float getPixelX();
-  float getPixelY();
+  bool canSample();
+  int getHeight();
+  int getWidth();
+  float getRow();
+  float getColumn();
 
 private:
-  float height;
-  float width;
-  float pixelX;
-  float pixelY;
+  int height;
+  int width;
+  float row;
+  float column;
 };

@@ -10,17 +10,17 @@ Camera Scene::getCamera()
   return sceneCamera;
 }
 
-float Scene::getDepth()
+int Scene::getDepth()
 {
   return depth;
 }
 
-float Scene::getHeight()
+int Scene::getHeight()
 {
   return height;
 }
 
-float Scene::getWidth()
+int Scene::getWidth()
 {
   return width;
 }
