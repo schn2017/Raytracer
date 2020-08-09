@@ -8,7 +8,6 @@ TEST_CASE("Scene: Open Scene Input Text File")
   const char * fileNameFail = "scene10.test";
   REQUIRE(sceneTest.readScene(fileNamePass) == true);
   REQUIRE(sceneTest.readScene(fileNameFail) == false);
-
 }
 
 TEST_CASE("Scene: Read Scene Input - Camera Initialization")
@@ -24,7 +23,7 @@ TEST_CASE("Scene: Read Scene Input - Camera Initialization")
   REQUIRE(testCamera.getFOV() == 30);
 }
 
-TEST_CASE("Scene - Read Scene Input - Size")
+TEST_CASE("Scene: Read Scene Input - Size")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -32,11 +31,9 @@ TEST_CASE("Scene - Read Scene Input - Size")
 
   REQUIRE(sceneTest.getHeight() ==  480);
   REQUIRE(sceneTest.getWidth() == 640);
-
-
 }
 
-TEST_CASE("Scene - Read Scene Input - Depth")
+TEST_CASE("Scene: Read Scene Input - Depth")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";

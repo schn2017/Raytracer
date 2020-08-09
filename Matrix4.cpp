@@ -115,9 +115,17 @@ void Matrix4::setElement(int elementNumber, float value)
 
 void Matrix4::print()
 {
+  int count = 0;
   for (int i = 0; i < 16; i++)
   {
     std::cout<< elements[i] << " ";
+    count++;
+
+    if(count == 4)
+    {
+      std::cout << "\n";
+      count = 0;
+    }
 
   }
   std::cout<< "\n ";

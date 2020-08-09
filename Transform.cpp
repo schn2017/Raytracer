@@ -23,7 +23,7 @@ Matrix4 Transform::perspective(float fovy, float aspect, float zNear, float zFar
 {
   float theta = fovy / 2;
   float d = 1 / tan(MathHelper::radians(theta));
-  float A = -1 * (zFar + zNear)/(zFar - zNear);
+  float A = -1 * (zFar + zNear) / (zFar - zNear);
   float B = -2 * (zFar * zNear) / (zFar - zNear);
   Matrix4 perspectiveMatrix = Matrix4(d/aspect, 0 , 0, 0,
                                       0, d, 0, 0,
