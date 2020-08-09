@@ -2,6 +2,7 @@
 class Vector3{
   public:
     Vector3(float x, float y, float z);
+    Vector3();
     float getX();
     float getY();
     float getZ();

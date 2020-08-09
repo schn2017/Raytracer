@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "Scene.h"
 
-TEST_CASE("Scene - Open Scene Input Text File")
+TEST_CASE("Scene: Open Scene Input Text File")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1.test";
@@ -11,7 +11,7 @@ TEST_CASE("Scene - Open Scene Input Text File")
 
 }
 
-TEST_CASE("Scene - Read Scene Input: Camera Initialization")
+TEST_CASE("Scene: Read Scene Input - Camera Initialization")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -22,4 +22,25 @@ TEST_CASE("Scene - Read Scene Input: Camera Initialization")
   REQUIRE(testCamera.getLookAt().isEqual(Vector3(1, 0, 0)) == true);
   REQUIRE(testCamera.getUp().isEqual(Vector3(0, 1, 0)) == true);
   REQUIRE(testCamera.getFOV() == 30);
+}
+
+TEST_CASE("Scene - Read Scene Input - Size")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+
+  REQUIRE(sceneTest.getHeight() ==  480);
+  REQUIRE(sceneTest.getWidth() == 640);
+
+
+}
+
+TEST_CASE("Scene - Read Scene Input - Depth")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+
+  REQUIRE(sceneTest.getDepth() ==  10);
 }

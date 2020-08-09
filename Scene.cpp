@@ -10,6 +10,22 @@ Camera Scene::getCamera()
   return sceneCamera;
 }
 
+float Scene::getDepth()
+{
+  return depth;
+}
+
+float Scene::getHeight()
+{
+  return height;
+}
+
+float Scene::getWidth()
+{
+  return width;
+}
+
+
 bool Scene::readScene(const char *filename)
 {
   bool validCommand;
@@ -29,7 +45,16 @@ bool Scene::readScene(const char *filename)
         stringstream s(str);
         s >> command;
 
-        if (command == "camera")
+
+        if (command == "ambient")
+        {
+          // To Do
+        }
+        else if (command == "attenuation")
+        {
+          // To Do
+        }
+        else if (command == "camera")
         {
           validCommand = readSceneValues(s, 10, objectParameters);
 
@@ -43,8 +68,95 @@ bool Scene::readScene(const char *filename)
           }
 
         }
+        else if (command == "diffuse")
+        {
+          // To Do
+        }
+        else if (command == "directional")
+        {
+          // To Do
+        }
+        else if (command == "emission")
+        {
+          // To Do
+        }
+        else if (command == "maxdepth")
+        {
+          validCommand = readSceneValues(s, 1, objectParameters);
+          if (validCommand)
+          {
+            depth = objectParameters[0];
+          }
+        }
+        else if (command == "maxverts")
+        {
+          // To Do
+        }
+        else if (command == "maxvertnorms")
+        {
+          // To Do
+        }
+        else if (command == "output")
+        {
+          // To Do
+        }
+        else if (command == "point")
+        {
+          // To Do
+        }
+        else if (command == "popTransform")
+        {
+          // To Do
+        }
+        else if (command == "pushTransform")
+        {
+          // To Do
+        }
+        else if (command == "rotate")
+        {
+          // To Do
+        }
+        else if (command == "scale")
+        {
+          // To Do
+        }
+        else if (command == "shininess")
+        {
 
-
+        }
+        else if (command == "size")
+        {
+          validCommand = readSceneValues(s, 2, objectParameters);
+          if (validCommand)
+          {
+            width = objectParameters[0];
+            height = objectParameters[1];
+          }
+        }
+        else if (command == "sphere")
+        {
+          // To Do
+        }
+        else if (command == "translate")
+        {
+          // To Do
+        }
+        else if (command == "tri")
+        {
+          // To Do
+        }
+        else if (command == "trinormal")
+        {
+          // To Do
+        }
+        else if (command == "vertex")
+        {
+          // To Do
+        }
+        else if (command == "vertexnormal")
+        {
+          // To Do
+        }
       }
 
       getline (input, str);

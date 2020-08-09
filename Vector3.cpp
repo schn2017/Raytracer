@@ -6,6 +6,11 @@ Vector3::Vector3(float xx, float yy, float zz){
   z = zz;
 }
 
+Vector3::Vector3()
+{
+  
+}
+
 
 float Vector3::getX(){
   return x;

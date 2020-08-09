@@ -12,8 +12,12 @@ public:
   bool readScene(const char *filename);
   bool readSceneValues(stringstream &s, const int numvals, float * values);
   Camera getCamera();
+  float getDepth();
+  float getHeight();
+  float getWidth();
 private:
   Camera sceneCamera;
+  float depth;
   float height;
   float width;
 
