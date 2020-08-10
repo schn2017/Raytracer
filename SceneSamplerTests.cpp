@@ -7,22 +7,23 @@ TEST_CASE("SceneSampler: Construction")
 
   REQUIRE(testSampler.getHeight() == 2);
   REQUIRE(testSampler.getWidth() == 4);
+  REQUIRE(testSampler.getAspectRatio() == 2);
 }
 
 TEST_CASE("SceneSampler: Get Sample")
 {
   SceneSampler testSampler = SceneSampler(10, 10);
   Sample testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 1);
-  REQUIRE(testSample.getY() == -1);
+  REQUIRE(testSample.getX() == 0.9f);
+  REQUIRE(testSample.getY() == -0.9f);
   testSampler.canSample();
   testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 1);
-  REQUIRE(testSample.getY() == -0.8f);
+  REQUIRE(testSample.getX() == 0.9f);
+  REQUIRE(testSample.getY() == -0.7f);
   testSampler.canSample();
   testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 1);
-  REQUIRE(testSample.getY() == -0.6f);
+  REQUIRE(testSample.getX() == 0.9f);
+  REQUIRE(testSample.getY() == -0.5f);
 }
 
 TEST_CASE("SceneSampler: Check For Next Sample")
@@ -41,6 +42,6 @@ TEST_CASE("SceneSampler: Check For Next Sample")
     }
   }
 
-  REQUIRE(count == (imageHeight + 1) * (imageWidth + 1));
+  REQUIRE(count == imageHeight * imageWidth);
   REQUIRE(testSampler.canSample() == false);
 }

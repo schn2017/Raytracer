@@ -4,8 +4,11 @@ SceneSampler::SceneSampler(int imageHeight, int imageWidth)
 {
   height = imageHeight;
   width = imageWidth;
-  row = 0;
-  column = 0;
+  aspectRatio = width/height;
+  row = 0.5;
+  column = 0.5;
+  //row = 0;
+  //column = 0;
 }
 
 Sample SceneSampler::getSample()
@@ -31,7 +34,7 @@ bool SceneSampler::canSample()
   {
     if (column > width)
     {
-      column = 0;
+      column = 0.5;
       row++;
     }
     return true;
@@ -56,4 +59,9 @@ float SceneSampler::getRow()
 float SceneSampler::getColumn()
 {
   return column;
+}
+
+float SceneSampler::getAspectRatio()
+{
+  return aspectRatio;
 }

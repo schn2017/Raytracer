@@ -11,10 +11,12 @@ public:
   int getWidth();
   float getRow();
   float getColumn();
+  float getAspectRatio();
 
 private:
   int height;
   int width;
   float row;
   float column;
+  float aspectRatio;
 };
