@@ -31,7 +31,7 @@ rgb.o: RGB.cpp RGB.h
 sample.o: Sample.cpp Sample.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Sample.cpp
 
-scene.o: Scene.cpp Scene.h Camera.h
+scene.o: Scene.cpp Scene.h Camera.h Pixels.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Scene.cpp
 
 scenesampler.o: SceneSampler.cpp SceneSampler.h Scene.h

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include "Camera.h"
+#include "Pixels.h"
 
 using namespace std;
 class Scene
@@ -20,5 +21,5 @@ private:
   int depth;
   int height;
   int width;
-
+  Pixels film;
 };

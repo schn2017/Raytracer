@@ -4,7 +4,6 @@ Scene::Scene()
 {
 }
 
-
 Camera Scene::getCamera()
 {
   return sceneCamera;
