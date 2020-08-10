@@ -73,7 +73,7 @@ tests: TestSuite.o CameraTests.o Camera.o MathHelperTests.o MathHelper.o Matrix3
 									Vector4Tests.o Vector4.o \
 
 TestSuite.o: TestSuite.cpp catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c TestSuite.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/TestSuite.cpp
 
 CameraTests.o: CameraTests.cpp Camera.h catch.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/CameraTests.cpp
