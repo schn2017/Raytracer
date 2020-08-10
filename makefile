@@ -1,4 +1,5 @@
 CXX = g++
+VPATH = ./Unit_Tests
 CXXFLAGS = -Wall -g -std=c++11
 INCFLAGS = -I./
 LDFLAGS = -lfreeimage
@@ -75,46 +76,46 @@ TestSuite.o: TestSuite.cpp catch.hpp
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c TestSuite.cpp
 
 CameraTests.o: CameraTests.cpp Camera.h catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c CameraTests.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/CameraTests.cpp
 
 MathHelperTests.o: MathHelperTests.cpp MathHelper.h Matrix3.h Matrix4.h Vector3.h Vector4.h catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c MathHelperTests.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/MathHelperTests.cpp
 
 Matrix3Tests.o: Matrix3Tests.cpp Matrix3.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Matrix3Tests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/Matrix3Tests.cpp
 
 Matrix4Tests.o: Matrix4Tests.cpp Matrix3.h Matrix4.h Vector3.h Vector4.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Matrix4Tests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/Matrix4Tests.cpp
 
 PixelsTests.o: Pixels.cpp Pixels.h RGB.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c PixelsTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PixelsTests.cpp
 
 RGBTests.o: RGBTests.cpp RGB.h catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c RGBTests.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/RGBTests.cpp
 
 SampleTests.o: SampleTests.cpp Sample.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c SampleTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SampleTests.cpp
 
 SceneTests.o: SceneTests.cpp Scene.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c SceneTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SceneTests.cpp
 
 SceneSamplerTests.o: SceneSamplerTests.cpp SceneSampler.h Scene.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c SceneSamplerTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SceneSamplerTests.cpp
 
 SphereTests.o: SphereTests.cpp Sphere.h Vector3.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c SphereTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SphereTests.cpp
 
 TransformTests.o: TransformTests.cpp Matrix3.h Matrix4.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c TransformTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/TransformTests.cpp
 
 TriangleTests.o: TriangleTests.cpp Triangle.h Vector3.h catch.hpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c TriangleTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/TriangleTests.cpp
 
 Vector3Tests.o: Vector3Tests.cpp Vector3.h catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Vector3Tests.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/Vector3Tests.cpp
 
 Vector4Tests.o: Vector4Tests.cpp Vector4.h catch.hpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Vector4Tests.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/Vector4Tests.cpp
 
 clean:
 	$(RM) *.o main tests
