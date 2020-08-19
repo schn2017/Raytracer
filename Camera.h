@@ -1,3 +1,4 @@
+#include "Ray.h"
 #include "Vector3.h"
 
 class Camera
@@ -13,6 +14,8 @@ public:
   Vector3 getLookAt();
   Vector3 getUp();
   float getFOV();
+
+  Ray createRay(Vector3 direction);
 
   void setLookFrom(Vector3 newVector);
   void setLookAt(Vector3 newVector);

@@ -7,6 +7,14 @@ public:
   float getGreen();
   float getBlue();
 
+  RGB operator+(const RGB &otherRGB)
+  {
+    float red = R + otherRGB.R;
+    float green = G + otherRGB.G;
+    float blue = B + otherRGB.B;
+
+    return RGB(red, green, blue);
+  }
 
 private:
   float R;

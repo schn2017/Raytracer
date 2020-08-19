@@ -11,6 +11,11 @@ SceneSampler::SceneSampler(int imageHeight, int imageWidth)
   //column = 0;
 }
 
+SceneSampler::SceneSampler()
+{
+
+}
+
 Sample SceneSampler::getSample()
 {
   //std::cout << "Pixel Sample: " << row << " " << column << "\n";

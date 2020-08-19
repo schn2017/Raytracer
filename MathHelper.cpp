@@ -184,3 +184,24 @@ Matrix4 MathHelper::sub(Matrix4 m1, Matrix4 m2)
 
   return sum;
 }
+
+
+bool MathHelper::solveQuadratic(float a, float b, float c, float &t0, float &t1)
+{
+  float discriminant = (b * b) - (4 * a * c);
+
+  if (discriminant < 0)
+  {
+    return false;
+  }
+  else if (discriminant == 0)
+  {
+    t0 = t1 = -0.5 * (b / a);
+  }
+  else
+  {
+    t0 = (-b - sqrt(discriminant)) / 2;
+    t1 = (-b + sqrt(discriminant)) / 2;
+  }
+  return true;
+}

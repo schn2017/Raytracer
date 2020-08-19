@@ -9,7 +9,7 @@ RGB::RGB(float red, float green, float blue)
 
 RGB::RGB()
 {
-  
+
 }
 
 float RGB::getRed()

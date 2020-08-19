@@ -10,6 +10,7 @@
 class MathHelper
 {
 public:
+  static bool solveQuadratic(float a, float b, float c, float &t0, float &t1);
   static Matrix3 add(Matrix3 m1, Matrix3 m2);
   static Matrix4 add(Matrix4 m1, Matrix4 m2);
   static float dot(Vector3 v1, Vector3 v2);
@@ -26,4 +27,7 @@ public:
   static Matrix4 scalarMultiply(float scalar, Matrix4 m1);
   static Matrix3 sub(Matrix3 m1, Matrix3 m2);
   static Matrix4 sub(Matrix4 m1, Matrix4 m2);
+
+
+
 };

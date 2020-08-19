@@ -1,0 +1,20 @@
+#pragma once
+
+#include "Vector3.h"
+
+class Ray
+{
+public:
+  Ray(Vector3 ori, Vector3 dir);
+  Vector3 getIntersection();
+  Vector3 getOrigin();
+  Vector3 getDirection();
+  void setT(float value);
+  float getT();
+
+private:
+  Vector3 origin;
+  Vector3 direction;
+  float t;
+
+};

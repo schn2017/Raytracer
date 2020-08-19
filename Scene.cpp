@@ -24,6 +24,20 @@ int Scene::getWidth()
   return width;
 }
 
+Vector3 Scene::getVertex(int element)
+{
+  return vertices[element];
+}
+
+vector<Sphere> Scene::getSpheres()
+{
+  return spheres;
+}
+
+vector<Triangle> Scene::getTriangles()
+{
+  return triangles;
+}
 
 bool Scene::readScene(const char *filename)
 {
@@ -134,7 +148,12 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "sphere")
         {
-          // To Do
+          validCommand = readSceneValues(s, 4, objectParameters);
+          if (validCommand)
+          {
+              spheres.push_back(Sphere(objectParameters[0], objectParameters[1],
+                                      objectParameters[2], objectParameters[3]));
+          }
         }
         else if (command == "translate")
         {
@@ -142,7 +161,11 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "tri")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+          if (validCommand)
+          {
+              triangles.push_back(Triangle(vertices[objectParameters[0]], vertices[objectParameters[1]], vertices[objectParameters[2]]));
+          }
         }
         else if (command == "trinormal")
         {
@@ -150,7 +173,11 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "vertex")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+          if (validCommand)
+          {
+            vertices.push_back(Vector3(objectParameters[0], objectParameters[1], objectParameters[2]));
+          }
         }
         else if (command == "vertexnormal")
         {
@@ -177,9 +204,31 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 
     if (s.fail())
     {
-      cout<< "Failed reading value " << i << " will skip \n";
+      cout << "Failed reading value " << i << " will skip \n";
       return false;
     }
   }
   return true;
+}
+
+void Scene::renderScene()
+{
+  sampler = SceneSampler(height, width);
+
+  while (sampler.canSample())
+  {
+    Sample sample = sampler.getSample();
+
+    Ray cameraRay = sceneCamera.createRay(Vector3(sample.getX(), sample.getY(), 0));
+
+    //Check if Ray intersects with shapes
+
+    // Receive color
+
+    // Commit color to film
+
+  }
+
+  // Turn film into image
+
 }

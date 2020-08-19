@@ -1,3 +1,4 @@
+#pragma once
 
 class Vector3{
   public:
@@ -7,6 +8,33 @@ class Vector3{
     float getY();
     float getZ();
     bool isEqual(Vector3 other);
+
+    Vector3 operator+(const Vector3 &otherVector)
+    {
+      float xx = x + otherVector.x;
+      float yy = y + otherVector.y;
+      float zz = z + otherVector.z;
+
+      return Vector3(xx, yy , zz);
+    }
+
+    Vector3 operator-(const Vector3 &otherVector)
+    {
+      float xx = x - otherVector.x;
+      float yy = y - otherVector.y;
+      float zz = z - otherVector.z;
+
+      return Vector3(xx, yy, zz);
+    }
+
+    Vector3 operator*(const float &scalar)
+    {
+      float xx = x * scalar;
+      float yy = y * scalar;
+      float zz = z * scalar;
+
+      return Vector3(xx, yy, zz);
+    }
 
   private:
     float x;

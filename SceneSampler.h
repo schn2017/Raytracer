@@ -5,6 +5,7 @@ class SceneSampler
 {
 public:
   SceneSampler(int imageHeight, int imageWidth);
+  SceneSampler();
   Sample getSample();
   bool canSample();
   int getHeight();

@@ -270,3 +270,32 @@ TEST_CASE("MathHelper: Subtraction - Matrix4")
   REQUIRE(MathHelper::sub(m1, m2).isEqual(zeros) == true);
   REQUIRE(MathHelper::sub(m1, m3).isEqual(sum1) == true);
 }
+
+TEST_CASE("MathHelper: Quadratic Equation Solver")
+{
+  // Two Solutions, -2 and 3
+  float a1 = 1;
+  float b1 = -1;
+  float c1 = -6;
+  // One Solution x = -1
+  float a2 = 1;
+  float b2 = 2;
+  float c2 = 1;
+  // Complex Solution
+  float a3 = 1;
+  float b3 = 2;
+  float c3 = 4;
+
+  float t0 = 0;
+  float t1 = 0;
+
+  REQUIRE(MathHelper::solveQuadratic(a1, b1, c1, t0, t1) == true);
+  REQUIRE(t0 == -2);
+  REQUIRE(t1 == 3);
+
+  REQUIRE(MathHelper::solveQuadratic(a2, b2, c2, t0, t1) == true);
+  REQUIRE(t0 == -1);
+  REQUIRE(t1 == -1);
+
+  REQUIRE(MathHelper::solveQuadratic(a3, b3, c3, t0, t1) == false);
+}

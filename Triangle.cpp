@@ -21,3 +21,9 @@ Vector3 Triangle::getV3()
 {
   return v3;
 }
+
+bool Triangle::intersect(Ray &cameraRay)
+{
+  std::cout << "Triangle Intersect" << "\n";
+  return true;
+}

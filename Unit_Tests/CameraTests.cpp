@@ -12,6 +12,17 @@ TEST_CASE("Camera: Construction")
   REQUIRE(cam.getFOV() == 30);
 }
 
+TEST_CASE("Camera: Create A Primary Ray")
+{
+  Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
+  Vector3 direction = Vector3(0,0,1);
+  Ray cameraRay = cam.createRay(direction);
+
+  REQUIRE(cameraRay.getOrigin().isEqual(cam.getLookFrom()) == true);
+  REQUIRE(cameraRay.getDirection().isEqual(direction) == true);
+}
+
+
 TEST_CASE("Camera: Set Look From Vector")
 {
   Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
@@ -48,5 +59,5 @@ TEST_CASE("Camera: Set Field of View Y Axis")
 
   cam.setFOV(90);
 
-  REQUIRE(cam.getFOV() == 90);  
+  REQUIRE(cam.getFOV() == 90);
 }

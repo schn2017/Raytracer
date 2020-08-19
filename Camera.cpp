@@ -11,8 +11,14 @@ Camera::Camera(float lookFromX, float lookFromY, float lookFromZ,
 }
 
 Camera::Camera()
-{  
+{
 }
+
+Ray Camera::createRay(Vector3 direction)
+{
+  return Ray(lookFrom, direction);
+}
+
 
 Vector3 Camera::getLookFrom()
 {
