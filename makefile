@@ -5,20 +5,23 @@ INCFLAGS = -I./
 LDFLAGS = -lfreeimage
 RM = rm -f
 
-main: main.o Camera.o MathHelper.o matrix3.o matrix4.o pixels.o ray.o rgb.o sample.o scene.o \
+main: main.o Camera.o Materials.o MathHelper.o matrix3.o matrix4.o pixels.o ray.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o MathHelper.o matrix3.o matrix4.o\
 	 																 pixels.o ray.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
 
-main.o: main.cpp Camera.h FreeImage.h MathHelper.h Matrix3.h Matrix4.h Scene.h transform.h Vector3.h Vector4.h
+main.o: main.cpp Camera.h FreeImage.h Materials.h MathHelper.h Matrix3.h Matrix4.h Scene.h transform.h Vector3.h Vector4.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c main.cpp
 
 Camera.o: Camera.cpp Camera.h Ray.h Vector3.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Camera.cpp
 
-MathHelper.o: MathHelper.cpp MathHelper.h Matrix3.h Matrix4.h Vector3.h Vector4.h
+Materials.o: Materials.cpp Materials.h
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Materials.cpp
+
+MathHelper.o: MathHelper.cpp MathHelper.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c MathHelper.cpp
 
 matrix3.o: Matrix3.cpp Matrix3.h
@@ -30,7 +33,7 @@ matrix4.o: Matrix4.cpp Matrix3.h Matrix4.h
 pixels.o: Pixels.cpp Pixels.h FreeImage.h RGB.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Pixels.cpp
 
-ray.o: Ray.cpp Ray.h Vector3.h
+ray.o: Ray.cpp Ray.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Ray.cpp
 
 rgb.o: RGB.cpp RGB.h
@@ -39,7 +42,7 @@ rgb.o: RGB.cpp RGB.h
 sample.o: Sample.cpp Sample.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Sample.cpp
 
-scene.o: Scene.cpp Scene.h Camera.h Pixels.h SceneSampler.h Shape.h Sphere.h Triangle.h Vector3.h
+scene.o: Scene.cpp Scene.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Scene.cpp
 
 scenesampler.o: SceneSampler.cpp SceneSampler.h Scene.h
@@ -62,8 +65,9 @@ vector4.o: Vector4.cpp Vector4.h
 
 ################################## Test Suite ##################################
 
-tests: TestSuite.o CameraTests.o Camera.o MathHelperTests.o MathHelper.o \
-	     Matrix3Tests.o matrix3.o Matrix4Tests.o matrix4.o PixelsTests.o pixels.o\
+tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
+			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
+			 matrix4.o PixelsTests.o pixels.o \
 			 RayTests.o ray.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
 			 scenesampler.o SceneTests.o Scene.o SphereTests.o sphere.o \
 			 TransformTests.o transform.o TriangleTests.o triangle.o Vector3Tests.o \
@@ -71,6 +75,7 @@ tests: TestSuite.o CameraTests.o Camera.o MathHelperTests.o MathHelper.o \
 
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o tests TestSuite.o \
 	CameraTests.o Camera.o \
+	MaterialsTests.o Materials.o \
 	MathHelperTests.o MathHelper.o \
 	Matrix3Tests.o matrix3.o \
 	Matrix4Tests.o matrix4.o \
@@ -91,6 +96,9 @@ TestSuite.o: TestSuite.cpp catch.hpp
 
 CameraTests.o: CameraTests.cpp Camera.h catch.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/CameraTests.cpp
+
+MaterialsTests.o: MaterialsTests.cpp Materials.h
+		$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/MaterialsTests.cpp
 
 MathHelperTests.o: MathHelperTests.cpp MathHelper.h Matrix3.h Matrix4.h Vector3.h Vector4.h catch.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/MathHelperTests.cpp
@@ -119,7 +127,7 @@ SceneTests.o: SceneTests.cpp Scene.h catch.hpp
 SceneSamplerTests.o: SceneSamplerTests.cpp SceneSampler.h Scene.h catch.hpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SceneSamplerTests.cpp
 
-SphereTests.o: SphereTests.cpp Vector3.h catch.hpp Shape.h Sphere.h Triangle.h
+SphereTests.o: SphereTests.cpp catch.hpp Sphere.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/SphereTests.cpp
 
 TransformTests.o: TransformTests.cpp Matrix3.h Matrix4.h catch.hpp

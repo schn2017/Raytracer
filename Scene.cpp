@@ -219,7 +219,9 @@ void Scene::renderScene()
   {
     Sample sample = sampler.getSample();
 
-    Ray cameraRay = sceneCamera.createRay(Vector3(sample.getX(), sample.getY(), 0));
+    Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
+
+    Ray cameraRay = sceneCamera.createRay(rayDirection);
 
     //Check if Ray intersects with shapes
 

@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 #include "Camera.h"
+#include "Materials.h"
 #include "Pixels.h"
 #include "SceneSampler.h"
-#include "Shape.h"
 #include "Sphere.h"
 #include "Triangle.h"
 

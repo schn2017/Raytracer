@@ -14,16 +14,16 @@ TEST_CASE("SceneSampler: Get Sample")
 {
   SceneSampler testSampler = SceneSampler(10, 10);
   Sample testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 0.9f);
-  REQUIRE(testSample.getY() == -0.9f);
+  REQUIRE(testSample.getRow() == 0.9f);
+  REQUIRE(testSample.getColumn() == -0.9f);
   testSampler.canSample();
   testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 0.9f);
-  REQUIRE(testSample.getY() == -0.7f);
+  REQUIRE(testSample.getRow() == 0.9f);
+  REQUIRE(testSample.getColumn() == -0.7f);
   testSampler.canSample();
   testSample = testSampler.getSample();
-  REQUIRE(testSample.getX() == 0.9f);
-  REQUIRE(testSample.getY() == -0.5f);
+  REQUIRE(testSample.getRow() == 0.9f);
+  REQUIRE(testSample.getColumn() == -0.5f);
 }
 
 TEST_CASE("SceneSampler: Check For Next Sample")

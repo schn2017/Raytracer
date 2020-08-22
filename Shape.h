@@ -1,8 +1,6 @@
 #pragma once
 
-#include "MathHelper.h"
 #include "Ray.h"
-#include "Vector3.h"
 
 class Shape
 {

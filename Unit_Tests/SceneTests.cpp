@@ -20,7 +20,7 @@ TEST_CASE("Scene: Read Scene Input - Camera Initialization")
   REQUIRE(testCamera.getLookFrom().isEqual(Vector3(-4, -4, 4)) == true);
   REQUIRE(testCamera.getLookAt().isEqual(Vector3(1, 0, 0)) == true);
   REQUIRE(testCamera.getUp().isEqual(Vector3(0, 1, 0)) == true);
-  REQUIRE(testCamera.getFOV() == 30);
+  REQUIRE(testCamera.getFOVY() == 30);
 }
 
 TEST_CASE("Scene: Read Scene Input - Size")

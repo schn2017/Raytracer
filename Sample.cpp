@@ -1,17 +1,18 @@
+
 #include "Sample.h"
 
-Sample::Sample(float xPos, float yPos)
+Sample::Sample(float roww, float col)
 {
-  x = xPos;
-  y = yPos;
+  row = roww;
+  column = col;
 }
 
-float Sample::getX()
+float Sample::getRow()
 {
-  return x;
+  return row;
 }
 
-float Sample::getY()
+float Sample::getColumn()
 {
-  return y;
+  return column;
 }

@@ -1,5 +1,6 @@
-#include "Sample.h"
 #include <iostream>
+#include "Sample.h"
+
 
 class SceneSampler
 {

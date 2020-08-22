@@ -1,3 +1,5 @@
+#pragma once
+
 class RGB
 {
 public:
@@ -7,15 +9,9 @@ public:
   float getGreen();
   float getBlue();
 
-  RGB operator+(const RGB &otherRGB)
-  {
-    float red = R + otherRGB.R;
-    float green = G + otherRGB.G;
-    float blue = B + otherRGB.B;
-
-    return RGB(red, green, blue);
-  }
-
+  bool operator==(const RGB &otherRGB);
+  RGB operator+(const RGB &otherRGB);
+  bool operator!=(const RGB &otherRGB);
 private:
   float R;
   float G;

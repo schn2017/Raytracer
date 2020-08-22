@@ -1,11 +1,13 @@
+#pragma once
+
 class Sample
 {
 public:
-  Sample(float xPos, float yPos);
-  float getX();
-  float getY();
+  Sample(float roww, float col);
+  float getRow();
+  float getColumn();
 
 private:
-  float x;
-  float y;
+  float row;
+  float column;
 };

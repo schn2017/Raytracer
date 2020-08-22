@@ -6,6 +6,6 @@ TEST_CASE("Sample: Construction")
 {
   Sample testSample = Sample(10, 20);
 
-  REQUIRE(testSample.getX() == 10);
-  REQUIRE(testSample.getY() == 20);
+  REQUIRE(testSample.getRow() == 10);
+  REQUIRE(testSample.getColumn() == 20);
 }
