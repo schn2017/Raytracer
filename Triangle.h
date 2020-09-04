@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Shape.h"
 #include <iostream>
 
@@ -5,10 +7,14 @@ class Triangle : public Shape
 {
 public:
   Triangle(Vector3 v1, Vector3 v2, Vector3 v3);
+  Triangle();
   Vector3 getV1();
   Vector3 getV2();
   Vector3 getV3();
   bool intersect(Ray &cameraRay);
+  bool getState();
+  void changeState(bool &newState);
+
 private:
   Vector3 v1;
   Vector3 v1Normal;
@@ -16,4 +22,5 @@ private:
   Vector3 v2Normal;
   Vector3 v3;
   Vector3 v3Normal;
+  bool state;
 };

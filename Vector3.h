@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class Vector3{
   public:
@@ -8,6 +9,7 @@ class Vector3{
     float getY();
     float getZ();
     bool isEqual(Vector3 other);
+    void toString();
 
     Vector3 operator+(const Vector3 &otherVector)
     {

@@ -25,7 +25,7 @@ Vector3 Camera::convertSampleToCameraView(Sample sample)
   Vector3 u = MathHelper::normalize(MathHelper::cross(up, w));
   Vector3 v = MathHelper::cross(w, u);
 
-  float alpha = tan(MathHelper::radians(fovX / 2)) * sample.getColumn();
+  float alpha = tan(fovX / 2) * sample.getColumn();
   float beta =  tan(MathHelper::radians(fovY / 2)) * sample.getRow();
 
   Vector3 convSample = (u * alpha) + (v * beta) - w;
@@ -52,6 +52,17 @@ Vector3 Camera::getUp()
 {
   return up;
 }
+
+int Camera::getHeight()
+{
+  return height;
+}
+
+int Camera::getWidth()
+{
+  return width;
+}
+
 
 float Camera::getFOVY()
 {
@@ -88,8 +99,8 @@ void Camera::setUp(Vector3 newVector)
   up = newVector;
 }
 
-void Camera::setDimensions(float heightt, float widthh)
+void Camera::setDimensions(int heightValue, int widthValue)
 {
-  height = heightt;
-  width = widthh;
+  height = heightValue;
+  width = widthValue;
 }

@@ -3,10 +3,13 @@
 
 TEST_CASE("Sphere: Construction")
 {
-  Sphere testSphere = Sphere(1, 2, 3, 10);
+  Sphere testSphere1 = Sphere(1, 2, 3, 10);
+  Sphere testSphere2 = Sphere();
 
-  REQUIRE(testSphere.getPosition().isEqual(Vector3(1, 2, 3)) == true);
-  REQUIRE(testSphere.getRadius() == 10);
+  REQUIRE(testSphere1.getPosition().isEqual(Vector3(1, 2, 3)) == true);
+  REQUIRE(testSphere1.getRadius() == 10);
+  REQUIRE(testSphere1.getState() == true);
+  REQUIRE(testSphere2.getState() == false);
 }
 
 TEST_CASE("Sphere: Intersection Test")

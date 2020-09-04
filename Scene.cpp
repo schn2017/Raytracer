@@ -34,6 +34,11 @@ vector<Sphere> Scene::getSpheres()
   return spheres;
 }
 
+stack<Matrix4> Scene::getTransformStack()
+{
+  return transformStack;
+}
+
 vector<Triangle> Scene::getTriangles()
 {
   return triangles;
@@ -50,6 +55,12 @@ bool Scene::readScene(const char *filename)
   if (input.is_open())
   {
     getline(input, str);
+    Matrix4 identityMatrix = Matrix4(1, 0, 0, 0,
+                                     0, 1, 0, 0,
+                                     0, 0, 1, 0,
+                                     0, 0, 0, 1);
+
+    transformStack.push(identityMatrix);
 
     while (input)
     {
@@ -119,14 +130,31 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "popTransform")
         {
-          // To Do
+          if (transformStack.size() <= 1)
+          {
+            cout << "ERROR: Stack has no elements! \n";
+          }
+          else
+          {
+            transformStack.pop();
+          }
         }
         else if (command == "pushTransform")
         {
-          // To Do
+          transformStack.push(transformStack.top());
         }
         else if (command == "rotate")
         {
+          validCommand = readSceneValues(s, 4, objectParameters);
+
+          if (validCommand)
+          {
+            Vector3 inputVector = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
+            Matrix3 rotationMatrix3 = Matrix3();
+            Matrix4 rotationMatrix4 = Matrix4();
+
+          }
+
           // To Do
         }
         else if (command == "scale")
@@ -151,20 +179,39 @@ bool Scene::readScene(const char *filename)
           validCommand = readSceneValues(s, 4, objectParameters);
           if (validCommand)
           {
-              spheres.push_back(Sphere(objectParameters[0], objectParameters[1],
+            Sphere newSphere = Sphere(objectParameters[0], objectParameters[1],
+                                    objectParameters[2], objectParameters[3]);
+            Object newObject = Object();
+            newObject.setSphere(newSphere);
+            objects.push_back(newObject);
+
+            //Testing to be removed
+            spheres.push_back(Sphere(objectParameters[0], objectParameters[1],
                                       objectParameters[2], objectParameters[3]));
           }
         }
         else if (command == "translate")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            Matrix4 translationMatrix = Transform::translate(objectParameters[0], objectParameters[1], objectParameters[2]);
+          }
+
         }
         else if (command == "tri")
         {
           validCommand = readSceneValues(s, 3, objectParameters);
           if (validCommand)
           {
-              triangles.push_back(Triangle(vertices[objectParameters[0]], vertices[objectParameters[1]], vertices[objectParameters[2]]));
+            Triangle newTriangle = Triangle(vertices[objectParameters[0]], vertices[objectParameters[1]], vertices[objectParameters[2]]);
+            Object newObject = Object();
+            newObject.setTriangle(newTriangle);
+            objects.push_back(newObject);
+
+            //Testing to be removed
+            triangles.push_back(Triangle(vertices[objectParameters[0]], vertices[objectParameters[1]], vertices[objectParameters[2]]));
           }
         }
         else if (command == "trinormal")

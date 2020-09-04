@@ -8,7 +8,12 @@ Vector3::Vector3(float xx, float yy, float zz){
 
 Vector3::Vector3()
 {
-  
+
+}
+
+void Vector3::toString()
+{
+  std::cout << "Vector3 - X: " << x << " Y: " << y << " Z: " << z << "\n";
 }
 
 

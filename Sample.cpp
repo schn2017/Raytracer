@@ -1,10 +1,10 @@
 
 #include "Sample.h"
 
-Sample::Sample(float roww, float col)
+Sample::Sample(float rowValue, float columnValue)
 {
-  row = roww;
-  column = col;
+  row = rowValue;
+  column = columnValue;
 }
 
 float Sample::getRow()

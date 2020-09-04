@@ -29,7 +29,7 @@ float RGB::getBlue()
 
 bool RGB::operator==(const RGB &otherRGB)
 {
-  return R == otherRGB.R && G == otherRGB.G && otherRGB.B;
+  return R == otherRGB.R && G == otherRGB.G && B == otherRGB.B;
 
 }
 

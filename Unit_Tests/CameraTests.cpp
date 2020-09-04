@@ -14,12 +14,26 @@ TEST_CASE("Camera: Construction")
 
 TEST_CASE("Camera: Calculate Field Of View X Axis")
 {
+  Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
+  cam.setDimensions(100, 100);
 
+  float fovXAngle = cam.calculateFOVX();
+  REQUIRE(fovXAngle == MathHelper::radians(cam.getFOVY()));
 }
 
 TEST_CASE("Camera: Convert Pixel Sample to Camera View Dimensions")
 {
-  
+  Sample testSample = Sample(0, 5);
+  Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
+  cam.setDimensions(20, 20);
+  cam.calculateFOVX();
+
+  Vector3 testVector = cam.convertSampleToCameraView(testSample);
+  testVector.toString();
+
+  //REQUIRES need to be completed
+
+
 }
 
 TEST_CASE("Camera: Create A Primary Ray")
@@ -74,5 +88,9 @@ TEST_CASE("Camera: Set Field of View Y Axis")
 
 TEST_CASE("Camera: Set Image Dimensions")
 {
+  Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
+  cam.setDimensions(200, 100);
 
+  REQUIRE(cam.getHeight() == 200);
+  REQUIRE(cam.getWidth() == 100);
 }

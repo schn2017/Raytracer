@@ -7,6 +7,22 @@ Triangle::Triangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
   v3 = vertex3;
 }
 
+Triangle::Triangle()
+{
+  state = false;
+}
+
+
+bool Triangle::getState()
+{
+  return state;
+}
+
+void Triangle::changeState(bool &newState)
+{
+  state = newState;
+}
+
 Vector3 Triangle::getV1()
 {
   return v1;

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "RGB.h"
 
 class Materials

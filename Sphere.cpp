@@ -4,7 +4,24 @@ Sphere::Sphere(float x, float y, float z, float r)
 {
   position = Vector3(x, y, z);
   radius = r;
+  state = true;
 }
+
+Sphere::Sphere()
+{
+  state = false;
+}
+
+bool Sphere::getState()
+{
+  return state;
+}
+
+void Sphere::changeState(bool &newState)
+{
+  state = newState;
+}
+
 
 Vector3 Sphere::getPosition()
 {

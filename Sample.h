@@ -3,7 +3,7 @@
 class Sample
 {
 public:
-  Sample(float roww, float col);
+  Sample(float rowValue, float columnValue);
   float getRow();
   float getColumn();
 
