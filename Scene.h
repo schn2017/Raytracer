@@ -6,7 +6,7 @@
 #include <vector>
 #include "Camera.h"
 #include "Materials.h"
-#include "Object.h"
+#include "Raytracer.h"
 #include "Pixels.h"
 #include "SceneSampler.h"
 #include "Sphere.h"
@@ -26,7 +26,7 @@ public:
   int getWidth();
   stack<Matrix4> getTransformStack();
   Vector3 getVertex(int element);
-  vector<Object> getObjects;
+  vector<Object> getObjects();
   vector<Sphere> getSpheres();
   vector<Triangle> getTriangles();
   void renderScene();
@@ -37,6 +37,7 @@ private:
   int height;
   int width;
   Pixels film;
+  Raytracer tracer;
   SceneSampler sampler;
   stack<Matrix4> transformStack;
   vector<Object> objects;

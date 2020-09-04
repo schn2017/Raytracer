@@ -5,14 +5,14 @@ INCFLAGS = -I./
 LDFLAGS = -lfreeimage
 RM = rm -f
 
-main: main.o Camera.o Materials.o MathHelper.o matrix3.o matrix4.o pixels.o ray.o rgb.o sample.o scene.o \
+main: main.o Camera.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o MathHelper.o matrix3.o matrix4.o\
-	 																 pixels.o ray.o rgb.o sample.o scene.o \
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o MathHelper.o materials.o matrix3.o matrix4.o object.o\
+	 																 pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
 
-main.o: main.cpp Camera.h FreeImage.h Materials.h MathHelper.h Matrix3.h Matrix4.h Scene.h transform.h Vector3.h Vector4.h
+main.o: main.cpp Scene.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c main.cpp
 
 Camera.o: Camera.cpp Camera.h Ray.h Vector3.h
@@ -38,6 +38,9 @@ pixels.o: Pixels.cpp Pixels.h FreeImage.h RGB.h
 
 ray.o: Ray.cpp Ray.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Ray.cpp
+
+raytracer.o: Raytracer.cpp Raytracer.h
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Raytracer.cpp
 
 rgb.o: RGB.cpp RGB.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c RGB.cpp
@@ -71,7 +74,7 @@ vector4.o: Vector4.cpp Vector4.h
 tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
 			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
 			 matrix4.o ObjectTests.o object.o PixelsTests.o pixels.o \
-			 RayTests.o ray.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
+			 RayTests.o ray.o raytracer.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
 			 scenesampler.o SceneTests.o Scene.o SphereTests.o sphere.o \
 			 TransformTests.o transform.o TriangleTests.o triangle.o Vector3Tests.o \
 			 vector3.o Vector4Tests.o vector4.o
@@ -85,6 +88,7 @@ tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
 	ObjectTests.o object.o \
 	PixelsTests.o pixels.o \
 	RayTests.o ray.o \
+	raytracer.o \
 	RGBTests.o rgb.o \
 	SampleTests.o sample.o \
 	SphereTests.o sphere.o \

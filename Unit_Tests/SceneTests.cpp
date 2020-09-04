@@ -59,6 +59,44 @@ TEST_CASE("Scene: Read Vertices")
   REQUIRE(v4.isEqual(Vector3(-1, 1, 0)) == true);
 }
 
+TEST_CASE("Scene: Read Objects")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+  vector<Object> objects = sceneTest.getObjects();
+
+  REQUIRE(objects.size() == 4);
+
+  // Get Objects
+  Sphere testSphere1 = objects[0].getSphere();
+  Sphere testSphere2 = objects[1].getSphere();
+  Triangle testTriangle1 = objects[2].getTriangle();
+  Triangle testTriangle2 = objects[3].getTriangle();
+
+  // Vectors for triangle tests
+  Vector3 v1 = Vector3(-1, -1, 0);
+  Vector3 v2 = Vector3(1, -1, 0);
+  Vector3 v3 = Vector3(1, 1, 0);
+  Vector3 v4 = Vector3(-1, 1, 0);
+
+  // Test Spheres
+  REQUIRE(testSphere1.getRadius() == 10);
+  REQUIRE(testSphere2.getRadius() == 2);
+
+  // Test triangles
+  REQUIRE(testTriangle1.getV1().isEqual(v1) == true);
+  REQUIRE(testTriangle1.getV2().isEqual(v2) == true);
+  REQUIRE(testTriangle1.getV3().isEqual(v3) == true);
+  REQUIRE(testTriangle2.getV1().isEqual(v1) == true);
+  REQUIRE(testTriangle2.getV2().isEqual(v3) == true);
+  REQUIRE(testTriangle2.getV3().isEqual(v4) == true);
+
+}
+
+
+
+
 TEST_CASE("Scene: Read Sphere")
 {
   Scene sceneTest = Scene();

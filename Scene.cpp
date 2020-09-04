@@ -24,6 +24,11 @@ int Scene::getWidth()
   return width;
 }
 
+vector<Object> Scene::getObjects()
+{
+  return objects;
+}
+
 Vector3 Scene::getVertex(int element)
 {
   return vertices[element];
@@ -50,6 +55,9 @@ bool Scene::readScene(const char *filename)
   float objectParameters[10];
   ifstream input;
   string str, command;
+
+  Materials material;
+
   input.open(filename);
 
   if (input.is_open())
@@ -94,7 +102,12 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "diffuse")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            material.setDiffuse(RGB(objectParameters[0], objectParameters[1], objectParameters[2]));
+          }
         }
         else if (command == "directional")
         {
@@ -102,7 +115,12 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "emission")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            material.setEmission(RGB(objectParameters[0], objectParameters[1], objectParameters[2]));
+          }
         }
         else if (command == "maxdepth")
         {
@@ -163,7 +181,12 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "shininess")
         {
+          validCommand = readSceneValues(s, 1, objectParameters);
 
+          if (validCommand)
+          {
+            material.setShininess(objectParameters[0]);
+          }
         }
         else if (command == "size")
         {
@@ -172,6 +195,15 @@ bool Scene::readScene(const char *filename)
           {
             width = objectParameters[0];
             height = objectParameters[1];
+          }
+        }
+        else if (command == "specular")
+        {
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            material.setSpecular(RGB(objectParameters[0], objectParameters[1], objectParameters[2]));
           }
         }
         else if (command == "sphere")
@@ -260,7 +292,9 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 
 void Scene::renderScene()
 {
+  film = Pixels(height, width);
   sampler = SceneSampler(height, width);
+  tracer = Raytracer(objects);
 
   while (sampler.canSample())
   {
@@ -270,14 +304,10 @@ void Scene::renderScene()
 
     Ray cameraRay = sceneCamera.createRay(rayDirection);
 
-    //Check if Ray intersects with shapes
-
-    // Receive color
-
-    // Commit color to film
-
+    RGB pixelColor = tracer.traceRay(cameraRay);
+    film.addColor(pixelColor);
   }
 
-  // Turn film into image
-
+  cout << "Sampling Complete \n";
+  film.createFinalImage();
 }
