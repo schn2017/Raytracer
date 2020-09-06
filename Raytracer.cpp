@@ -5,7 +5,6 @@ Raytracer::Raytracer()
 
 }
 
-
 Raytracer::Raytracer(vector<Object> objectVector)
 {
   objects = objectVector;
@@ -20,11 +19,15 @@ RGB Raytracer::traceRay(Ray hitRay)
 
     if (sphere.getState() == true)
     {
-      //cout << "Sphere found \n";
-      if (sphere.intersect(hitRay))
+      cout << "Sphere found \n";
+      if (sphere.intersect(hitRay) == true)
       {
         return RGB(0, 0, 255);
       }
+    }
+    else if (triangle.getState() == true)
+    {
+      //cout << "Triangle found \n";
     }
   }
 return RGB(0, 0, 0);

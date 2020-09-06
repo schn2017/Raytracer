@@ -5,21 +5,19 @@
 #include <string>
 #include <vector>
 #include "Camera.h"
-#include "Materials.h"
 #include "Raytracer.h"
 #include "Pixels.h"
 #include "SceneSampler.h"
-#include "Sphere.h"
 #include "Transform.h"
-#include "Triangle.h"
 
 using namespace std;
 class Scene
 {
 public:
+  // Constructors
   Scene();
-  bool readScene(const char *filename);
-  bool readSceneValues(stringstream &s, const int numvals, float * values);
+
+  // Get Member Definitions
   Camera getCamera();
   int getDepth();
   int getHeight();
@@ -29,6 +27,12 @@ public:
   vector<Object> getObjects();
   vector<Sphere> getSpheres();
   vector<Triangle> getTriangles();
+
+  // Scene Setup Methods
+  bool readScene(const char *filename);
+  bool readSceneValues(stringstream &s, const int numvals, float * values);
+
+  // Render Scene Methods
   void renderScene();
 
 private:

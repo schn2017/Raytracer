@@ -18,7 +18,7 @@ SceneSampler::SceneSampler()
 
 Sample SceneSampler::getSample()
 {
-  //std::cout << "Pixel Sample: " << row << " " << column << "\n";
+  std::cout << "Pixel Sample: " << row << " " << column << "\n";
 
   float convertedColumn = (column - (width / 2)) / (width / 2);
   float convertedRow = ((height / 2) - row) / (height / 2);

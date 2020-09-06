@@ -1,9 +1,12 @@
 #include "Scene.h"
 
+////////////////////////////////////////////////////////////////////////////////
+// Class Constructor Functions
 Scene::Scene()
 {
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Get Member Functions
 Camera Scene::getCamera()
 {
   return sceneCamera;
@@ -48,7 +51,8 @@ vector<Triangle> Scene::getTriangles()
 {
   return triangles;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Render Scene Methods
 bool Scene::readScene(const char *filename)
 {
   bool validCommand;
@@ -168,16 +172,31 @@ bool Scene::readScene(const char *filename)
           if (validCommand)
           {
             Vector3 inputVector = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
-            Matrix3 rotationMatrix3 = Matrix3();
-            Matrix4 rotationMatrix4 = Matrix4();
+            float rotationAngle = objectParameters[3];
+            Matrix3 rotationMatrix3 = Transform::rotate(rotationAngle, inputVector);
+            Matrix4 rotationMatrix4 = Matrix4(rotationMatrix3);
 
+            cout << "Pre Rotation \n";
+            transformStack.top().print();
+            transformStack.top() = MathHelper::multiply(rotationMatrix4, transformStack.top());
+            cout << "Rotated! \n";
+            transformStack.top().print();
           }
-
-          // To Do
         }
         else if (command == "scale")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            Matrix4 scaleMatrix = Transform::scale(objectParameters[0], objectParameters[1], objectParameters[2]);
+            cout << "Pre Scaling \n";
+            transformStack.top().print();
+            transformStack.top() = MathHelper::multiply(scaleMatrix, transformStack.top());
+            cout << "Scaled! \n";
+            transformStack.top().print();
+          }
+
         }
         else if (command == "shininess")
         {
@@ -215,6 +234,8 @@ bool Scene::readScene(const char *filename)
                                     objectParameters[2], objectParameters[3]);
             Object newObject = Object();
             newObject.setSphere(newSphere);
+            newObject.setMaterials(material);
+            newObject.setTransform(transformStack.top());
             objects.push_back(newObject);
 
             //Testing to be removed
@@ -228,7 +249,11 @@ bool Scene::readScene(const char *filename)
 
           if (validCommand)
           {
+            transformStack.top().print();
             Matrix4 translationMatrix = Transform::translate(objectParameters[0], objectParameters[1], objectParameters[2]);
+            transformStack.top() = MathHelper::multiply(translationMatrix, transformStack.top());
+            cout << "Translated! \n";
+            transformStack.top().print();
           }
 
         }
@@ -311,3 +336,4 @@ void Scene::renderScene()
   cout << "Sampling Complete \n";
   film.createFinalImage();
 }
+////////////////////////////////////////////////////////////////////////////////

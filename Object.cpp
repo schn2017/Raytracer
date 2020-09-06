@@ -17,6 +17,11 @@ Sphere Object::getSphere()
   return objSphere;
 }
 
+Matrix4 Object::getTransform()
+{
+  return objTransform;
+}
+
 Triangle Object::getTriangle()
 {
   return objTriangle;
@@ -31,6 +36,11 @@ void Object::setMaterials(Materials newMaterials)
 void Object::setSphere(Sphere newSphere)
 {
   objSphere = newSphere;
+}
+
+void Object::setTransform(Matrix4 newTransform)
+{
+  objTransform = newTransform;
 }
 
 void Object::setTriangle(Triangle newTriangle)
