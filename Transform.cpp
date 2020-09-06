@@ -3,7 +3,7 @@
 Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
 {
 
-  Vector3 w = MathHelper::normalize(eye);
+  Vector3 w = MathHelper::normalize(eye - center);
   Vector3 u = MathHelper::normalize(MathHelper::cross(up,w));
   Vector3 v = MathHelper::cross(w,u);
 

@@ -169,6 +169,26 @@ TEST_CASE("Scene: Read Spheres and Triangles")
   REQUIRE(triangles[1].getV3().isEqual(Vector3(-1, 1, 0)) == true);
 }
 
+TEST_CASE("Scene: Apply View Matrix")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+
+  //Object testObject = testObjects[0];
+  Matrix4 viewMatrix = Matrix4(2, 0, 0, 0,
+                               0, 3, 0, 0,
+                               0, 0, 4, 0,
+                               0, 0, 0, 1);
+
+  sceneTest.applyViewMatrix(viewMatrix);
+
+  vector<Object> testObjects = sceneTest.getObjects();
+  Object testObject = testObjects[0];
+  
+  REQUIRE(testObject.getTransform().isEqual(viewMatrix) == true);
+}
+
 TEST_CASE("Scene: Render Test Scene")
 {
   Scene sceneTest = Scene();

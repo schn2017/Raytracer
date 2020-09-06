@@ -317,6 +317,16 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 
 void Scene::renderScene()
 {
+  /*sceneCamera.getLookFrom().toString();
+  sceneCamera.getLookAt().toString();
+  sceneCamera.getUp().toString();*/
+
+  Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
+
+  cout << "View Matrix\n";
+  viewMatrix.print();
+
+
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);
   tracer = Raytracer(objects);
@@ -337,3 +347,11 @@ void Scene::renderScene()
   film.createFinalImage();
 }
 ////////////////////////////////////////////////////////////////////////////////
+
+void Scene::applyViewMatrix(Matrix4 viewMatrix)
+{
+  for(int i = 0; i < objects.size(); i++)
+  {
+    objects[i].setTransform(MathHelper::multiply(viewMatrix, objects[i].getTransform()));
+  }
+}

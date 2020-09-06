@@ -35,6 +35,9 @@ public:
   // Render Scene Methods
   void renderScene();
 
+  //
+  void applyViewMatrix(Matrix4 viewMatrix);
+
 private:
   Camera sceneCamera;
   int depth;

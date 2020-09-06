@@ -7,26 +7,28 @@ TEST_CASE("Transform: LookAt Matrix")
   Vector3 center = Vector3(0, 1, 0);
   Vector3 up = Vector3(0, 0, 1);
 
-  //u -2/sqrt(5), 1/sqrt(5), 0, 0
-  //v -3/sqrt(70), -3sqrt(2/35), sqrt(5/14)
-  //w  1/sqrt(14), sqrt(2/7), 3/sqrt(14), 0
+  //u -1/sqrt(2) 1/sqrt(2), 0
+  //v -3/sqrt(22) -3/sqrt(22) sqrt(2/11)
+  //w  1/sqrt(11), 1/sqrt(11), 3/sqrt(11)
+
+  //{{-1/sqrt(2), 1/sqrt(2), 0, 0}, {-3/sqrt(22), -3/sqrt(22), sqrt(2/11), 0}, {1/sqrt(11), 1/sqrt(11), 3/sqrt(11), 0}, {0, 0, 0, 1}} *{{1, 0, 0, -1}, {0, 1, 0, -2}, {0, 0, 1, -3}, {0, 0, 0, 1}} 
 
   Matrix4 testMatrix = Transform::lookAt(eye, center, up);
 
-  REQUIRE(floor(testMatrix.getElements()[0] * 1000.0) / 1000.0 == -0.895);
-  REQUIRE(floor(testMatrix.getElements()[1] * 1000.0) / 1000.0 == 0.447);
+  REQUIRE(floor(testMatrix.getElements()[0] * 1000.0) / 1000.0 == -0.708);
+  REQUIRE(floor(testMatrix.getElements()[1] * 1000.0) / 1000.0 == 0.707);
   REQUIRE(floor(testMatrix.getElements()[2] * 1000.0) / 1000.0 == 0);
-  REQUIRE(floor(testMatrix.getElements()[3] * 1000.0) / 1000.0 == 0);
+  REQUIRE(floor(testMatrix.getElements()[3] * 1000.0) / 1000.0 == -0.708);
 
-  REQUIRE(floor(testMatrix.getElements()[4] * 1000.0) / 1000.0 == -0.359);
-  REQUIRE(floor(testMatrix.getElements()[5] * 1000.0) / 1000.0 == -0.718);
-  REQUIRE(floor(testMatrix.getElements()[6] * 1000.0) / 1000.0 == 0.597);
-  REQUIRE(floor(testMatrix.getElements()[7] * 1000.0) / 1000.0 == -0.001);
+  REQUIRE(floor(testMatrix.getElements()[4] * 1000.0) / 1000.0 == -0.64);
+  REQUIRE(floor(testMatrix.getElements()[5] * 1000.0) / 1000.0 == -0.64);
+  REQUIRE(floor(testMatrix.getElements()[6] * 1000.0) / 1000.0 == 0.426);
+  REQUIRE(floor(testMatrix.getElements()[7] * 1000.0) / 1000.0 == 0.639);
 
-  REQUIRE(floor(testMatrix.getElements()[8] * 1000.0) / 1000.0 == 0.267);
-  REQUIRE(floor(testMatrix.getElements()[9] * 1000.0) / 1000.0 == 0.534);
-  REQUIRE(floor(testMatrix.getElements()[10] * 1000.0) / 1000.0 == 0.801);
-  REQUIRE(floor(testMatrix.getElements()[11] * 1000.0) / 1000.0 == -3.742);
+  REQUIRE(floor(testMatrix.getElements()[8] * 1000.0) / 1000.0 == 0.301);
+  REQUIRE(floor(testMatrix.getElements()[9] * 1000.0) / 1000.0 == 0.301);
+  REQUIRE(floor(testMatrix.getElements()[10] * 1000.0) / 1000.0 == 0.904);
+  REQUIRE(floor(testMatrix.getElements()[11] * 1000.0) / 1000.0 == -3.619);
 
   REQUIRE(floor(testMatrix.getElements()[12] * 1000.0) / 1000.0 == 0);
   REQUIRE(floor(testMatrix.getElements()[13] * 1000.0) / 1000.0 == 0);

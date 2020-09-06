@@ -4,7 +4,6 @@
 TEST_CASE("Camera: Construction")
 {
   Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
-  //Vector3 expected = Vector3(1, 2, 3);
 
   REQUIRE(cam.getLookFrom().isEqual(Vector3(1,2,3)) == true);
   REQUIRE(cam.getLookAt().isEqual(Vector3(4,5,6)) == true);
