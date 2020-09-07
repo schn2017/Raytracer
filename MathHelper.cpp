@@ -112,6 +112,29 @@ Matrix4 MathHelper::multiply(Matrix4 m1, Matrix4 m2)
   return product;
 }
 
+Vector4 MathHelper::multiply(Matrix4 m1, Vector4 v1)
+{
+  float x = (m1.getElements()[0] * v1.getX())
+            + (m1.getElements()[1] * v1.getY())
+            + (m1.getElements()[2] * v1.getZ())
+            + (m1.getElements()[3] *v1.getW());
+  float y = (m1.getElements()[4] * v1.getX())
+            + (m1.getElements()[5] * v1.getY())
+            + (m1.getElements()[6] * v1.getZ())
+            + (m1.getElements()[7] *v1.getW());
+  float z = (m1.getElements()[8] * v1.getX())
+            + (m1.getElements()[9] * v1.getY())
+            + (m1.getElements()[10] * v1.getZ())
+            + (m1.getElements()[11] *v1.getW());
+  float w = (m1.getElements()[12] * v1.getX())
+            + (m1.getElements()[13] * v1.getY())
+            + (m1.getElements()[14] * v1.getZ())
+            + (m1.getElements()[15] *v1.getW());
+
+  return Vector4(x, y, z , w);
+}
+
+
 Vector3 MathHelper::normalize(Vector3 v1)
 {
   float magnitude = MathHelper::magnitude(v1);

@@ -20,6 +20,8 @@ public:
   static Vector3 cross(Vector3 v1, Vector3 v2);
   static Vector3 normalize(Vector3 v1);
   static Vector4 normalize(Vector4 v1);
+  static Vector4 multiply(Matrix4 m1, Vector4 v1);
+
   static float magnitude(Vector3 v1);
   static float magnitude(Vector4 v1);
   static Matrix3 multiply(Matrix3 m1, Matrix3 m2);

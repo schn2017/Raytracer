@@ -146,6 +146,21 @@ TEST_CASE("MathHelper: Multiplication - Matrix4")
   REQUIRE(m1m2.isEqual(m1m2Expected) == true);
 }
 
+TEST_CASE("MathHelper: Mutliplication Matrix4 * Vector4")
+{
+  Matrix4 m1 = Matrix4(1, 2, 3, 4,
+                       5, 6, 7, 8,
+                       9, 10, 11, 12,
+                       13, 14, 15, 16);
+  Vector4 v1 = Vector4(1, 2, 3, 4);
+
+  v1 = MathHelper::multiply(m1, v1);
+
+  REQUIRE(v1.isEqual(Vector4(30, 70, 110, 150)) == true);
+
+}
+
+
 TEST_CASE("MathHelper: Normalize Vector - Vector3")
 {
   Vector3 v1 = Vector3(1, 2, 3);

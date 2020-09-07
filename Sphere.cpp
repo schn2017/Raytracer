@@ -3,6 +3,7 @@
 Sphere::Sphere(float x, float y, float z, float r)
 {
   position = Vector3(x, y, z);
+  homoPosition = Vector4(x, y, z, 1);
   radius = r;
   state = true;
 }
@@ -28,9 +29,24 @@ Vector3 Sphere::getPosition()
   return position;
 }
 
+Vector4 Sphere::getHomoPosition()
+{
+  return homoPosition;
+}
+
 float Sphere::getRadius()
 {
   return radius;
+}
+
+void Sphere::setPosition(Vector3 pos)
+{
+  position = pos;
+}
+
+void Sphere::setHomoPosition(Vector4 homoPos)
+{
+  homoPosition = homoPos;
 }
 
 bool Sphere::intersect(Ray &cameraRay)

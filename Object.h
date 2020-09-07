@@ -10,7 +10,7 @@ class Object
     //Get Member Definitions
     Materials getMaterials();
     Sphere getSphere();
-    Matrix4 getTransform();    
+    Matrix4 getTransform();
     Triangle getTriangle();
     //Set Member Definitions
     void setMaterials(Materials newMaterials);

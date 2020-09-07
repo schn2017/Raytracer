@@ -17,12 +17,12 @@ int Scene::getDepth()
   return depth;
 }
 
-int Scene::getHeight()
+float Scene::getHeight()
 {
   return height;
 }
 
-int Scene::getWidth()
+float Scene::getWidth()
 {
   return width;
 }
@@ -322,10 +322,14 @@ void Scene::renderScene()
   sceneCamera.getUp().toString();*/
 
   Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
-
+  Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
   cout << "View Matrix\n";
   viewMatrix.print();
-
+  cout << "Projection Matrix\n";
+  projectionMatrix.print();
+  
+  applyTransform(viewMatrix);
+  applyTransform(projectionMatrix);
 
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);
@@ -348,10 +352,10 @@ void Scene::renderScene()
 }
 ////////////////////////////////////////////////////////////////////////////////
 
-void Scene::applyViewMatrix(Matrix4 viewMatrix)
+void Scene::applyTransform(Matrix4 matrix)
 {
   for(int i = 0; i < objects.size(); i++)
   {
-    objects[i].setTransform(MathHelper::multiply(viewMatrix, objects[i].getTransform()));
+    objects[i].setTransform(MathHelper::multiply(matrix, objects[i].getTransform()));
   }
 }

@@ -20,29 +20,31 @@ public:
   // Get Member Definitions
   Camera getCamera();
   int getDepth();
-  int getHeight();
-  int getWidth();
+  float getHeight();
+  float getWidth();
   stack<Matrix4> getTransformStack();
   Vector3 getVertex(int element);
   vector<Object> getObjects();
   vector<Sphere> getSpheres();
   vector<Triangle> getTriangles();
 
-  // Scene Setup Methods
+  // Scene Setup Method
   bool readScene(const char *filename);
+
+  // Scene Setup Helper Functions
   bool readSceneValues(stringstream &s, const int numvals, float * values);
 
-  // Render Scene Methods
+  // Render Scene Method
   void renderScene();
 
-  //
-  void applyViewMatrix(Matrix4 viewMatrix);
+  // Render Scene Helper Functions
+  void applyTransform(Matrix4 matrix);
 
 private:
   Camera sceneCamera;
   int depth;
-  int height;
-  int width;
+  float height;
+  float width;
   Pixels film;
   Raytracer tracer;
   SceneSampler sampler;

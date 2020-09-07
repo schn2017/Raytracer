@@ -7,6 +7,10 @@ Vector4::Vector4(float xx, float yy, float zz, float ww){
   w = ww;
 }
 
+Vector4::Vector4()
+{
+  
+}
 
 float Vector4::getX(){
   return x;
