@@ -9,7 +9,7 @@ Vector4::Vector4(float xx, float yy, float zz, float ww){
 
 Vector4::Vector4()
 {
-  
+
 }
 
 float Vector4::getX(){
@@ -26,6 +26,10 @@ float Vector4::getZ(){
 
 float Vector4::getW(){
   return w;
+}
+void Vector4::toString()
+{
+  std::cout << "Vector4 - X: " << x << " Y: " << y << " Z: " << z << " W: " << w << "\n";
 }
 
 bool Vector4::isEqual(Vector4 other){

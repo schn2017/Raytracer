@@ -1,4 +1,5 @@
-size 200 200
+size 640 480
 
-camera 0 0 -1 0 0 0 0 1 0 70
-sphere 2 4 0 .5
+camera 0 0 4 0 0 0 0 1 0 100
+sphere 0 0 -1 1
+sphere -3 0 -1 1

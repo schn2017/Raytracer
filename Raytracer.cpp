@@ -22,7 +22,7 @@ RGB Raytracer::traceRay(Ray hitRay)
       //cout << "Sphere found \n";
       if (sphere.intersect(hitRay) == true)
       {
-        //cout << "Sphere found \n";        
+        //cout << "Sphere found \n";
         return RGB(0, 0, 255);
       }
     }

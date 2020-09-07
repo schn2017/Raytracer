@@ -30,3 +30,11 @@ Vector3 Ray::getIntersection()
 {
   return origin + (direction * t);
 }
+
+void Ray::toString()
+{
+  //std::cout<< "Ray: Origin @ ";
+  //origin.toString();
+  //std::cout << "Direction @ ";
+  //direction.toString();
+}

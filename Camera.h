@@ -16,9 +16,9 @@ public:
   Vector3 getUp();
   float getFOVX();
   float getFOVY();
-  int getHeight();
-  int getWidth();
-  float calculateFOVX();
+  float getHeight();
+  float getWidth();
+  void calculateFOVX();
 
   Ray createRay(Vector3 direction);
   void setLookFrom(Vector3 newVector);
@@ -34,6 +34,6 @@ private:
   Vector3 up = Vector3();
   float fovY;
   float fovX;
-  int height;
-  int width;
+  float height;
+  float width;
 };

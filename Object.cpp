@@ -48,3 +48,22 @@ void Object::setTriangle(Triangle newTriangle)
   objTriangle = newTriangle;
 }
 ////////////////////////////////////////////////////////////////////////////////
+//
+void Object::applyTransform()
+{
+  if (objSphere.getState() == true)
+  {
+    objSphere.getHomoPosition().toString();
+    objSphere.setHomoPosition(MathHelper::multiply(objTransform, objSphere.getHomoPosition()));
+
+    Vector3 newPosition = Vector3(objSphere.getHomoPosition().getX() / objSphere.getHomoPosition().getW(),
+                                  objSphere.getHomoPosition().getY() / objSphere.getHomoPosition().getW(),
+                                  objSphere.getHomoPosition().getZ() / objSphere.getHomoPosition().getW());
+
+    objSphere.setPosition(newPosition);
+
+
+    objSphere.getHomoPosition().toString();
+    objSphere.getPosition().toString();
+  }
+}

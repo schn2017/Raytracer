@@ -128,5 +128,5 @@ void Matrix4::print()
     }
 
   }
-  std::cout<< "\n ";
+  std::cout<< "\n";
 }

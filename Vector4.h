@@ -1,3 +1,4 @@
+#include <iostream>
 
 class Vector4{
   public:
@@ -9,7 +10,7 @@ class Vector4{
     float getW();
 
     bool isEqual(Vector4 other);
-
+    void toString();
   private:
     float x;
     float y;

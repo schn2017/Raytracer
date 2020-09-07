@@ -11,6 +11,7 @@ public:
   Vector3 getDirection();
   void setT(float value);
   float getT();
+  void toString();
 
 private:
   Vector3 origin;

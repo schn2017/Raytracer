@@ -17,6 +17,7 @@ class Object
     void setSphere(Sphere newSphere);
     void setTransform(Matrix4 newTransform);
     void setTriangle(Triangle newTriangle);
+    void applyTransform();
 
   private:
     Materials objMaterials;

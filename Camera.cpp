@@ -33,9 +33,10 @@ Vector3 Camera::convertSampleToCameraView(Sample sample)
   return MathHelper::normalize(convSample);
 }
 
-float Camera::calculateFOVX()
+void Camera::calculateFOVX()
 {
-  return 2 * atan(tan(MathHelper::radians(fovY) / 2) * (width / height));
+  std::cout << width/ height;
+  fovX = 2 * atan(tan(MathHelper::radians(fovY / 2)) * (width / height));
 }
 
 Vector3 Camera::getLookFrom()
@@ -53,12 +54,12 @@ Vector3 Camera::getUp()
   return up;
 }
 
-int Camera::getHeight()
+float Camera::getHeight()
 {
   return height;
 }
 
-int Camera::getWidth()
+float Camera::getWidth()
 {
   return width;
 }
