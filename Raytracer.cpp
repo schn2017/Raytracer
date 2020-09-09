@@ -23,7 +23,7 @@ RGB Raytracer::traceRay(Ray hitRay)
       if (sphere.intersect(hitRay) == true)
       {
         //cout << "Sphere found \n";
-        return RGB(0, 0, 255);
+        return RGB(0, 0, 1);
       }
     }
     else if (triangle.getState() == true)

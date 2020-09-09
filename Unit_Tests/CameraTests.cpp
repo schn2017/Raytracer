@@ -16,8 +16,8 @@ TEST_CASE("Camera: Calculate Field Of View X Axis")
   Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
   cam.setDimensions(100, 100);
 
-  float fovXAngle = cam.calculateFOVX();
-  REQUIRE(fovXAngle == MathHelper::radians(cam.getFOVY()));
+  cam.calculateFOVX();
+  REQUIRE(cam.getFOVX() == MathHelper::radians(cam.getFOVY()));
 }
 
 TEST_CASE("Camera: Convert Pixel Sample to Camera View Dimensions")
@@ -28,7 +28,7 @@ TEST_CASE("Camera: Convert Pixel Sample to Camera View Dimensions")
   cam.calculateFOVX();
 
   Vector3 testVector = cam.convertSampleToCameraView(testSample);
-  testVector.toString();
+  //testVector.toString();
 
   //REQUIRES need to be completed
 

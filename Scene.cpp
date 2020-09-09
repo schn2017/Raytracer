@@ -317,18 +317,20 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 
 void Scene::renderScene()
 {
-  sceneCamera.setDimensions(height, width);  
+  sceneCamera.setDimensions(height, width);
   sceneCamera.calculateFOVX();
-  cout << "Camera Statistics:\n";
+  cout << "Camera Statistics:\nLookFrom: ";
   sceneCamera.getLookFrom().toString();
+  cout << "LookAt: ";
   sceneCamera.getLookAt().toString();
+  cout << "Up: ";
   sceneCamera.getUp().toString();
-  cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n";
+  cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
   Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
-  cout << "View Matrix\n";
-  viewMatrix.print();
+  //cout << "View Matrix\n";
+  //viewMatrix.print();
   //cout << "Projection Matrix\n";
   //projectionMatrix.print();
 
@@ -348,7 +350,7 @@ void Scene::renderScene()
     Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
 
     Ray cameraRay = sceneCamera.createRay(rayDirection);
-    cameraRay.toString();
+    //cameraRay.toString();
 
 
     RGB pixelColor = tracer.traceRay(cameraRay);

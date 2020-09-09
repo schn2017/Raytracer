@@ -2,9 +2,43 @@
 
 RGB::RGB(float red, float green, float blue)
 {
-  R = red;
-  G = green;
-  B = blue;
+  if (red <= 1 && red >= 0)
+  {
+    R = red * 255;
+  }
+  else if (red > 1)
+  {
+    R = 255;
+  }
+  else{
+    R = 0;
+  }
+
+  if (green <= 1 && green >= 0)
+  {
+    G = green * 255;
+  }
+  else if(green > 1)
+  {
+    G = 255;
+  }
+  else
+  {
+    G = 0;
+  }
+
+  if (blue <= 1 && blue >= 0)
+  {
+    B = blue * 255;
+  }
+  else if (blue > 1)
+  {
+    B = 255;
+  }
+  else
+  {
+    B = 0;
+  }
 }
 
 RGB::RGB()
@@ -38,6 +72,45 @@ RGB RGB::operator+(const RGB &otherRGB)
   float red = R + otherRGB.R;
   float green = G + otherRGB.G;
   float blue = B + otherRGB.B;
+
+  if (red > 255)
+  {
+    red = 1;
+  }
+  else if (red < 0)
+  {
+    red = 0;
+  }
+  else
+  {
+    red = red / 255;
+  }
+
+  if (green > 255)
+  {
+    green = 1;
+  }
+  else if (green < 0)
+  {
+    green = 0;
+  }
+  else
+  {
+    green = green / 255;
+  }
+
+  if (blue > 255)
+  {
+    blue = 1;
+  }
+  else if (blue < 0)
+  {
+    blue = 0;
+  }
+  else
+  {
+    blue = blue / 255;
+  }
 
   return RGB(red, green, blue);
 }

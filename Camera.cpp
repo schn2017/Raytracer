@@ -35,7 +35,6 @@ Vector3 Camera::convertSampleToCameraView(Sample sample)
 
 void Camera::calculateFOVX()
 {
-  std::cout << width/ height;
   fovX = 2 * atan(tan(MathHelper::radians(fovY / 2)) * (width / height));
 }
 

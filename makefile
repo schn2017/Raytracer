@@ -5,10 +5,10 @@ INCFLAGS = -I./
 LDFLAGS = -lfreeimage
 RM = rm -f
 
-main: main.o Camera.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
+main: main.o Camera.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o MathHelper.o materials.o matrix3.o matrix4.o object.o\
-	 																 pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
+	 																 PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
 
@@ -32,6 +32,9 @@ matrix4.o: Matrix4.cpp Matrix3.h Matrix4.h
 
 object.o: Object.cpp Object.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Object.cpp
+
+PointLight.o: PointLight.cpp PointLight.h
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c PointLight.cpp
 
 pixels.o: Pixels.cpp Pixels.h FreeImage.h RGB.h
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Pixels.cpp
@@ -73,7 +76,7 @@ vector4.o: Vector4.cpp Vector4.h
 
 tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
 			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
-			 matrix4.o ObjectTests.o object.o PixelsTests.o pixels.o \
+			 matrix4.o ObjectTests.o object.o	PointLightTests.o PointLight.o PixelsTests.o pixels.o \
 			 RayTests.o ray.o raytracer.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
 			 scenesampler.o SceneTests.o Scene.o SphereTests.o sphere.o \
 			 TransformTests.o transform.o TriangleTests.o triangle.o Vector3Tests.o \
@@ -86,6 +89,7 @@ tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
 	Matrix3Tests.o matrix3.o \
 	Matrix4Tests.o matrix4.o \
 	ObjectTests.o object.o \
+	PointLightTests.o PointLight.o \
 	PixelsTests.o pixels.o \
 	RayTests.o ray.o \
 	raytracer.o \
@@ -119,6 +123,9 @@ Matrix4Tests.o: Matrix4Tests.cpp Matrix3.h Matrix4.h Vector3.h Vector4.h catch.h
 
 ObjectTests.o: ObjectTests.cpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/ObjectTests.cpp
+
+PointLightTests.o: PointLightTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PointLightTests.cpp
 
 PixelsTests.o: Pixels.cpp Pixels.h RGB.h FreeImage.h catch.hpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PixelsTests.cpp

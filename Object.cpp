@@ -53,7 +53,7 @@ void Object::applyTransform()
 {
   if (objSphere.getState() == true)
   {
-    objSphere.getHomoPosition().toString();
+    //objSphere.getHomoPosition().toString();
     objSphere.setHomoPosition(MathHelper::multiply(objTransform, objSphere.getHomoPosition()));
 
     Vector3 newPosition = Vector3(objSphere.getHomoPosition().getX() / objSphere.getHomoPosition().getW(),
@@ -63,7 +63,7 @@ void Object::applyTransform()
     objSphere.setPosition(newPosition);
 
 
-    objSphere.getHomoPosition().toString();
-    objSphere.getPosition().toString();
+    //objSphere.getHomoPosition().toString();
+    //objSphere.getPosition().toString();
   }
 }
