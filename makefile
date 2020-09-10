@@ -5,9 +5,9 @@ INCFLAGS = -I./
 LDFLAGS = -lfreeimage
 RM = rm -f
 
-main: main.o Camera.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
+main: main.o Camera.o Lighting.o LightSource.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o MathHelper.o materials.o matrix3.o matrix4.o object.o\
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o Lighting.o LightSource.o MathHelper.o materials.o matrix3.o matrix4.o object.o\
 	 																 PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
@@ -17,6 +17,12 @@ main.o: main.cpp Scene.h
 
 Camera.o: Camera.cpp Camera.h Ray.h Vector3.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Camera.cpp
+
+Lighting.o: Lighting.cpp Lighting.h
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Lighting.cpp
+
+LightSource.o: LightSource.cpp LightSource.h
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c LightSource.cpp
 
 Materials.o: Materials.cpp Materials.h
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Materials.cpp
@@ -74,7 +80,7 @@ vector4.o: Vector4.cpp Vector4.h
 
 ################################## Test Suite ##################################
 
-tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
+tests: TestSuite.o CameraTests.o Camera.o LightingTests.o Lighting.o LightSourceTests.o LightSource.o MaterialsTests.o Materials.o \
 			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
 			 matrix4.o ObjectTests.o object.o	PointLightTests.o PointLight.o PixelsTests.o pixels.o \
 			 RayTests.o ray.o raytracer.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
@@ -84,6 +90,8 @@ tests: TestSuite.o CameraTests.o Camera.o MaterialsTests.o Materials.o \
 
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o tests TestSuite.o \
 	CameraTests.o Camera.o \
+	LightingTests.o Lighting.o \
+	LightSourceTests.o LightSource.o \
 	MaterialsTests.o Materials.o \
 	MathHelperTests.o MathHelper.o \
 	Matrix3Tests.o matrix3.o \
@@ -108,6 +116,12 @@ TestSuite.o: TestSuite.cpp catch.hpp
 
 CameraTests.o: CameraTests.cpp Camera.h catch.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/CameraTests.cpp
+
+LightingTests.o: LightingTests.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/LightingTests.cpp
+
+LightSourceTests.o: LightSourceTests.cpp catch.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/LightSourceTests.cpp
 
 MaterialsTests.o: MaterialsTests.cpp Materials.h
 		$(CXX) -c $(CXXFLAGS) $(INCFLAGS) $(VPATH)/MaterialsTests.cpp

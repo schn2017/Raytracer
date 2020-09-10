@@ -8,13 +8,13 @@ LightSource::LightSource()
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Get Member Functions
-LightSource::getPointLight()
+PointLight LightSource::getPointLight()
 {
   return pointLight;
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Set Member Functions
-LightSource::setPointLight(PointLight newPointLight)
+void LightSource::setPointLight(PointLight newPointLight)
 {
   pointLight = newPointLight;
 }

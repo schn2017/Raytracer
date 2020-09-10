@@ -1,7 +1,7 @@
 #include "PointLight.h"
 #include <vector>
 
-using namespace std
+using namespace std;
 class LightSource
 {
 public:
@@ -14,4 +14,4 @@ public:
 
 private:
   PointLight pointLight;
-}
+};

@@ -340,6 +340,8 @@ void Scene::renderScene()
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);
   tracer = Raytracer(objects);
+  float sampleTotalCount = height * width;
+  int sampleCount = 0;
 
   cout << "Starting sampling \n";
 
@@ -352,13 +354,20 @@ void Scene::renderScene()
     Ray cameraRay = sceneCamera.createRay(rayDirection);
     //cameraRay.toString();
 
+    if(sampleCount > sampleTotalCount * .1)
+    {
+      cout << "[]";
+      sampleCount = 0;
+    }
 
     RGB pixelColor = tracer.traceRay(cameraRay);
     film.addColor(pixelColor);
+    sampleCount++;
   }
-
-  cout << "Sampling Complete \n";
+  cout << "[]";
+  cout << "\nSampling Complete\n";
   film.createFinalImage();
+  cout << "Image created.\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
 
