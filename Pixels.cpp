@@ -44,11 +44,11 @@ bool Pixels::createFinalImage()
   while(byteCount <= totalBytes)
   {
     RGB color = samples[pixelCount];
-    film[byteCount] = color.getRed();
+    film[byteCount] = color.getBlue();
     byteCount++;
     film[byteCount]= color.getGreen();
     byteCount++;
-    film[byteCount]= color.getBlue();
+    film[byteCount]= color.getRed();
     byteCount++;
     pixelCount++;
   }

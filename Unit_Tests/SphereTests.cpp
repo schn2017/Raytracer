@@ -23,3 +23,13 @@ TEST_CASE("Sphere: Intersection Test")
   REQUIRE(testSphere1.intersect(testRay) == true);
   REQUIRE(testSphere2.intersect(testRay) == false);
 }
+
+TEST_CASE("Sphere: Calculate Surface Normal")
+{
+  Sphere testSphere(0, 0, 0, 1);
+  Vector3 point = Vector3(0, 1, 0);
+
+  Vector3 normal =  testSphere.calculateSurfaceNormal(point);
+
+  REQUIRE(normal.isEqual(point) == true );
+}

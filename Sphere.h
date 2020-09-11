@@ -9,6 +9,7 @@ public:
   Sphere(float x, float y, float z, float r);
   Sphere();
   Vector3 getPosition();
+  Vector3 calculateSurfaceNormal(Vector3 point);
   Vector4 getHomoPosition();
   float getRadius();
   bool intersect(Ray &cameraRay);

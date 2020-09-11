@@ -26,7 +26,7 @@ void Ray::setT(float value)
   t = value;
 }
 
-Vector3 Ray::getIntersection()
+Vector3 Ray::getIntersectionPoint()
 {
   return origin + (direction * t);
 }

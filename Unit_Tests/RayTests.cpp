@@ -19,7 +19,7 @@ TEST_CASE("Ray: Get Intersection")
 
   testRay.setT(2);
 
-  REQUIRE(testRay.getIntersection().isEqual(Vector3(5, 6, 10)));
+  REQUIRE(testRay.getIntersectionPoint().isEqual(Vector3(5, 6, 10)));
 }
 
 TEST_CASE("Ray: Set t")

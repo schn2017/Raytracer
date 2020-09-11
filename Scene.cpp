@@ -32,6 +32,11 @@ vector<Object> Scene::getObjects()
   return objects;
 }
 
+Lighting Scene::getLighting()
+{
+  return sceneLights;
+}
+
 Vector3 Scene::getVertex(int element)
 {
   return vertices[element];
@@ -84,7 +89,13 @@ bool Scene::readScene(const char *filename)
 
         if (command == "ambient")
         {
-          // To Do
+          validCommand = readSceneValues(s, 3, objectParameters);
+
+          if (validCommand)
+          {
+            RGB ambientLight = RGB( objectParameters[0], objectParameters[1], objectParameters[2]);
+            sceneLights.setAmbientLight(ambientLight);
+          }
         }
         else if (command == "attenuation")
         {
@@ -148,7 +159,18 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "point")
         {
-          // To Do
+          validCommand = readSceneValues(s, 6, objectParameters);
+
+          if (validCommand)
+          {
+            Vector3 position = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
+            RGB pointLightColor = RGB(objectParameters[3], objectParameters[4], objectParameters[5]);
+            pointLightColor.print();
+            PointLight newPointLight = PointLight(position, pointLightColor);
+            LightSource newLightSource = LightSource();
+            newLightSource.setPointLight(newPointLight);
+            sceneLights.addLightSource(newLightSource);
+          }
         }
         else if (command == "popTransform")
         {
@@ -299,7 +321,8 @@ bool Scene::readScene(const char *filename)
     return false;
   }
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Scene Setup Helper Functions
 bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 {
   for (int i = 0; i < numvals; i++)
@@ -314,18 +337,22 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
   }
   return true;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Render Scene Method
 void Scene::renderScene()
 {
   sceneCamera.setDimensions(height, width);
   sceneCamera.calculateFOVX();
-  cout << "Camera Statistics:\nLookFrom: ";
+  cout << "Camera Information:\nLookFrom: ";
   sceneCamera.getLookFrom().toString();
   cout << "LookAt: ";
   sceneCamera.getLookAt().toString();
   cout << "Up: ";
   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
+
+  cout << "Scene Information\n";
+  cout << "Number of Objects: " << objects.size() << "\n";
 
   Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
@@ -339,7 +366,7 @@ void Scene::renderScene()
 
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);
-  tracer = Raytracer(objects);
+  tracer = Raytracer(objects, sceneLights);
   float sampleTotalCount = height * width;
   int sampleCount = 0;
 
@@ -352,7 +379,6 @@ void Scene::renderScene()
     Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
 
     Ray cameraRay = sceneCamera.createRay(rayDirection);
-    //cameraRay.toString();
 
     if(sampleCount > sampleTotalCount * .1)
     {
@@ -360,7 +386,7 @@ void Scene::renderScene()
       sampleCount = 0;
     }
 
-    RGB pixelColor = tracer.traceRay(cameraRay);
+    RGB pixelColor = tracer.getColor(cameraRay);
     film.addColor(pixelColor);
     sampleCount++;
   }
@@ -370,7 +396,7 @@ void Scene::renderScene()
   cout << "Image created.\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
-
+//Render Scene Helper Functions
 void Scene::applyTransform(Matrix4 matrix)
 {
   for(int i = 0; i < objects.size(); i++)
@@ -379,3 +405,4 @@ void Scene::applyTransform(Matrix4 matrix)
     objects[i].applyTransform();
   }
 }
+////////////////////////////////////////////////////////////////////////////////

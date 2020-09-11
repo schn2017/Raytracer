@@ -115,6 +115,12 @@ TEST_CASE("MathHelper: Magnitude - Vector4")
   REQUIRE(floor(MathHelper::magnitude(v4) * 100.0) / 100.0 == 4.89);
 }
 
+TEST_CASE("MathHelper:: Find Max Value")
+{
+  REQUIRE(MathHelper::max(5, 10) == 10);
+  REQUIRE(MathHelper::max(10, 5) == 10);
+}
+
 TEST_CASE("MathHelper: Multiplication - Matrix3")
 {
   Matrix3 m1 = Matrix3(1,2,3,4,5,6,7,8,9);

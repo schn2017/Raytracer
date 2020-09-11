@@ -24,6 +24,7 @@ public:
 
   static float magnitude(Vector3 v1);
   static float magnitude(Vector4 v1);
+  static float max(float x, float y);
   static Matrix3 multiply(Matrix3 m1, Matrix3 m2);
   static Matrix4 multiply(Matrix4 m1, Matrix4 m2);
   static float radians(float angle);

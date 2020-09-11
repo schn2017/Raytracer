@@ -79,6 +79,11 @@ bool Sphere::intersect(Ray &cameraRay)
       return false;
     }
   }
-
+  cameraRay.setT(t0);
   return true;
+}
+
+Vector3 Sphere::calculateSurfaceNormal(Vector3 point)
+{
+  return MathHelper::normalize(point - position);
 }

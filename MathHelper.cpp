@@ -67,6 +67,18 @@ float MathHelper::magnitude(Vector4 v1)
               +(v1.getW() * v1.getW()));
 }
 
+float MathHelper::max(float x, float y)
+{
+  if (x > y)
+  {
+    return x;
+  }
+  else
+  {
+    return y;
+  }
+}
+
 Matrix3 MathHelper::multiply(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 product = Matrix3();

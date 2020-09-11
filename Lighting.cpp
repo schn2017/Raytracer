@@ -12,6 +12,11 @@ RGB Lighting::getAmbientLight()
 {
   return ambientLight;
 }
+
+vector<LightSource> Lighting::getLightSources()
+{
+  return lightSources;
+}
 ////////////////////////////////////////////////////////////////////////////////
 // Set Member Functions
 void Lighting::setAmbientLight(RGB newLight)

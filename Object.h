@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Materials.h"
 #include "Sphere.h"
 #include "Triangle.h"

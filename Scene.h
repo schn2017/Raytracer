@@ -22,6 +22,7 @@ public:
   int getDepth();
   float getHeight();
   float getWidth();
+  Lighting getLighting();
   stack<Matrix4> getTransformStack();
   Vector3 getVertex(int element);
   vector<Object> getObjects();
@@ -45,6 +46,7 @@ private:
   int depth;
   float height;
   float width;
+  Lighting sceneLights;
   Pixels film;
   Raytracer tracer;
   SceneSampler sampler;

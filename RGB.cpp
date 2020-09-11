@@ -120,3 +120,81 @@ bool RGB::operator!=(const RGB &otherRGB)
   return *this == otherRGB;
 
 }
+
+RGB RGB::operator*(const float &scalar)
+{
+  float red = (R / 255) * scalar;
+  float green = (G / 255) * scalar;
+  float blue = (B / 255) * scalar;
+
+  if (red > 1)
+  {
+    red = 1;
+  }
+  else if (red < 0)
+  {
+    red = 0;
+  }
+
+  if (green > 1)
+  {
+    green = 1;
+  }
+  else if (green < 0)
+  {
+    green = 0;
+  }
+
+  if (blue > 1)
+  {
+    blue = 1;
+  }
+  else if (blue < 0)
+  {
+    blue = 0;
+  }
+
+  return RGB(red, green, blue);
+  return RGB(red, green, blue);
+}
+
+RGB RGB::operator*(const RGB &otherRGB)
+{
+  float red = (R / 255) * (otherRGB.R / 255);
+  float green = (G / 255) * (otherRGB.G / 255);
+  float blue = (B / 255) * (otherRGB.B / 255);
+
+  if (red > 1)
+  {
+    red = 1;
+  }
+  else if (red < 0)
+  {
+    red = 0;
+  }
+
+  if (green > 1)
+  {
+    green = 1;
+  }
+  else if (green < 0)
+  {
+    green = 0;
+  }
+
+  if (blue > 1)
+  {
+    blue = 1;
+  }
+  else if (blue < 0)
+  {
+    blue = 0;
+  }
+
+  return RGB(red, green, blue);
+}
+
+void RGB::print()
+{
+  std::cout << "R: " << R << " G: " << G << " B: " << B << "\n";
+}

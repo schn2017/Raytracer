@@ -10,6 +10,18 @@ TEST_CASE("Scene: Open Scene Input Text File")
   REQUIRE(sceneTest.readScene(fileNameFail) == false);
 }
 
+TEST_CASE("Scene: Read Scene Input - Ambient Light")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+
+  Lighting testLighting = sceneTest.getLighting();
+  RGB testAmbientLight = testLighting.getAmbientLight();
+
+  REQUIRE( (testAmbientLight == RGB(0.1, 0.1, 0.1) == true) );
+}
+
 TEST_CASE("Scene: Read Scene Input - Camera Initialization")
 {
   Scene sceneTest = Scene();
@@ -42,7 +54,7 @@ TEST_CASE("Scene: Read Scene Input - Depth")
   REQUIRE(sceneTest.getDepth() ==  10);
 }
 
-TEST_CASE("Scene: Read Vertices")
+TEST_CASE("Scene: Read Scene Input - Vertices")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -59,7 +71,7 @@ TEST_CASE("Scene: Read Vertices")
   REQUIRE(v4.isEqual(Vector3(-1, 1, 0)) == true);
 }
 
-TEST_CASE("Scene: Read Objects")
+TEST_CASE("Scene: Read Scene Input - Objects")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -94,10 +106,22 @@ TEST_CASE("Scene: Read Objects")
 
 }
 
+TEST_CASE("Scene: Read Scene Input - PointLight")
+{
+  Scene sceneTest = Scene();
+  const char * fileNamePass = "scene1Cam4.test";
+  sceneTest.readScene(fileNamePass);
+
+  Lighting testLighting = sceneTest.getLighting();
+  PointLight testPointLight = testLighting.getLightSource(0).getPointLight();
+
+  REQUIRE(testPointLight.getPosition().isEqual(Vector3(4, 0, 4)) == true);
+  REQUIRE((testPointLight.getLightColor() == RGB(0.5, 0.5, 0.5)) == true);
+  REQUIRE(testPointLight.getState() == true);
+}
 
 
-
-TEST_CASE("Scene: Read Sphere")
+TEST_CASE("Scene: Read Scene Input - Sphere")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -107,7 +131,7 @@ TEST_CASE("Scene: Read Sphere")
   REQUIRE(spheres[0].getRadius() == 10);
 }
 
-TEST_CASE("Scene: Read Spheres")
+TEST_CASE("Scene: Read Scene Input - Spheres")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -120,7 +144,7 @@ TEST_CASE("Scene: Read Spheres")
   REQUIRE(spheres[1].getRadius() == 2);
 }
 
-TEST_CASE("Scene: Read Triangle")
+TEST_CASE("Scene: Read Scene Input - Triangle")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -132,7 +156,7 @@ TEST_CASE("Scene: Read Triangle")
   REQUIRE(triangles[0].getV3().isEqual(Vector3(1, 1, 0)) == true);
 }
 
-TEST_CASE("Scene: Read Triangles")
+TEST_CASE("Scene: Read Scene Input - Triangles")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -147,7 +171,7 @@ TEST_CASE("Scene: Read Triangles")
   REQUIRE(triangles[1].getV3().isEqual(Vector3(-1, 1, 0)) == true);
 }
 
-TEST_CASE("Scene: Read Spheres and Triangles")
+TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "scene1Cam4.test";
@@ -195,5 +219,5 @@ TEST_CASE("Scene: Render Test Scene")
   const char * fileNamePass = "scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
-  sceneTest.renderScene();
+  //sceneTest.renderScene();
 }
