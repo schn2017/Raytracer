@@ -14,12 +14,13 @@ class Raytracer
 public:
   Raytracer();
   Raytracer(vector<Object> objectVector, Lighting lights);
-
-  Intersection traceRay(Ray &hitRay);
-  RGB traceLightRays(Ray hitRay, Intersection intersection);
   RGB getColor(Ray hitRay);
 
 private:
   vector<Object> objects;
   Lighting sceneLights;
+
+  Intersection traceRay(Ray &hitRay);
+  Intersection findClosestIntersection(vector<Intersection> intersections);
+  RGB traceLightRays(Ray hitRay, Intersection intersection);  
 };

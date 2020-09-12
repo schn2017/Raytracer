@@ -155,7 +155,6 @@ RGB RGB::operator*(const float &scalar)
   }
 
   return RGB(red, green, blue);
-  return RGB(red, green, blue);
 }
 
 RGB RGB::operator*(const RGB &otherRGB)

@@ -13,12 +13,12 @@ Raytracer::Raytracer(vector<Object> objectVector, Lighting lights)
 
 RGB Raytracer::getColor(Ray hitRay)
 {
-  RGB color = sceneLights.getAmbientLight();
+  RGB color = RGB(0, 0, 0);
 
   Intersection rayIntersection = traceRay(hitRay);
   if (rayIntersection.getState() == true)
   {
-    color = color + traceLightRays(hitRay, rayIntersection);
+    color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
   }
 
   return color;
@@ -28,7 +28,9 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 {
   int numberOfObjects = objects.size();
   float minT = 0;
-  Intersection intersection = Intersection();
+  float distance = 0;
+  //Intersection intersection = Intersection();
+  vector<Intersection> intersections;
   Vector3 surfaceNormal;
   for (int i = 0; i < numberOfObjects; i++)
   {
@@ -37,25 +39,16 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
     if (sphere.getState() == true)
     {
-      //cout << "Sphere found \n";
       if (sphere.intersect(hitRay) == true)
       {
-        float distance = hitRay.getT();
-        if (i == 0)
-        {
-          minT = distance;
-          intersection = Intersection(minT, objects[i].getMaterials());
-        }
-        else if (distance < minT)
-        {
-          minT = distance;
-          intersection = Intersection(minT, objects[i].getMaterials());
-        }
+        distance = hitRay.getT();
 
-        hitRay.setT(minT);
+        Intersection intersection = Intersection(distance, objects[i].getMaterials());
+
         surfaceNormal = sphere.calculateSurfaceNormal(hitRay.getIntersectionPoint());
-        intersection.setSurfaceNormal(surfaceNormal);
 
+        intersection.setSurfaceNormal(surfaceNormal);
+        intersections.push_back(intersection);
       }
     }
     else if (triangle.getState() == true)
@@ -65,8 +58,15 @@ Intersection Raytracer::traceRay(Ray &hitRay)
     }
   }
 
-  // Intersection found
-  return intersection;
+  if (intersections.size() > 0)
+  {
+    return findClosestIntersection(intersections);
+  }
+  else
+  {
+    Intersection intersection = Intersection();
+    return intersection;
+  }
 }
 
 RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
@@ -92,23 +92,23 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
       RGB lightColor = pointLight.getLightColor();
       //cout<< "LightColor - ";
       //lightColor.print();
-      Ray lightRay = Ray(origin, direction);
+      Ray lightRay = Ray(origin + direction, direction);
       Intersection rayIntersection = traceRay(lightRay);
       color = color + emission;
       if (rayIntersection.getState() == false)
       {
-
         float nDotL = MathHelper::dot(surfaceNormal, direction);
         float maxnDotL = MathHelper::max(nDotL, 0);
         RGB lambert = lightColor * (diffuse * maxnDotL);
-        Vector3 r = (direction * -1) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal));
-        //Vector3 halfAngle = MathHelper::normalize(direction + r);
-        float nDotH = MathHelper::dot(surfaceNormal, cameraDirection);
-        //float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
+        Vector3 r = (direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal));
+        Vector3 halfAngle = MathHelper::normalize(direction + r);
+        //float nDotH = MathHelper::dot(surfaceNormal, cameraDirection);
+        float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
         float maxnDotH = MathHelper::max(nDotH, 0);
         RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
 
-        //cout << "nDotL " << nDotL << "Max " << maxnDotL << "\n";
+        //cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
+        //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
       }
 
@@ -118,3 +118,26 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
 
   return color;
 }
+
+  Intersection Raytracer::findClosestIntersection(vector<Intersection> intersections)
+  {
+    float minT = 0;
+    float minIntersection = 0;
+    for (int i = 0; i < intersections.size(); i++)
+    {
+      if (i == 0)
+      {
+        minT = intersections[0].getDistance();
+      }
+      else
+      {
+        if (intersections[i].getDistance() < minT)
+        {
+          minT = intersections[i].getDistance();
+          minIntersection = i;
+        }
+      }
+    }
+
+    return intersections[minIntersection];
+  }
