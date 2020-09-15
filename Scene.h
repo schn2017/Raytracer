@@ -29,6 +29,9 @@ public:
   vector<Sphere> getSpheres();
   vector<Triangle> getTriangles();
 
+  // Set Member Definitions
+  void setViewMatrix(Matrix4 m1);
+
   // Scene Setup Method
   bool readScene(const char *filename);
 
@@ -39,7 +42,7 @@ public:
   void renderScene();
 
   // Render Scene Helper Functions
-  void applyTransform(Matrix4 matrix);
+  void applyViewMatrix();
 
 private:
   Camera sceneCamera;
@@ -50,6 +53,7 @@ private:
   Pixels film;
   Raytracer tracer;
   SceneSampler sampler;
+  Matrix4 viewMatrix;
   stack<Matrix4> transformStack;
   vector<Object> objects;
   vector<Sphere> spheres;

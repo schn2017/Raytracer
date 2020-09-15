@@ -35,3 +35,12 @@ LightSource Lighting::getLightSource(int lightNumber)
   return lightSources[lightNumber];
 }
 ////////////////////////////////////////////////////////////////////////////////
+//Apply View Matrix
+void Lighting::applyViewMatrix(Matrix4 viewMatrix)
+{
+  for (int i = 0; i < lightSources.size(); i++)
+  {
+    lightSources[i].applyViewMatrix(viewMatrix);
+  }
+}
+////////////////////////////////////////////////////////////////////////////////

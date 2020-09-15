@@ -25,3 +25,26 @@ TEST_CASE("Lighting - Add Ambient Light/Get Ambient Light")
   testLighting.setAmbientLight(testAmbient);
   REQUIRE((testLighting.getAmbientLight() == RGB(0, 1, 0)) == true);
 }
+
+TEST_CASE("Lighting - Apply View Matrix to Lights")
+{
+  Lighting testLighting = Lighting();
+  LightSource testLightSource = LightSource();
+  PointLight testPointLight = PointLight(Vector3(1, 2, 3), RGB(0, 0, 0));
+
+  Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
+                               1, 2, 3, 4,
+                               5, 6, 1, 3,
+                               2, 5, 5, 7);
+
+  testLightSource.setPointLight(testPointLight);
+  testLighting.addLightSource(testLightSource);
+
+  testLighting.applyViewMatrix(testMatrix);
+
+  testPointLight = testLighting.getLightSource(0).getPointLight();
+
+  REQUIRE((floor(testPointLight.getPosition().getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testPointLight.getPosition().getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testPointLight.getPosition().getZ() * 100.0 + 0.5) / 100) == 0.68);
+}

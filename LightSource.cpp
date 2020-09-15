@@ -19,3 +19,10 @@ void LightSource::setPointLight(PointLight newPointLight)
   pointLight = newPointLight;
 }
 ////////////////////////////////////////////////////////////////////////////////
+void LightSource::applyViewMatrix(Matrix4 viewMatrix)
+{
+  if (pointLight.getState() == true)
+  {
+    pointLight.setPosition(MathHelper::transformVector3(viewMatrix, pointLight.getPosition()));
+  }
+}

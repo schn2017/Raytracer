@@ -11,7 +11,7 @@ public:
   PointLight getPointLight();
   //Set Member Definitions
   void setPointLight(PointLight newPointLight);
-
+  void applyViewMatrix(Matrix4 viewMatrix);
 private:
   PointLight pointLight;
 };

@@ -57,6 +57,14 @@ vector<Triangle> Scene::getTriangles()
   return triangles;
 }
 ////////////////////////////////////////////////////////////////////////////////
+//Set Member Functions
+
+void Scene::setViewMatrix(Matrix4 m1)
+{
+  viewMatrix = m1;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //Render Scene Methods
 bool Scene::readScene(const char *filename)
 {
@@ -112,6 +120,9 @@ bool Scene::readScene(const char *filename)
                                  objectParameters[4], objectParameters[5],
                                  objectParameters[6], objectParameters[7],
                                  objectParameters[8], objectParameters[9]);
+
+            viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
+
           }
 
         }
@@ -355,22 +366,9 @@ void Scene::renderScene()
   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
-/*
-  cout << "TRANSFORMED - Camera Information:\nLookFrom: ";
-  sceneCamera.getLookFrom().toString();
-  cout << "LookAt: ";
-  sceneCamera.getLookAt().toString();
-  cout << "Up: ";
-  sceneCamera.getUp().toString();
-
-*/
-
-
   cout << "Scene Information\n";
 
   cout << "Number of Objects: " << objects.size() << "\n";
-
-  Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
   cout << "\nView Matrix\n";
   viewMatrix.print();
@@ -385,7 +383,7 @@ void Scene::renderScene()
   }
   cout << "\n";
 
-  applyTransform(viewMatrix);
+  applyViewMatrix();
   //applyTransform(projectionMatrix);
 
   film = Pixels(height, width);
@@ -417,16 +415,18 @@ void Scene::renderScene()
   cout << "[]";
   cout << "\nSampling Complete\n";
   film.createFinalImage();
-  cout << "Render Scene Beginning\n";  
+  cout << "Render Scene Beginning\n";
   cout << "Image created.\n";
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Render Scene Helper Functions
-void Scene::applyTransform(Matrix4 matrix)
+void Scene::applyViewMatrix()
 {
+  sceneLights.applyViewMatrix(viewMatrix);
+
   for(int i = 0; i < objects.size(); i++)
   {
-    objects[i].setTransform(MathHelper::multiply(matrix, objects[i].getTransform()));
+    objects[i].setTransform(MathHelper::multiply(viewMatrix, objects[i].getTransform()));
     objects[i].applyTransform();
   }
 }

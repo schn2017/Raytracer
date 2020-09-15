@@ -193,7 +193,7 @@ TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
   REQUIRE(triangles[1].getV3().isEqual(Vector3(-1, 1, 0)) == true);
 }
 
-TEST_CASE("Scene: Apply Transform Matrix")
+TEST_CASE("Scene: Apply View Matrix")
 {
   Scene sceneTest = Scene();
   const char * fileNamePass = "Scene_Inputs/sphereScene.test";
@@ -205,7 +205,8 @@ TEST_CASE("Scene: Apply Transform Matrix")
                                0, 0, 4, 0,
                                0, 0, 0, 1);
 
-  sceneTest.applyTransform(viewMatrix);
+  sceneTest.setViewMatrix(viewMatrix);
+  sceneTest.applyViewMatrix();
 
   vector<Object> testObjects = sceneTest.getObjects();
   Object testObject = testObjects[0];

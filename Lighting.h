@@ -15,7 +15,7 @@ public:
   //vector<LightSource> Methods
   void addLightSource(LightSource newLightSource);
   LightSource getLightSource(int lightNumber);
-
+  void applyViewMatrix(Matrix4 viewMatrix);
 private:
   RGB ambientLight;
   vector<LightSource> lightSources;
