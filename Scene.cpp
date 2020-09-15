@@ -165,7 +165,7 @@ bool Scene::readScene(const char *filename)
           {
             Vector3 position = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
             RGB pointLightColor = RGB(objectParameters[3], objectParameters[4], objectParameters[5]);
-            pointLightColor.print();
+            //pointLightColor.print();
             PointLight newPointLight = PointLight(position, pointLightColor);
             LightSource newLightSource = LightSource();
             newLightSource.setPointLight(newPointLight);
@@ -281,12 +281,16 @@ bool Scene::readScene(const char *filename)
         }
         else if (command == "tri")
         {
+          //std::cout << "Triangle found!\n";
           validCommand = readSceneValues(s, 3, objectParameters);
           if (validCommand)
           {
+            //std::cout << "Creating triangle!\n";
             Triangle newTriangle = Triangle(vertices[objectParameters[0]], vertices[objectParameters[1]], vertices[objectParameters[2]]);
             Object newObject = Object();
             newObject.setTriangle(newTriangle);
+            newObject.setMaterials(material);
+            newObject.setTransform(transformStack.top());
             objects.push_back(newObject);
 
             //Testing to be removed
@@ -351,15 +355,35 @@ void Scene::renderScene()
   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
+/*
+  cout << "TRANSFORMED - Camera Information:\nLookFrom: ";
+  sceneCamera.getLookFrom().toString();
+  cout << "LookAt: ";
+  sceneCamera.getLookAt().toString();
+  cout << "Up: ";
+  sceneCamera.getUp().toString();
+
+*/
+
+
   cout << "Scene Information\n";
+
   cout << "Number of Objects: " << objects.size() << "\n";
 
   Matrix4 viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
-  //cout << "View Matrix\n";
-  //viewMatrix.print();
+  cout << "\nView Matrix\n";
+  viewMatrix.print();
   //cout << "Projection Matrix\n";
   //projectionMatrix.print();
+
+  cout << "Number of vertices: " << vertices.size() << "\n";
+  for (int i = 0; i < vertices.size(); i++)
+  {
+    cout<< "Vertex: ";
+    vertices[i].toString();
+  }
+  cout << "\n";
 
   applyTransform(viewMatrix);
   //applyTransform(projectionMatrix);
@@ -370,7 +394,7 @@ void Scene::renderScene()
   float sampleTotalCount = height * width;
   int sampleCount = 0;
 
-  cout << "Starting sampling \n";
+  cout << "\nStarting sampling \n";
 
   while (sampler.canSample())
   {
@@ -393,6 +417,7 @@ void Scene::renderScene()
   cout << "[]";
   cout << "\nSampling Complete\n";
   film.createFinalImage();
+  cout << "Render Scene Beginning\n";  
   cout << "Image created.\n";
 }
 ////////////////////////////////////////////////////////////////////////////////

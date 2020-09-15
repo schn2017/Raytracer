@@ -4,7 +4,7 @@ camera 0 0 40 0 0 0 0 1 0 100
 
 point -20 10 4 1 0.0 1
 ambient 0.2 0.2 0.2
-#emission 0.1 0 0.3
+emission 0.1 0 0.3
 diffuse 0.2 0 1
 specular 0.5 0 0.5
 shininess 50

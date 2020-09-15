@@ -70,10 +70,18 @@ Matrix4 Transform::translate(float tx, float ty, float tz)
 }
 
 // Normalize the up direction and construct a coordinate frame.
-Vector3 Transform::upVector(Vector3 up, Vector3 zVector)
+/*void Transform::up(float degrees, Vector3& eye, Vector3& up)
 {
-  Vector3 x = MathHelper::cross(up, zVector);
-  Vector3 y = MathHelper::cross(zVector, x);
+	Vector3 findAxis = MathHelper::cross(eye,up);
+	up = MathHelper::multiply(Transform::rotate(degrees, MathHelper::normalize(findAxis)), up);
+	eye = MathHelper::multiply(Transform::rotate(degrees, MathHelper::normalize(findAxis)), eye);
+}*/
+
+
+Vector3 Transform::up(Vector3 up, Vector3 zvec)
+{
+  Vector3 x = MathHelper::cross(up, zvec);
+  Vector3 y = MathHelper::cross(zvec, x);
   Vector3 ret = MathHelper::normalize(y);
   return ret;
 }

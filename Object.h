@@ -19,8 +19,8 @@ class Object
     void setSphere(Sphere newSphere);
     void setTransform(Matrix4 newTransform);
     void setTriangle(Triangle newTriangle);
+    // Method to apply transform to Sphere/Triangle vector(s)
     void applyTransform();
-
   private:
     Materials objMaterials;
     Triangle objTriangle;

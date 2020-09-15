@@ -152,6 +152,18 @@ TEST_CASE("MathHelper: Multiplication - Matrix4")
   REQUIRE(m1m2.isEqual(m1m2Expected) == true);
 }
 
+TEST_CASE("MathHelper: Mutliplication Matrix3 * Vector3")
+{
+  Matrix3 m1 = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+  Vector3 v1 = Vector3(1, 2, 3);
+
+  v1 = MathHelper::multiply(m1, v1);
+
+  REQUIRE(v1.isEqual(Vector3(14, 32, 50)) == true);
+}
+
+
+
 TEST_CASE("MathHelper: Mutliplication Matrix4 * Vector4")
 {
   Matrix4 m1 = Matrix4(1, 2, 3, 4,
@@ -163,7 +175,6 @@ TEST_CASE("MathHelper: Mutliplication Matrix4 * Vector4")
   v1 = MathHelper::multiply(m1, v1);
 
   REQUIRE(v1.isEqual(Vector4(30, 70, 110, 150)) == true);
-
 }
 
 
@@ -319,4 +330,20 @@ TEST_CASE("MathHelper: Quadratic Equation Solver")
   REQUIRE(t1 == -1);
 
   REQUIRE(MathHelper::solveQuadratic(a3, b3, c3, t0, t1) == false);
+}
+
+TEST_CASE("MathHelper:: Transform Vector3")
+{
+  Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
+                               1, 2, 3, 4,
+                               5, 6, 1, 3,
+                               2, 5, 5, 7);
+
+  Vector3 testVector1 = Vector3(1, 2, 3);
+
+  Vector3 testVector2 = MathHelper::transformVector3(testMatrix, testVector1);
+
+  REQUIRE((floor(testVector2.getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testVector2.getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testVector2.getZ() * 100.0 + 0.5) / 100) == 0.68);  
 }

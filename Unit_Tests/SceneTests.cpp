@@ -4,8 +4,8 @@
 TEST_CASE("Scene: Open Scene Input Text File")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1.test";
-  const char * fileNameFail = "scene10.test";
+  const char * fileNamePass = "Scene_Inputs/scene1.test";
+  const char * fileNameFail = "Scene_Inputs/scene10.test";
   REQUIRE(sceneTest.readScene(fileNamePass) == true);
   REQUIRE(sceneTest.readScene(fileNameFail) == false);
 }
@@ -13,7 +13,7 @@ TEST_CASE("Scene: Open Scene Input Text File")
 TEST_CASE("Scene: Read Scene Input - Ambient Light")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   Lighting testLighting = sceneTest.getLighting();
@@ -25,7 +25,7 @@ TEST_CASE("Scene: Read Scene Input - Ambient Light")
 TEST_CASE("Scene: Read Scene Input - Camera Initialization")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   Camera testCamera = sceneTest.getCamera();
 
@@ -38,7 +38,7 @@ TEST_CASE("Scene: Read Scene Input - Camera Initialization")
 TEST_CASE("Scene: Read Scene Input - Size")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   REQUIRE(sceneTest.getHeight() ==  480);
@@ -48,7 +48,7 @@ TEST_CASE("Scene: Read Scene Input - Size")
 TEST_CASE("Scene: Read Scene Input - Depth")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   REQUIRE(sceneTest.getDepth() ==  10);
@@ -57,7 +57,7 @@ TEST_CASE("Scene: Read Scene Input - Depth")
 TEST_CASE("Scene: Read Scene Input - Vertices")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   Vector3 v1 = sceneTest.getVertex(0);
@@ -74,7 +74,7 @@ TEST_CASE("Scene: Read Scene Input - Vertices")
 TEST_CASE("Scene: Read Scene Input - Objects")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   vector<Object> objects = sceneTest.getObjects();
 
@@ -109,7 +109,7 @@ TEST_CASE("Scene: Read Scene Input - Objects")
 TEST_CASE("Scene: Read Scene Input - PointLight")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   Lighting testLighting = sceneTest.getLighting();
@@ -124,7 +124,7 @@ TEST_CASE("Scene: Read Scene Input - PointLight")
 TEST_CASE("Scene: Read Scene Input - Sphere")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   vector<Sphere> spheres = sceneTest.getSpheres();
   REQUIRE(spheres[0].getPosition().isEqual(Vector3(1, 2, 3)) == true);
@@ -134,7 +134,7 @@ TEST_CASE("Scene: Read Scene Input - Sphere")
 TEST_CASE("Scene: Read Scene Input - Spheres")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
 
   sceneTest.readScene(fileNamePass);
   vector<Sphere> spheres = sceneTest.getSpheres();
@@ -147,7 +147,7 @@ TEST_CASE("Scene: Read Scene Input - Spheres")
 TEST_CASE("Scene: Read Scene Input - Triangle")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   vector<Triangle> triangles = sceneTest.getTriangles();
 
@@ -159,7 +159,7 @@ TEST_CASE("Scene: Read Scene Input - Triangle")
 TEST_CASE("Scene: Read Scene Input - Triangles")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   vector<Triangle> triangles = sceneTest.getTriangles();
 
@@ -174,7 +174,7 @@ TEST_CASE("Scene: Read Scene Input - Triangles")
 TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   vector<Sphere> spheres = sceneTest.getSpheres();
@@ -196,7 +196,7 @@ TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
 TEST_CASE("Scene: Apply Transform Matrix")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "sphereScene.test";
+  const char * fileNamePass = "Scene_Inputs/sphereScene.test";
   sceneTest.readScene(fileNamePass);
 
   //Object testObject = testObjects[0];
@@ -216,7 +216,7 @@ TEST_CASE("Scene: Apply Transform Matrix")
 TEST_CASE("Scene: Render Test Scene")
 {
   Scene sceneTest = Scene();
-  const char * fileNamePass = "scene1Cam4.test";
+  const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
   //sceneTest.renderScene();

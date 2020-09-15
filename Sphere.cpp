@@ -1,5 +1,7 @@
 #include "Sphere.h"
 
+////////////////////////////////////////////////////////////////////////////////
+//Class Constructor Functions
 Sphere::Sphere(float x, float y, float z, float r)
 {
   position = Vector3(x, y, z);
@@ -12,17 +14,12 @@ Sphere::Sphere()
 {
   state = false;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Get Member Functions
 bool Sphere::getState()
 {
   return state;
 }
-
-void Sphere::changeState(bool &newState)
-{
-  state = newState;
-}
-
 
 Vector3 Sphere::getPosition()
 {
@@ -38,7 +35,8 @@ float Sphere::getRadius()
 {
   return radius;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Set Member Functions
 void Sphere::setPosition(Vector3 pos)
 {
   position = pos;
@@ -49,6 +47,12 @@ void Sphere::setHomoPosition(Vector4 homoPos)
   homoPosition = homoPos;
 }
 
+void Sphere::changeState(bool &newState)
+{
+  state = newState;
+}
+////////////////////////////////////////////////////////////////////////////////
+//Method to determine if ray intersects Triangle
 bool Sphere::intersect(Ray &cameraRay)
 {
   float a = MathHelper::dot(cameraRay.getDirection(), cameraRay.getDirection());
@@ -82,8 +86,10 @@ bool Sphere::intersect(Ray &cameraRay)
   cameraRay.setT(t0);
   return true;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+//Method to calculate the surface normal given a point
 Vector3 Sphere::calculateSurfaceNormal(Vector3 point)
 {
   return MathHelper::normalize(point - position);
 }
+////////////////////////////////////////////////////////////////////////////////

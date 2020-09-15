@@ -15,3 +15,18 @@ TEST_CASE("Triangle: Construction")
   REQUIRE(testTriangle1.getV3().isEqual(v3) == true);
   REQUIRE(testTriangle2.getState() == false);
 }
+
+TEST_CASE("Triangle: Intersection Test")
+{
+  Vector3 v1 = Vector3(-1, -1, 0);
+  Vector3 v2 = Vector3(1, -1, 0);
+  Vector3 v3 = Vector3(0, 1, 0);
+  Vector3 origin = Vector3(0, 0, 5);
+  Vector3 direction = MathHelper::normalize(Vector3(0, 0, -1));
+
+  Ray testRay = Ray(origin, direction);
+
+  Triangle testTriangle1 = Triangle(v1, v2, v3);
+
+  REQUIRE(testTriangle1.intersect(testRay) == true);
+}

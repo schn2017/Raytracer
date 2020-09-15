@@ -1,5 +1,6 @@
 #include "Ray.h"
 #include "Sample.h"
+#include "Transform.h"
 
 class Camera
 {

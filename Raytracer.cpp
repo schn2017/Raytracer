@@ -53,8 +53,19 @@ Intersection Raytracer::traceRay(Ray &hitRay)
     }
     else if (triangle.getState() == true)
     {
-      //To do
-      //return true
+      //std::cout << "Triangle found!\n";
+      if (triangle.intersect(hitRay) == true)
+      {
+        //std::cout << "HIT!\n";
+        distance = hitRay.getT();
+
+        Intersection intersection = Intersection(distance, objects[i].getMaterials());
+
+        surfaceNormal = triangle.calculateSurfaceNormal();
+
+        intersection.setSurfaceNormal(surfaceNormal);
+        intersections.push_back(intersection);
+      }
     }
   }
 
@@ -90,8 +101,10 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
       Vector3 cameraDirection = MathHelper::normalize(hitRay.getOrigin() - origin);
       Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
       RGB lightColor = pointLight.getLightColor();
+
       //cout<< "LightColor - ";
       //lightColor.print();
+
       Ray lightRay = Ray(origin + direction, direction);
       Intersection rayIntersection = traceRay(lightRay);
       color = color + emission;
