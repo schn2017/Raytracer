@@ -33,3 +33,19 @@ TEST_CASE("Sphere: Calculate Surface Normal")
 
   REQUIRE(normal.isEqual(point) == true );
 }
+
+TEST_CASE("Sphere: Apply ModelView Matrix")
+{
+  Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
+                               1, 2, 3, 4,
+                               5, 6, 1, 3,
+                               2, 5, 5, 7);
+
+  Sphere testSphere = Sphere(1, 2, 3, 1);
+  
+  testSphere.setPosition(MathHelper::transformVector3(testMatrix, testSphere.getPosition()));
+
+  REQUIRE((floor(testSphere.getPosition().getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testSphere.getPosition().getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testSphere.getPosition().getZ() * 100.0 + 0.5) / 100) == 0.68);
+}

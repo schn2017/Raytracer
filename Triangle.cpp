@@ -167,3 +167,10 @@ Vector3 Triangle::calculateSurfaceNormal()
 
   return MathHelper::normalize(MathHelper::cross(A, B));
 }
+////////////////////////////////////////////////////////////////////////////////
+Vector3 Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
+{
+    v1 = MathHelper::transformVector3(modelViewMatrix, v1);
+    v2 = MathHelper::transformVector3(modelViewMatrix, v2);
+    v3 = MathHelper::transformVector3(modelViewMatrix, v3);    
+}

@@ -30,3 +30,31 @@ TEST_CASE("Triangle: Intersection Test")
 
   REQUIRE(testTriangle1.intersect(testRay) == true);
 }
+
+TEST_CASE("Triangle: Apply ModelView Matrix")
+{
+  Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
+                               1, 2, 3, 4,
+                               5, 6, 1, 3,
+                               2, 5, 5, 7);
+  Vector3 v1 = Vector3(1, 2, 3);
+  Vector3 v2 = Vector3(1, 2, 3);
+  Vector3 v3 = Vector3(1, 2, 3);
+  Triangle testTriangle = Triangle(v1, v2, v3);
+
+  testTriangle.setV1(MathHelper::transformVector3(testMatrix, testTriangle.getV1()));
+  testTriangle.setV2(MathHelper::transformVector3(testMatrix, testTriangle.getV2()));
+  testTriangle.setV3(MathHelper::transformVector3(testMatrix, testTriangle.getV3()));
+
+  REQUIRE((floor(testTriangle.getV1().getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testTriangle.getV1().getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testTriangle.getV1().getZ() * 100.0 + 0.5) / 100) == 0.68);
+
+  REQUIRE((floor(testTriangle.getV2().getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testTriangle.getV2().getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testTriangle.getV2().getZ() * 100.0 + 0.5) / 100) == 0.68);
+
+  REQUIRE((floor(testTriangle.getV3().getX() * 100.0 + 0.5) / 100) == 0.24);
+  REQUIRE((floor(testTriangle.getV3().getY() * 100.0 + 0.5) / 100) == 0.53);
+  REQUIRE((floor(testTriangle.getV3().getZ() * 100.0 + 0.5) / 100) == 0.68);
+}

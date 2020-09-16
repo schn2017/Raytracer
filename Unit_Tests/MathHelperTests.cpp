@@ -115,7 +115,7 @@ TEST_CASE("MathHelper: Magnitude - Vector4")
   REQUIRE(floor(MathHelper::magnitude(v4) * 100.0) / 100.0 == 4.89);
 }
 
-TEST_CASE("MathHelper:: Find Max Value")
+TEST_CASE("MathHelper: Find Max Value")
 {
   REQUIRE(MathHelper::max(5, 10) == 10);
   REQUIRE(MathHelper::max(10, 5) == 10);
@@ -332,7 +332,7 @@ TEST_CASE("MathHelper: Quadratic Equation Solver")
   REQUIRE(MathHelper::solveQuadratic(a3, b3, c3, t0, t1) == false);
 }
 
-TEST_CASE("MathHelper:: Transform Vector3")
+TEST_CASE("MathHelper: Transform Vector3")
 {
   Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
                                1, 2, 3, 4,
@@ -345,5 +345,5 @@ TEST_CASE("MathHelper:: Transform Vector3")
 
   REQUIRE((floor(testVector2.getX() * 100.0 + 0.5) / 100) == 0.24);
   REQUIRE((floor(testVector2.getY() * 100.0 + 0.5) / 100) == 0.53);
-  REQUIRE((floor(testVector2.getZ() * 100.0 + 0.5) / 100) == 0.68);  
+  REQUIRE((floor(testVector2.getZ() * 100.0 + 0.5) / 100) == 0.68);
 }

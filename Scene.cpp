@@ -384,7 +384,6 @@ void Scene::renderScene()
   cout << "\n";
 
   applyViewMatrix();
-  //applyTransform(projectionMatrix);
 
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);

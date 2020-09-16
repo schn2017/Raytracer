@@ -17,13 +17,13 @@ public:
   //Set Member Defitions
   void setV1(Vector3 newVector);
   void setV2(Vector3 newVector);
-  void setV3(Vector3 newVector);    
+  void setV3(Vector3 newVector);
   void changeState(bool &newState);
   //Method Definitions to determine if ray intersects Triangle
   bool intersect(Ray &cameraRay);
   //Method Definition to calculate the surface normal given a point
   Vector3 calculateSurfaceNormal();
-
+  Vector3 applyModelViewMatrix(Matrix4 modelViewMatrix);
 private:
   Vector3 v1;
   Vector3 v1Normal;

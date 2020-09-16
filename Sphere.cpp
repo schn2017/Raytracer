@@ -93,3 +93,7 @@ Vector3 Sphere::calculateSurfaceNormal(Vector3 point)
   return MathHelper::normalize(point - position);
 }
 ////////////////////////////////////////////////////////////////////////////////
+Vector3 Sphere::applyModelViewMatrix(Matrix4 modelViewMatrix)
+{
+  position = MathHelper::transformVector3(modelViewMatrix, position);
+}
