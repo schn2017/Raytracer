@@ -1,5 +1,6 @@
 #include "Vector4.h"
-
+////////////////////////////////////////////////////////////////////////////////
+// Class Constructor Functions
 Vector4::Vector4(float xx, float yy, float zz, float ww){
   x = xx;
   y = yy;
@@ -11,7 +12,8 @@ Vector4::Vector4()
 {
 
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Get Member Functions
 float Vector4::getX(){
   return x;
 }
@@ -27,9 +29,11 @@ float Vector4::getZ(){
 float Vector4::getW(){
   return w;
 }
-void Vector4::toString()
+////////////////////////////////////////////////////////////////////////////////
+//Convert Vector4 to String
+std::string Vector4::toString()
 {
-  std::cout << "Vector4 - X: " << x << " Y: " << y << " Z: " << z << " W: " << w << "\n";
+  return "Vector4 - X: " + std::to_string(x) + " Y: " + std::to_string(y) + " Z: " + std::to_string(z) + " W: " + std::to_string(w) + "\n";
 }
 
 bool Vector4::isEqual(Vector4 other){

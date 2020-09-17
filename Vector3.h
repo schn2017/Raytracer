@@ -1,43 +1,24 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 class Vector3{
   public:
+    //Constructors
     Vector3(float x, float y, float z);
     Vector3();
+    //Get Member Definitions
     float getX();
     float getY();
     float getZ();
+    //Comparison between Vectors, need to change to overridden operator
     bool isEqual(Vector3 other);
-    void toString();
-
-    Vector3 operator+(const Vector3 &otherVector)
-    {
-      float xx = x + otherVector.x;
-      float yy = y + otherVector.y;
-      float zz = z + otherVector.z;
-
-      return Vector3(xx, yy , zz);
-    }
-
-    Vector3 operator-(const Vector3 &otherVector)
-    {
-      float xx = x - otherVector.x;
-      float yy = y - otherVector.y;
-      float zz = z - otherVector.z;
-
-      return Vector3(xx, yy, zz);
-    }
-
-    Vector3 operator*(const float &scalar)
-    {
-      float xx = x * scalar;
-      float yy = y * scalar;
-      float zz = z * scalar;
-
-      return Vector3(xx, yy, zz);
-    }
-
+    //Convert Vector3 to String Defintion
+    std::string toString();
+    //Operator Overides
+    Vector3 operator+(const Vector3 &otherVector);
+    Vector3 operator-(const Vector3 &otherVector);
+    Vector3 operator*(const float &scalar);
   private:
     float x;
     float y;

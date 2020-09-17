@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 class RGB
 {
 public:
@@ -14,7 +15,7 @@ public:
   bool operator!=(const RGB &otherRGB);
   RGB operator*(const float &scalar);
   RGB operator*(const RGB &otherRGB);
-  void print();
+  std::string toString();
 private:
   float R;
   float G;

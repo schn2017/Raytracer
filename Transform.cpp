@@ -5,8 +5,7 @@ Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
 
   Vector3 w = MathHelper::normalize(eye - center);
   Vector3 u = MathHelper::normalize(MathHelper::cross(up,w));
-  Vector3 v = MathHelper::cross(w,u);
-
+  Vector3 v = MathHelper::normalize(MathHelper::cross(w,u));
   Matrix4 rotationMatrix = Matrix4(u.getX(), u.getY(), u.getZ(), 0,
                                    v.getX(), v.getY(), v.getZ(), 0,
                                    w.getX(), w.getY(), w.getZ(), 0,

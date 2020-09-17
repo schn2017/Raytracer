@@ -1,5 +1,6 @@
 #include "RGB.h"
-
+////////////////////////////////////////////////////////////////////////////////
+// Class Constructor Functions
 RGB::RGB(float red, float green, float blue)
 {
   if (red <= 1 && red >= 0)
@@ -40,7 +41,8 @@ RGB::RGB(float red, float green, float blue)
     B = 0;
   }
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Get Member Functions
 RGB::RGB()
 {
 
@@ -60,7 +62,8 @@ float RGB::getBlue()
 {
   return B;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Operator Overrides
 bool RGB::operator==(const RGB &otherRGB)
 {
   return R == otherRGB.R && G == otherRGB.G && B == otherRGB.B;
@@ -192,8 +195,10 @@ RGB RGB::operator*(const RGB &otherRGB)
 
   return RGB(red, green, blue);
 }
-
-void RGB::print()
+////////////////////////////////////////////////////////////////////////////////
+// Convert RBG to string
+std::string RGB::toString()
 {
-  std::cout << "R: " << R << " G: " << G << " B: " << B << "\n";
+  return "R: " + std::to_string(R) + " G: " + std::to_string(G) + " B: " + std::to_string(B) + "\n";
 }
+////////////////////////////////////////////////////////////////////////////////
