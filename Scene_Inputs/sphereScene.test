@@ -1,16 +1,14 @@
-size 1000 1000
+size 100 100
 #size 5000 5000
-camera 0 0 40 0 0 0 0 1 0 100
+camera 0 0 30 0 0 0 0 1 0 100
 
-point 0 0 10 1 0.0 1
+point 0 -30 10 1 0.0 1
 ambient 0.2 0.2 0.2
 emission 0.1 0 0.3
 diffuse 0.2 0 1
 specular 0.5 0 0.5
 shininess 50
 
-#scale 10 2 2
-rotate 1 1 0 -180
-sphere 0 1 -1 4
-#sphere 0 0 5 1
-#sphere 50 -10 -10 20
+sphere -40 -10 -1 4
+sphere 5 0 5 1
+sphere 50 -10 -10 20

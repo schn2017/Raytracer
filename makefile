@@ -11,7 +11,7 @@ main: main.o Camera.o Intersection.o Lighting.o LightSource.o Materials.o MathHe
 	 																 PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
-																	 
+
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c main.cpp
 

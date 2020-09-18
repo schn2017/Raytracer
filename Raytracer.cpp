@@ -27,7 +27,6 @@ RGB Raytracer::getColor(Ray hitRay)
 Intersection Raytracer::traceRay(Ray &hitRay)
 {
   int numberOfObjects = objects.size();
-  float minT = 0;
   float distance = 0;
   //Intersection intersection = Intersection();
   vector<Intersection> intersections;
@@ -88,7 +87,6 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
   float shininess = intersection.getMaterials().getShininess();
   Vector3 surfaceNormal = intersection.getSurfaceNormal();
   RGB color = RGB(0, 0, 0);
-  bool lightFound = false;
 
   int numberOfLights = sceneLights.getLightSources().size();
 
@@ -98,12 +96,13 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
     {
       PointLight pointLight = sceneLights.getLightSource(i).getPointLight();
       Vector3 origin = hitRay.getIntersectionPoint();
-      Vector3 cameraDirection = MathHelper::normalize(hitRay.getOrigin() - origin);
-      Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
-      RGB lightColor = pointLight.getLightColor();
 
-      //cout<< "LightColor - ";
-      //lightColor.print();
+      Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
+
+      cout << "Ray - Origin: " + origin.toString();
+      cout << "Ray - Direction: " + direction.toString();
+
+      RGB lightColor = pointLight.getLightColor();
 
       Ray lightRay = Ray(origin + direction, direction);
       Intersection rayIntersection = traceRay(lightRay);
@@ -120,15 +119,18 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
         float maxnDotH = MathHelper::max(nDotH, 0);
         RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
 
-        //cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
-        //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
+        cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
+        cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
+        //cout << "color - " << color.toString();
       }
-
+      else
+      {
+        //out << "HIT!";
+      }
     }
-
   }
-
+  //cout << "color - " << color.toString();
   return color;
 }
 
@@ -141,6 +143,7 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
       if (i == 0)
       {
         minT = intersections[0].getDistance();
+        minIntersection = 0;
       }
       else
       {

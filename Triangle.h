@@ -2,6 +2,7 @@
 
 #include "Shape.h"
 #include <iostream>
+#include <string>
 
 class Triangle : public Shape
 {
@@ -24,6 +25,7 @@ public:
   //Method Definition to calculate the surface normal given a point
   Vector3 calculateSurfaceNormal();
   void applyModelViewMatrix(Matrix4 modelViewMatrix);
+  std::string toString();
 private:
   Vector3 v1;
   Vector3 v1Normal;
