@@ -225,7 +225,7 @@ bool Scene::readScene(const char *filename)
             Matrix4 scaleMatrix = Transform::scale(objectParameters[0], objectParameters[1], objectParameters[2]);
             cout << "Pre Scaling \n";
             transformStack.top().print();
-            transformStack.top() = MathHelper::multiply(scaleMatrix, transformStack.top());
+            transformStack.top() = MathHelper::multiply(transformStack.top(), scaleMatrix);
             cout << "Scaled! \n";
             transformStack.top().print();
           }
@@ -284,7 +284,7 @@ bool Scene::readScene(const char *filename)
           {
             transformStack.top().print();
             Matrix4 translationMatrix = Transform::translate(objectParameters[0], objectParameters[1], objectParameters[2]);
-            transformStack.top() = MathHelper::multiply(translationMatrix, transformStack.top());
+            transformStack.top() = MathHelper::multiply(transformStack.top(), translationMatrix);
             cout << "Translated! \n";
             transformStack.top().print();
           }
@@ -358,12 +358,10 @@ void Scene::renderScene()
 {
   sceneCamera.setDimensions(height, width);
   sceneCamera.calculateFOVX();
-  cout << "Camera Information:\nLookFrom: ";
-  sceneCamera.getLookFrom().toString();
-  cout << "LookAt: ";
-  sceneCamera.getLookAt().toString();
-  cout << "Up: ";
-  sceneCamera.getUp().toString();
+  cout << "Camera Information:\nLookFrom: " + sceneCamera.getLookFrom().toString();
+  cout << "LookAt: " + sceneCamera.getLookAt().toString();
+  cout << "LookAt: " + sceneCamera.getLookAt().toString();
+  cout << "Up: " +   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
   cout << "Scene Information\n";
@@ -378,8 +376,7 @@ void Scene::renderScene()
   cout << "Number of vertices: " << vertices.size() << "\n";
   for (int i = 0; i < vertices.size(); i++)
   {
-    cout<< "Vertex: ";
-    vertices[i].toString();
+    cout<< "Vertex: " << vertices[i].toString();
   }
   cout << "\n";
 
@@ -425,7 +422,8 @@ void Scene::applyViewMatrix()
 
   for(int i = 0; i < objects.size(); i++)
   {
-    objects[i].setTransform(MathHelper::multiply(viewMatrix, objects[i].getTransform()));
+    objects[i].applyTransform();
+    objects[i].setTransform(viewMatrix);
     objects[i].applyTransform();
   }
 }

@@ -23,7 +23,7 @@ public:
   bool intersect(Ray &cameraRay);
   //Method Definition to calculate the surface normal given a point
   Vector3 calculateSurfaceNormal();
-  Vector3 applyModelViewMatrix(Matrix4 modelViewMatrix);
+  void applyModelViewMatrix(Matrix4 modelViewMatrix);
 private:
   Vector3 v1;
   Vector3 v1Normal;

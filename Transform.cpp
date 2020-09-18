@@ -11,11 +11,13 @@ Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
                                    w.getX(), w.getY(), w.getZ(), 0,
                                    0, 0, 0, 1);
 
+  rotationMatrix.print();
+
   Matrix4 translationMatrix = Transform::translate(-1 * eye.getX(),
                                                    -1 * eye.getY(),
                                                    -1 * eye.getZ());
 
-  return MathHelper::multiply(rotationMatrix, translationMatrix);
+  return MathHelper::multiply(translationMatrix, rotationMatrix);
 }
 
 Matrix4 Transform::perspective(float fovy, float aspect, float zNear, float zFar)

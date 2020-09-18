@@ -64,7 +64,7 @@ Matrix4::Matrix4(Matrix3 mat3)
   elements[12] = 0;
   elements[13] = 0;
   elements[14] = 0;
-  elements[15] = 0;
+  elements[15] = 1;
 }
 
 Matrix4::Matrix4()
