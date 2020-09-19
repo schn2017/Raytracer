@@ -4,9 +4,12 @@ Matrix3 MathHelper::add(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 sum = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    sum.setElement(i, m1.getElements()[i] + m2.getElements()[i]);
+    for (int j = 0; j < 3; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i, j) + m2.getElement(i, j));
+    }
   }
 
   return sum;
@@ -36,6 +39,13 @@ Vector3 MathHelper::cross(Vector3 v1, Vector3 v2)
 
   return Vector3(i, j, k);
 }
+
+float MathHelper::determinant(Matrix3 m1)
+{
+    int sum = 0;
+    return sum;
+}
+
 
 float MathHelper::dot(Vector3 v1, Vector3 v2)
 {
@@ -83,10 +93,24 @@ Matrix3 MathHelper::multiply(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 product = Matrix3();
 
-  int row = -1, col = -1;
+  //int row = -1, col = -1;
   float value = 0;
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      value = m1.getElement(i, 0) * m2.getElement(0, j)
+              + m1.getElement(i, 1) * m2.getElement(1, j)
+              + m1.getElement(i, 2) * m2.getElement(2, j);
+
+      product.setElement(i, j, value);
+    }
+  }
+
+
+
+  /*for (int i = 0; i < 9; i++)
   {
     col = i % 3;
     row = (i / 3) + (2 * (i / 3));
@@ -96,7 +120,7 @@ Matrix3 MathHelper::multiply(Matrix3 m1, Matrix3 m2)
             +(m1.getElements()[row + 2] * m2.getElements()[col + 6]);
 
     product.setElement(i, value);
-  }
+  }*/
 
   return product;
 }
@@ -126,7 +150,18 @@ Matrix4 MathHelper::multiply(Matrix4 m1, Matrix4 m2)
 
 Vector3 MathHelper::multiply(Matrix3 m1, Vector3 v1)
 {
-  float x = (m1.getElements()[0] * v1.getX())
+  float dimensions[3];
+
+  for (int i = 0; i < 3; i++)
+  {
+      dimensions[i] = m1.getElement(i, 0) * v1.getX()
+                      + m1.getElement(i, 1) * v1.getY()
+                      + m1.getElement(i, 2) * v1.getZ();
+  }
+
+
+
+  /*float x = (m1.getElements()[0] * v1.getX())
             + (m1.getElements()[1] * v1.getY())
             + (m1.getElements()[2] * v1.getZ());
   float y = (m1.getElements()[3] * v1.getX())
@@ -136,7 +171,8 @@ Vector3 MathHelper::multiply(Matrix3 m1, Vector3 v1)
             + (m1.getElements()[7] * v1.getY())
             + (m1.getElements()[8] * v1.getZ());
 
-  return Vector3(x, y, z);
+  return Vector3(x, y, z);*/
+  return Vector3(dimensions[0], dimensions[1], dimensions[2]);
 }
 
 
@@ -192,9 +228,12 @@ Matrix3 MathHelper::scalarMultiply(float scalar, Matrix3 m1)
 {
   Matrix3 product = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    product.setElement(i, m1.getElements()[i] * scalar);
+    for (int j = 0; j < 3; j++)
+    {
+      product.setElement(i, j, m1.getElement(i,j) * scalar);
+    }
   }
 
   return product;
@@ -217,9 +256,12 @@ Matrix3 MathHelper::sub(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 sum = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    sum.setElement(i, m1.getElements()[i] - m2.getElements()[i]);
+    for (int j = 0; j < 3; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i,j) - m2.getElement(i,j));
+    }
   }
 
   return sum;

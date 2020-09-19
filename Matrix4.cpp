@@ -29,17 +29,17 @@ Matrix4::Matrix4(float r0x, float r0y, float r0z, float r0w,
 Matrix4::Matrix4(Matrix3 mat3, float r0w, float r1w, float r2w, float r3x,
                 float r3y, float r3z, float r3w)
 {
-  elements[0] = mat3.getElements()[0];
-  elements[1] = mat3.getElements()[1];
-  elements[2] = mat3.getElements()[2];
+  elements[0] = mat3.getElement(0, 0);
+  elements[1] = mat3.getElement(0, 1);
+  elements[2] = mat3.getElement(0, 2);
   elements[3] = r0w;
-  elements[4] = mat3.getElements()[3];
-  elements[5] = mat3.getElements()[4];
-  elements[6] = mat3.getElements()[5];
+  elements[4] = mat3.getElement(1, 0);
+  elements[5] = mat3.getElement(1, 1);
+  elements[6] = mat3.getElement(1, 2);
   elements[7] = r1w;
-  elements[8] = mat3.getElements()[6];
-  elements[9] = mat3.getElements()[7];
-  elements[10] = mat3.getElements()[8];
+  elements[8] = mat3.getElement(2, 0);
+  elements[9] = mat3.getElement(2, 1);
+  elements[10] = mat3.getElement(2, 2);
   elements[11] = r2w;
   elements[12] = r3x;
   elements[13] = r3y;
@@ -49,17 +49,17 @@ Matrix4::Matrix4(Matrix3 mat3, float r0w, float r1w, float r2w, float r3x,
 
 Matrix4::Matrix4(Matrix3 mat3)
 {
-  elements[0] = mat3.getElements()[0];
-  elements[1] = mat3.getElements()[1];
-  elements[2] = mat3.getElements()[2];
+  elements[0] = mat3.getElement(0, 0);
+  elements[1] = mat3.getElement(0, 1);
+  elements[2] = mat3.getElement(0, 2);
   elements[3] = 0;
-  elements[4] = mat3.getElements()[3];
-  elements[5] = mat3.getElements()[4];
-  elements[6] = mat3.getElements()[5];
+  elements[4] = mat3.getElement(1, 0);
+  elements[5] = mat3.getElement(1, 1);
+  elements[6] = mat3.getElement(1, 2);
   elements[7] = 0;
-  elements[8] = mat3.getElements()[6];
-  elements[9] = mat3.getElements()[7];
-  elements[10] = mat3.getElements()[8];
+  elements[8] = mat3.getElement(2, 0);
+  elements[9] = mat3.getElement(2, 1);
+  elements[10] = mat3.getElement(2, 2);
   elements[11] = 0;
   elements[12] = 0;
   elements[13] = 0;

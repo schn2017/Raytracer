@@ -169,17 +169,16 @@ Vector3 Triangle::calculateSurfaceNormal()
 }
 ////////////////////////////////////////////////////////////////////////////////
 void Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
-{
-  /*  std::cout << "Pre Model View Matrix\n"<< toString();
+{/*
     v1 = MathHelper::transformVector3(modelViewMatrix, v1);
     v2 = MathHelper::transformVector3(modelViewMatrix, v2);
-    v3 = MathHelper::transformVector3(modelViewMatrix, v3);
-    std::cout << "Post Model View Matrix\n"<< toString();
-    std::cout << toString();*/
+    v3 = MathHelper::transformVector3(modelViewMatrix, v3);*/
 }
 //
 std::string Triangle::toString()
 {
   return "Triangle \nVertex 1: " + v1.toString() + "Vertex 2: " + v2.toString() + "Vertex 3: " + v3.toString();
+
+
 
 }

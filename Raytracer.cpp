@@ -99,8 +99,8 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
 
       Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
 
-      cout << "Ray - Origin: " + origin.toString();
-      cout << "Ray - Direction: " + direction.toString();
+      //cout << "Ray - Origin: " + origin.toString();
+      //cout << "Ray - Direction: " + direction.toString();
 
       RGB lightColor = pointLight.getLightColor();
 
@@ -119,8 +119,8 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
         float maxnDotH = MathHelper::max(nDotH, 0);
         RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
 
-        cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
-        cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
+      //  cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
+        //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
         //cout << "color - " << color.toString();
       }

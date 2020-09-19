@@ -123,10 +123,10 @@ TEST_CASE("MathHelper: Find Max Value")
 
 TEST_CASE("MathHelper: Multiplication - Matrix3")
 {
-  Matrix3 m1 = Matrix3(1,2,3,4,5,6,7,8,9);
-  Matrix3 m2 = Matrix3(1,2,3,4,5,6,7,8,9);
+  Matrix3 m1 = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+  Matrix3 m2 = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
   Matrix3 m1m2 = MathHelper::multiply(m1, m2);
-  Matrix3 m1m2Expected= Matrix3(30, 36, 42, 66, 81, 96, 102, 126, 150);
+  Matrix3 m1m2Expected = Matrix3(30, 36, 42, 66, 81, 96, 102, 126, 150);
 
   REQUIRE(m1m2.isEqual(m1m2Expected) == true);
 
@@ -232,9 +232,12 @@ TEST_CASE("MathHelper: Scalar Multiplication Matrix3")
   Matrix3 expectedValue = Matrix3(2, 4, 6,
                                   8, 10, 12,
                                   14, 16, 18);
-  for(int i = 0; i < 9; i++)
+  for(int i = 0; i < 3; i++)
   {
-    REQUIRE(m1Scaled.getElements()[i] == expectedValue.getElements()[i]);
+    for (int j = 0; j < 3; j++)
+    {
+      REQUIRE(m1Scaled.getElement(i, j) == expectedValue.getElement(i, j));
+    }
   }
 }
 

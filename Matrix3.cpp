@@ -5,58 +5,61 @@ Matrix3::Matrix3(float r0x, float r0y, float r0z,
                  float r1x, float r1y, float r1z,
                  float r2x, float r2y, float r2z)
 {
-  elements[0] = r0x;
-  elements[1] = r0y;
-  elements[2] = r0z;
-  elements[3] = r1x;
-  elements[4] = r1y;
-  elements[5] = r1z;
-  elements[6] = r2x;
-  elements[7] = r2y;
-  elements[8] = r2z;
+  elements[0][0] = r0x;
+  elements[0][1] = r0y;
+  elements[0][2] = r0z;
+  elements[1][0] = r1x;
+  elements[1][1] = r1y;
+  elements[1][2] = r1z;
+  elements[2][0] = r2x;
+  elements[2][1] = r2y;
+  elements[2][2] = r2z;
 }
 
 Matrix3::Matrix3()
 {
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    elements[i] = 0;
+    for (int j = 0; j < 3; j++)
+    {
+      elements[i][j] = 0;
+    }
   }
 }
-
 
 bool Matrix3::isEqual(Matrix3 other)
 {
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    if(elements[i] != other.getElements()[i])
+    for (int j = 0; j < 3; j++)
     {
-      return false;
+      if(elements[i][j] != other.getElement(i,j))
+      {
+        return false;
+      }
     }
   }
-
   return true;
 }
 
-float * Matrix3::getElements()
+float Matrix3::getElement(int row, int column)
 {
-  float *matrix = elements;
-
-  return matrix;
-
+  return elements[row][column];
 }
 
-void Matrix3::setElement(int elementNumber, float value)
+void Matrix3::setElement(int row, int column, float value)
 {
-  elements[elementNumber] = value;
+  elements[row][column] = value;
 }
 
 void Matrix3::print()
 {
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    std::cout<< elements[i] << " ";
-
+    for (int j = 0; j < 3; j++)
+    {
+    std::cout << elements[i][j] << " ";
+    }
   }
   std::cout<< "\n ";
 }

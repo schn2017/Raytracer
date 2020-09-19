@@ -35,7 +35,7 @@ TEST_CASE("Matrix4: Construction - Only Vec3")
   Matrix4 m3 = Matrix4(1, 2, 3, 0,
                        4, 5, 6, 0,
                        7, 8, 9, 0,
-                       0, 0, 0, 0);
+                       0, 0, 0, 1);
 
   REQUIRE(m2.isEqual(m3) == true);
 }

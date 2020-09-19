@@ -360,7 +360,6 @@ void Scene::renderScene()
   sceneCamera.calculateFOVX();
   cout << "Camera Information:\nLookFrom: " + sceneCamera.getLookFrom().toString();
   cout << "LookAt: " + sceneCamera.getLookAt().toString();
-  cout << "LookAt: " + sceneCamera.getLookAt().toString();
   cout << "Up: " +   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
