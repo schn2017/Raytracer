@@ -16,6 +16,8 @@ public:
   static Matrix3 add(Matrix3 m1, Matrix3 m2);
   static Matrix4 add(Matrix4 m1, Matrix4 m2);
   static float determinant(Matrix3 m1);
+  static void determinantSubArray2X2(Matrix3 m1, int row, int column, float array[4]);
+  static Matrix3 determinantSubArray3X3(Matrix4 m1, int row, int column);
   static float dot(Vector3 v1, Vector3 v2);
   static float dot(Vector4 v1, Vector4 v2);
   static Vector3 cross(Vector3 v1, Vector3 v2);

@@ -65,6 +65,48 @@ TEST_CASE("MathHelper: Cross Product - Vector3")
   REQUIRE(MathHelper::cross(v3, v4).isEqual(MathHelper::cross(v4, v3)) == false);
 }
 
+TEST_CASE("MathHelper: Determinant - Matrix 3")
+{
+  Matrix3 testMatrix1 = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+  Matrix3 testMatrix2 = Matrix3(1, 2, 3, 4, 5, 7, 7, 8, 9);
+
+  REQUIRE(MathHelper::determinant(testMatrix1) == 0);
+  REQUIRE(MathHelper::determinant(testMatrix2) == 6);
+}
+
+TEST_CASE("MathHelper: Determinant Sub Array Test")
+{
+  Matrix3 testMatrix = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+  float testArray[4];
+
+  // 1 2 3
+  // 4 5 6
+  // 7 8 9
+
+  MathHelper::determinantSubArray2X2(testMatrix, 0, 0, testArray);
+
+  REQUIRE(testArray[0] == 5);
+  REQUIRE(testArray[1] == 6);
+  REQUIRE(testArray[2] == 8);
+  REQUIRE(testArray[3] == 9);
+
+  MathHelper::determinantSubArray2X2(testMatrix, 0, 1, testArray);
+
+  REQUIRE(testArray[0] == 4);
+  REQUIRE(testArray[1] == 6);
+  REQUIRE(testArray[2] == 7);
+  REQUIRE(testArray[3] == 9);
+
+  MathHelper::determinantSubArray2X2(testMatrix, 0, 2, testArray);
+
+  REQUIRE(testArray[0] == 4);
+  REQUIRE(testArray[1] == 5);
+  REQUIRE(testArray[2] == 7);
+  REQUIRE(testArray[3] == 8);
+
+}
+
 TEST_CASE("MathHelper: Dot Product - Vector3")
 {
   Vector3 v1 = Vector3(1, 2, 3);
@@ -256,9 +298,12 @@ TEST_CASE("MathHelper: Scalar Multiplication Matrix4")
                                   18, 20, 22, 24,
                                   26, 28, 30, 32);
 
-  for(int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    REQUIRE(m1Scaled.getElements()[i] == expectedValue.getElements()[i]);
+    for (int j = 0; j < 4; j++)
+    {
+      REQUIRE(m1Scaled.getElement(i, j) == expectedValue.getElement(i, j));      
+    }
   }
 }
 

@@ -11,10 +11,11 @@ public:
   Matrix4(Matrix3 mat3);
   Matrix4();
 
-  float * getElements();
-  void setElement(int elementNumber, float value);
+  float getElement(int row, int column);
+  void setElement(int row, int column, float value);
   void print();
   bool isEqual(Matrix4 other);
+
 private:
-  float elements[16];
+  float elements[4][4];
 };

@@ -4,14 +4,22 @@
 
 TEST_CASE("Matrix4: Construction - All Floats")
 {
-  Matrix4 testMatrix = Matrix4(0, 1, 2, 3,
+  Matrix4 testMatrix1 = Matrix4(0, 1, 2, 3,
                                4, 5, 6, 7,
                                8, 9, 10, 11,
                                12, 13, 14, 15);
 
-  for (int i = 0; i < 16; i++)
+Matrix4 testMatrix2 = Matrix4(0, 1, 2, 3,
+                             4, 5, 6, 7,
+                             8, 9, 10, 11,
+                             12, 13, 14, 15);
+
+  for (int i = 0; i < 4; i++)
   {
-    REQUIRE(testMatrix.getElements()[i] == i);
+    for (int j = 0; j < 4; j++)
+    {
+      REQUIRE(testMatrix1.getElement(i, j) == testMatrix2.getElement(i, j));
+    }
   }
 }
 
@@ -42,11 +50,14 @@ TEST_CASE("Matrix4: Construction - Only Vec3")
 
 TEST_CASE("Matrix4: Construction - No Inputs")
 {
-  Matrix4 testMatrix = Matrix4();
+  Matrix4 testMatrix1 = Matrix4();
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    REQUIRE(testMatrix.getElements()[i] == 0);
+    for (int j = 0; j < 4; j++)
+    {
+      REQUIRE(testMatrix1.getElement(i, j) == 0);
+    }
   }
 
 }
