@@ -45,6 +45,22 @@ TEST_CASE("MathHelper: Addition - Matrix4")
   REQUIRE(MathHelper::add(m1, m3).isEqual(zeros) == true);
 }
 
+TEST_CASE("MathHelper: Create Adjugate matrix")
+{
+  Matrix4 testMatrix = Matrix4(1, 1, 1, -1,
+                               1, 1, -1, 1,
+                               1, -1, 1, 1,
+                              -1, 1, 1, 1);
+
+  Matrix4 expectedMatrix = Matrix4(-4, -4, -4, 4,
+                                   -4, -4, 4, -4,
+                                   -4, 4, -4, -4,
+                                    4, -4, -4, -4);
+
+  Matrix4 adjugateMatrix = MathHelper::adjugateMatrix4X4(testMatrix);
+  REQUIRE(adjugateMatrix.isEqual(expectedMatrix));
+}
+
 TEST_CASE("MathHelper: Cross Product - Vector3")
 {
   Vector3 v1 = Vector3(1, 2, 3);
@@ -74,7 +90,7 @@ TEST_CASE("MathHelper: Determinant - Matrix 3")
   REQUIRE(MathHelper::determinant(testMatrix2) == 6);
 }
 
-TEST_CASE("MathHelper: Determinant Sub Array Test")
+TEST_CASE("MathHelper: Determinant Sub Array 2X2")
 {
   Matrix3 testMatrix = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
@@ -107,6 +123,21 @@ TEST_CASE("MathHelper: Determinant Sub Array Test")
 
 }
 
+TEST_CASE("MathHelper: Determinant Sub Array 3X3")
+{
+  Matrix4 m1 = Matrix4(1, 2, 3, 4,
+                       5, 6, 7, 8,
+                       9, 10, 11, 12,
+                       13, 14, 15, 16);
+
+  Matrix3 testMatrix3X3 = MathHelper::determinantSubArray3X3(m1, 0, 0);
+  Matrix3 expectedValue1 = Matrix3(6, 7, 8, 10, 11, 12, 14, 15, 16);
+
+  REQUIRE(testMatrix3X3.isEqual(expectedValue1) == true);
+
+}
+
+
 TEST_CASE("MathHelper: Dot Product - Vector3")
 {
   Vector3 v1 = Vector3(1, 2, 3);
@@ -129,6 +160,22 @@ TEST_CASE("MathHelper: Dot Product - Vector4")
   REQUIRE(MathHelper::dot(v1, v2) == MathHelper::dot(v2, v1));
   REQUIRE(MathHelper::dot(v1, v3) == 0);
   REQUIRE(MathHelper::dot(v1, v4) == 5.5);
+}
+
+TEST_CASE("MathHelper: Inverse Matrix 4X4")
+{
+  Matrix4 testMatrix = Matrix4(1, 1, 1, -1,
+                               1, 1, -1, 1,
+                               1, -1, 1, 1,
+                              -1, 1, 1, 1);
+
+  Matrix4 inverse = MathHelper::inverseMatrix4(testMatrix);
+  Matrix4 expectedMatrix = Matrix4(0.25, 0.25, 0.25, -0.25,
+                                   0.25, 0.25, -0.25, 0.25,
+                                   0.25, -0.25, 0.25, 0.25,
+                                  -0.25, 0.25, 0.25, 0.25);
+
+  REQUIRE(inverse.isEqual(expectedMatrix) == true);
 }
 
 TEST_CASE("MathHelper: Magnitude - Vector3")
@@ -302,7 +349,7 @@ TEST_CASE("MathHelper: Scalar Multiplication Matrix4")
   {
     for (int j = 0; j < 4; j++)
     {
-      REQUIRE(m1Scaled.getElement(i, j) == expectedValue.getElement(i, j));      
+      REQUIRE(m1Scaled.getElement(i, j) == expectedValue.getElement(i, j));
     }
   }
 }

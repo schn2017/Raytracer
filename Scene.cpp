@@ -368,16 +368,16 @@ void Scene::renderScene()
   cout << "Number of Objects: " << objects.size() << "\n";
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
   cout << "\nView Matrix\n";
-  viewMatrix.print();
+  //viewMatrix.print();
   //cout << "Projection Matrix\n";
   //projectionMatrix.print();
 
   cout << "Number of vertices: " << vertices.size() << "\n";
-  for (int i = 0; i < vertices.size(); i++)
+  /*for (int i = 0; i < vertices.size(); i++)
   {
     cout<< "Vertex: " << vertices[i].toString();
   }
-  cout << "\n";
+  cout << "\n";*/
 
   applyViewMatrix();
 
