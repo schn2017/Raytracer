@@ -134,9 +134,7 @@ TEST_CASE("MathHelper: Determinant Sub Array 3X3")
   Matrix3 expectedValue1 = Matrix3(6, 7, 8, 10, 11, 12, 14, 15, 16);
 
   REQUIRE(testMatrix3X3.isEqual(expectedValue1) == true);
-
 }
-
 
 TEST_CASE("MathHelper: Dot Product - Vector3")
 {
@@ -441,4 +439,21 @@ TEST_CASE("MathHelper: Transform Vector3")
   REQUIRE((floor(testVector2.getX() * 100.0 + 0.5) / 100) == 0.24);
   REQUIRE((floor(testVector2.getY() * 100.0 + 0.5) / 100) == 0.53);
   REQUIRE((floor(testVector2.getZ() * 100.0 + 0.5) / 100) == 0.68);
+}
+
+TEST_CASE("MathHelper: Transpose Matrix4")
+{
+  Matrix4 testMatrix = Matrix4(1, 2, 3, 4,
+                               5, 6, 7, 8,
+                               9, 10, 11, 12,
+                               13, 14, 15, 16);
+
+  Matrix4 expectedMatrix = Matrix4(1, 5, 9, 13,
+                                   2, 6, 10, 14,
+                                   3, 7, 11, 15,
+                                   4, 8, 12, 16);
+
+  testMatrix = MathHelper::transpose(testMatrix);
+
+  REQUIRE(testMatrix.isEqual(expectedMatrix) == true);
 }

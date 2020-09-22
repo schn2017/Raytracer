@@ -409,3 +409,18 @@ Vector3 MathHelper::transformVector3(Matrix4 m1, Vector3 v1)
               transformationVector.getY() / transformationVector.getW(),
               transformationVector.getZ() / transformationVector.getW());
 }
+
+Matrix4 MathHelper::transpose(Matrix4 m1)
+{
+  Matrix4 transposeMatrix = Matrix4();
+
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 4; j++)
+    {
+      transposeMatrix.setElement(j, i, m1.getElement(i, j));
+    }
+  }
+  
+  return transposeMatrix;
+}
