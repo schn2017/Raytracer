@@ -368,11 +368,11 @@ void Scene::renderScene()
   cout << "Number of Objects: " << objects.size() << "\n";
   //Matrix4 projectionMatrix = Transform::perspective(sceneCamera.getFOVY(), height / width, 0, 100);
   cout << "\nView Matrix\n";
-  //viewMatrix.print();
+  viewMatrix.print();
   //cout << "Projection Matrix\n";
   //projectionMatrix.print();
 
-  cout << "Number of vertices: " << vertices.size() << "\n";
+  //cout << "Number of vertices: " << vertices.size() << "\n";
   /*for (int i = 0; i < vertices.size(); i++)
   {
     cout<< "Vertex: " << vertices[i].toString();
@@ -421,8 +421,13 @@ void Scene::applyViewMatrix()
 
   for(int i = 0; i < objects.size(); i++)
   {
-    objects[i].applyTransform();
-    objects[i].setTransform(viewMatrix);
+    cout << "\nModel Matrix\n";
+    objects[i].getTransform().print();
+    Matrix4 modelViewMatrix = MathHelper::multiply(viewMatrix, objects[i].getTransform());
+
+    cout << "\nModel View Matrix\n";
+    modelViewMatrix.print();
+    objects[i].setTransform(modelViewMatrix);
     objects[i].applyTransform();
   }
 }

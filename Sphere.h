@@ -23,7 +23,7 @@ public:
   //Method Definition to calculate the surface normal given a point
   Vector3 calculateSurfaceNormal(Vector3 point);
 
-  Vector3 applyModelViewMatrix(Matrix4 modelViewMatrix);
+  void applyModelViewMatrix(Matrix4 modelViewMatrix);
 private:
   Vector3 position;
   Vector4 homoPosition;
