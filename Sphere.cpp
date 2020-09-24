@@ -4,8 +4,8 @@
 //Class Constructor Functions
 Sphere::Sphere(float x, float y, float z, float r)
 {
-  position = Vector3(x, y, z);
-  homoPosition = Vector4(x, y, z, 1);
+  position = Point(x, y, z);
+  //homoPosition = Vector4(x, y, z, 1);
   radius = r;
   state = true;
 }
@@ -21,15 +21,15 @@ bool Sphere::getState()
   return state;
 }
 
-Vector3 Sphere::getPosition()
+Point Sphere::getPosition()
 {
   return position;
 }
 
-Vector4 Sphere::getHomoPosition()
+/*Vector4 Sphere::getHomoPosition()
 {
   return homoPosition;
-}
+}*/
 
 float Sphere::getRadius()
 {
@@ -37,15 +37,15 @@ float Sphere::getRadius()
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Set Member Functions
-void Sphere::setPosition(Vector3 pos)
+void Sphere::setPosition(Point pos)
 {
   position = pos;
 }
 
-void Sphere::setHomoPosition(Vector4 homoPos)
+/*void Sphere::setHomoPosition(Vector4 homoPos)
 {
   homoPosition = homoPos;
-}
+}*/
 
 void Sphere::changeState(bool &newState)
 {
@@ -88,12 +88,13 @@ bool Sphere::intersect(Ray &cameraRay)
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Method to calculate the surface normal given a point
-Vector3 Sphere::calculateSurfaceNormal(Vector3 point)
+Vector3 Sphere::calculateSurfaceNormal(Point point)
 {
-  return MathHelper::normalize(point - position);
+  Vector3 normal = point - position;
+  return MathHelper::normalize(normal);
 }
 ////////////////////////////////////////////////////////////////////////////////
 void Sphere::applyModelViewMatrix(Matrix4 modelViewMatrix)
 {
-  position = MathHelper::transformVector3(modelViewMatrix, position);
+  position = modelViewMatrix * position;
 }

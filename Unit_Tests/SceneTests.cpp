@@ -29,8 +29,8 @@ TEST_CASE("Scene: Read Scene Input - Camera Initialization")
   sceneTest.readScene(fileNamePass);
   Camera testCamera = sceneTest.getCamera();
 
-  REQUIRE(testCamera.getLookFrom().isEqual(Vector3(-4, -4, 4)) == true);
-  REQUIRE(testCamera.getLookAt().isEqual(Vector3(1, 0, 0)) == true);
+  REQUIRE((testCamera.getLookFrom() == Point(-4, -4, 4)) == true);
+  REQUIRE((testCamera.getLookAt() == Point(1, 0, 0)) == true);
   REQUIRE(testCamera.getUp().isEqual(Vector3(0, 1, 0)) == true);
   REQUIRE(testCamera.getFOVY() == 30);
 }
@@ -60,15 +60,15 @@ TEST_CASE("Scene: Read Scene Input - Vertices")
   const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
-  Vector3 v1 = sceneTest.getVertex(0);
-  Vector3 v2 = sceneTest.getVertex(1);
-  Vector3 v3 = sceneTest.getVertex(2);
-  Vector3 v4 = sceneTest.getVertex(3);
+  Point p1 = sceneTest.getVertex(0);
+  Point p2 = sceneTest.getVertex(1);
+  Point p3 = sceneTest.getVertex(2);
+  Point p4 = sceneTest.getVertex(3);
 
-  REQUIRE(v1.isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(v2.isEqual(Vector3(1, -1, 0)) == true);
-  REQUIRE(v3.isEqual(Vector3(1, 1, 0)) == true);
-  REQUIRE(v4.isEqual(Vector3(-1, 1, 0)) == true);
+  REQUIRE((p1 == Point(-1, -1, 0)) == true);
+  REQUIRE((p2 == Point(1, -1, 0)) == true);
+  REQUIRE((p3 == Point(1, 1, 0)) == true);
+  REQUIRE((p4 == Point(-1, 1, 0)) == true);
 }
 
 TEST_CASE("Scene: Read Scene Input - Objects")
@@ -87,22 +87,22 @@ TEST_CASE("Scene: Read Scene Input - Objects")
   Triangle testTriangle2 = objects[3].getTriangle();
 
   // Vectors for triangle tests
-  Vector3 v1 = Vector3(-1, -1, 0);
-  Vector3 v2 = Vector3(1, -1, 0);
-  Vector3 v3 = Vector3(1, 1, 0);
-  Vector3 v4 = Vector3(-1, 1, 0);
+  Point v1 = Point(-1, -1, 0);
+  Point v2 = Point(1, -1, 0);
+  Point v3 = Point(1, 1, 0);
+  Point v4 = Point(-1, 1, 0);
 
   // Test Spheres
   REQUIRE(testSphere1.getRadius() == 10);
   REQUIRE(testSphere2.getRadius() == 2);
 
   // Test triangles
-  REQUIRE(testTriangle1.getV1().isEqual(v1) == true);
-  REQUIRE(testTriangle1.getV2().isEqual(v2) == true);
-  REQUIRE(testTriangle1.getV3().isEqual(v3) == true);
-  REQUIRE(testTriangle2.getV1().isEqual(v1) == true);
-  REQUIRE(testTriangle2.getV2().isEqual(v3) == true);
-  REQUIRE(testTriangle2.getV3().isEqual(v4) == true);
+  REQUIRE((testTriangle1.getP1() == v1) == true);
+  REQUIRE((testTriangle1.getP2() == v2) == true);
+  REQUIRE((testTriangle1.getP3() == v3) == true);
+  REQUIRE((testTriangle2.getP1() == v1) == true);
+  REQUIRE((testTriangle2.getP2() == v3) == true);
+  REQUIRE((testTriangle2.getP3() == v4) == true);
 
 }
 
@@ -115,7 +115,7 @@ TEST_CASE("Scene: Read Scene Input - PointLight")
   Lighting testLighting = sceneTest.getLighting();
   PointLight testPointLight = testLighting.getLightSource(0).getPointLight();
 
-  REQUIRE(testPointLight.getPosition().isEqual(Vector3(4, 0, 4)) == true);
+  REQUIRE((testPointLight.getPosition() == Point(4, 0, 4)) == true);
   REQUIRE((testPointLight.getLightColor() == RGB(0.5, 0.5, 0.5)) == true);
   REQUIRE(testPointLight.getState() == true);
 }
@@ -127,7 +127,7 @@ TEST_CASE("Scene: Read Scene Input - Sphere")
   const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
   vector<Sphere> spheres = sceneTest.getSpheres();
-  REQUIRE(spheres[0].getPosition().isEqual(Vector3(1, 2, 3)) == true);
+  REQUIRE((spheres[0].getPosition() == Point(1, 2, 3)) == true);
   REQUIRE(spheres[0].getRadius() == 10);
 }
 
@@ -138,9 +138,9 @@ TEST_CASE("Scene: Read Scene Input - Spheres")
 
   sceneTest.readScene(fileNamePass);
   vector<Sphere> spheres = sceneTest.getSpheres();
-  REQUIRE(spheres[0].getPosition().isEqual(Vector3(1, 2, 3)) == true);
+  REQUIRE((spheres[0].getPosition() == Point(1, 2, 3)) == true);
   REQUIRE(spheres[0].getRadius() == 10);
-  REQUIRE(spheres[1].getPosition().isEqual(Vector3(4, 5, 6)) == true);
+  REQUIRE((spheres[1].getPosition() == Point(4, 5, 6)) == true);
   REQUIRE(spheres[1].getRadius() == 2);
 }
 
@@ -151,9 +151,9 @@ TEST_CASE("Scene: Read Scene Input - Triangle")
   sceneTest.readScene(fileNamePass);
   vector<Triangle> triangles = sceneTest.getTriangles();
 
-  REQUIRE(triangles[0].getV1().isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV2().isEqual(Vector3(1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV3().isEqual(Vector3(1, 1, 0)) == true);
+  REQUIRE((triangles[0].getP1() == Point(-1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP2() == Point(1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP3() == Point(1, 1, 0)) == true);
 }
 
 TEST_CASE("Scene: Read Scene Input - Triangles")
@@ -163,12 +163,12 @@ TEST_CASE("Scene: Read Scene Input - Triangles")
   sceneTest.readScene(fileNamePass);
   vector<Triangle> triangles = sceneTest.getTriangles();
 
-  REQUIRE(triangles[0].getV1().isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV2().isEqual(Vector3(1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV3().isEqual(Vector3(1, 1, 0)) == true);
-  REQUIRE(triangles[1].getV1().isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(triangles[1].getV2().isEqual(Vector3(1, 1, 0)) == true);
-  REQUIRE(triangles[1].getV3().isEqual(Vector3(-1, 1, 0)) == true);
+  REQUIRE((triangles[0].getP1() == Point(-1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP2() == Point(1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP3() == Point(1, 1, 0)) == true);
+  REQUIRE((triangles[1].getP1() == Point(-1, -1, 0)) == true);
+  REQUIRE((triangles[1].getP2() == Point(1, 1, 0)) == true);
+  REQUIRE((triangles[1].getP3() == Point(-1, 1, 0)) == true);
 }
 
 TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
@@ -180,17 +180,17 @@ TEST_CASE("Scene: Read Scene Input - Spheres and Triangles")
   vector<Sphere> spheres = sceneTest.getSpheres();
   vector<Triangle> triangles = sceneTest.getTriangles();
 
-  REQUIRE(spheres[0].getPosition().isEqual(Vector3(1, 2, 3)) == true);
+  REQUIRE((spheres[0].getPosition() == Point(1, 2, 3)) == true);
   REQUIRE(spheres[0].getRadius() == 10);
-  REQUIRE(spheres[1].getPosition().isEqual(Vector3(4, 5, 6)) == true);
+  REQUIRE((spheres[1].getPosition() == Point(4, 5, 6)) == true);
   REQUIRE(spheres[1].getRadius() == 2);
 
-  REQUIRE(triangles[0].getV1().isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV2().isEqual(Vector3(1, -1, 0)) == true);
-  REQUIRE(triangles[0].getV3().isEqual(Vector3(1, 1, 0)) == true);
-  REQUIRE(triangles[1].getV1().isEqual(Vector3(-1, -1, 0)) == true);
-  REQUIRE(triangles[1].getV2().isEqual(Vector3(1, 1, 0)) == true);
-  REQUIRE(triangles[1].getV3().isEqual(Vector3(-1, 1, 0)) == true);
+  REQUIRE((triangles[0].getP1() == Point(-1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP2() == Point(1, -1, 0)) == true);
+  REQUIRE((triangles[0].getP3() == Point(1, 1, 0)) == true);
+  REQUIRE((triangles[1].getP1() == Point(-1, -1, 0)) == true);
+  REQUIRE((triangles[1].getP2() == Point(1, 1, 0)) == true);
+  REQUIRE((triangles[1].getP3() == Point(-1, 1, 0)) == true);
 }
 
 TEST_CASE("Scene: Apply View Matrix")

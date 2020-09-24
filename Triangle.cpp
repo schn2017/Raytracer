@@ -2,11 +2,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //Class Constructor Functions
-Triangle::Triangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
+Triangle::Triangle(Point vertex1, Point vertex2, Point vertex3)
 {
-  v1 = vertex1;
-  v2 = vertex2;
-  v3 = vertex3;
+  p1 = vertex1;
+  p2 = vertex2;
+  p3 = vertex3;
   state = true;
 }
 
@@ -26,46 +26,46 @@ void Triangle::changeState(bool &newState)
   state = newState;
 }
 
-Vector3 Triangle::getV1()
+Point Triangle::getP1()
 {
-  return v1;
+  return p1;
 }
 
-Vector3 Triangle::getV2()
+Point Triangle::getP2()
 {
-  return v2;
+  return p2;
 }
 
-Vector3 Triangle::getV3()
+Point Triangle::getP3()
 {
-  return v3;
+  return p3;
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Set Member Functions
-void Triangle::setV1(Vector3 newVector)
+void Triangle::setP1(Point newPoint)
 {
-  v1 = newVector;
+  p1 = newPoint;
 }
 
-void Triangle::setV2(Vector3 newVector)
+void Triangle::setP2(Point newPoint)
 {
-  v2 = newVector;
+  p2 = newPoint;
 }
 
-void Triangle::setV3(Vector3 newVector)
+void Triangle::setP3(Point newPoint)
 {
-  v3 = newVector;
+  p3 = newPoint;
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Method to determine if ray intersects Triangle
 bool Triangle::intersect(Ray &cameraRay)
 {
   //std::cout << "Triangle Intersect" << "\n";
-
-  Vector3 A = v2 - v1;
+  /*
+  Vector3 A = p2 - p1;
   //std::cout << "A ";
 //  A.toString();
-  Vector3 B = v3 - v1;
+  Vector3 B = p3 - p1;
   //std::cout << "B ";
   //B.toString();
 
@@ -108,8 +108,8 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //Edge 1
   //std::cout << "\nEDGE 1\n";
-  Vector3 edge = v2 - v1;
-  Vector3 edgeToPoint = intersectionPoint - v1;
+  Vector3 edge = p2 - p1;
+  Vector3 edgeToPoint = intersectionPoint - p1;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -122,8 +122,8 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //Edge2
   //std::cout << "\nEDGE 2\n";
-  edge = v3 - v2;
-  edgeToPoint = intersectionPoint - v2;
+  edge = p3 - p2;
+  edgeToPoint = intersectionPoint - p2;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -135,8 +135,8 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //Edge3
   //std::cout << "\nEDGE 3\n";
-  edge = v1 - v3;
-  edgeToPoint = intersectionPoint - v3;
+  edge = p1 - p3;
+  edgeToPoint = intersectionPoint - p3;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -156,28 +156,28 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //std::cout << "W: " << w << "\n";
 
-  //std::cout << "\nINTERSECTION\n";
+  //std::cout << "\nINTERSECTION\n";*/
   return true;
-};
+}
 ////////////////////////////////////////////////////////////////////////////////
 Vector3 Triangle::calculateSurfaceNormal()
 {
-  Vector3 A = v2 - v1;
-  Vector3 B = v3 - v1;
+  Vector3 A = p2 - p1;
+  Vector3 B = p3 - p1;
 
   return MathHelper::normalize(MathHelper::cross(A, B));
 }
 ////////////////////////////////////////////////////////////////////////////////
 void Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
 {/*
-    v1 = MathHelper::transformVector3(modelViewMatrix, v1);
-    v2 = MathHelper::transformVector3(modelViewMatrix, v2);
-    v3 = MathHelper::transformVector3(modelViewMatrix, v3);*/
+    v1 = MathHelper::transformPoint3(modelViewMatrix, v1);
+    v2 = MathHelper::transformPoint3(modelViewMatrix, v2);
+    v3 = MathHelper::transformPoint3(modelViewMatrix, v3);*/
 }
 //
 std::string Triangle::toString()
 {
-  return "Triangle \nVertex 1: " + v1.toString() + "Vertex 2: " + v2.toString() + "Vertex 3: " + v3.toString();
+  return "Triangle \nVertex 1: " + p1.toString() + "Vertex 2: " + p2.toString() + "Vertex 3: " + p3.toString();
 
 
 

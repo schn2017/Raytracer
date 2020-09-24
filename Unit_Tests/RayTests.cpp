@@ -3,28 +3,28 @@
 
 TEST_CASE("Ray: Construction")
 {
-  Vector3 origin = Vector3(1, 0, 2);
+  Point origin = Point(1, 0, 2);
   Vector3 dir = Vector3(2, 3, 4);
   Ray testRay = Ray(origin, dir);
 
   REQUIRE(testRay.getDirection().isEqual(dir) == true);
-  REQUIRE(testRay.getOrigin().isEqual(origin) == true);
+  REQUIRE((testRay.getOrigin() == origin) == true);
 }
 
 TEST_CASE("Ray: Get Intersection")
 {
-  Vector3 origin = Vector3(1, 0, 2);
+  Point origin = Point(1, 0, 2);
   Vector3 dir = Vector3(2, 3, 4);
   Ray testRay = Ray(origin, dir);
 
   testRay.setT(2);
 
-  REQUIRE(testRay.getIntersectionPoint().isEqual(Vector3(5, 6, 10)));
+  REQUIRE((testRay.getIntersectionPoint() == Point(5, 6, 10)) == true);
 }
 
 TEST_CASE("Ray: Set t")
 {
-  Vector3 origin = Vector3(1, 0, 2);
+  Point origin = Point(1, 0, 2);
   Vector3 dir = Vector3(2, 3, 4);
   Ray testRay = Ray(origin, dir);
 

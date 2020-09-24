@@ -37,7 +37,7 @@ Lighting Scene::getLighting()
   return sceneLights;
 }
 
-Vector3 Scene::getVertex(int element)
+Point Scene::getVertex(int element)
 {
   return vertices[element];
 }
@@ -121,7 +121,7 @@ bool Scene::readScene(const char *filename)
                                  objectParameters[6], objectParameters[7],
                                  objectParameters[8], objectParameters[9]);
 
-            viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
+            //viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
 
           }
 
@@ -174,7 +174,7 @@ bool Scene::readScene(const char *filename)
 
           if (validCommand)
           {
-            Vector3 position = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
+            Point position = Point(objectParameters[0], objectParameters[1], objectParameters[2]);
             RGB pointLightColor = RGB(objectParameters[3], objectParameters[4], objectParameters[5]);
             //pointLightColor.print();
             PointLight newPointLight = PointLight(position, pointLightColor);
@@ -317,7 +317,7 @@ bool Scene::readScene(const char *filename)
           validCommand = readSceneValues(s, 3, objectParameters);
           if (validCommand)
           {
-            vertices.push_back(Vector3(objectParameters[0], objectParameters[1], objectParameters[2]));
+            vertices.push_back(Point(objectParameters[0], objectParameters[1], objectParameters[2]));
           }
         }
         else if (command == "vertexnormal")

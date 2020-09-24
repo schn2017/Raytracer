@@ -12,8 +12,8 @@ public:
   Camera();
 
   Vector3 convertSampleToCameraView(Sample sample);
-  Vector3 getLookFrom();
-  Vector3 getLookAt();
+  Point getLookFrom();
+  Point getLookAt();
   Vector3 getUp();
   float getFOVX();
   float getFOVY();
@@ -22,17 +22,17 @@ public:
   void calculateFOVX();
 
   Ray createRay(Vector3 direction);
-  void setLookFrom(Vector3 newVector);
-  void setLookAt(Vector3 newVector);
+  void setLookFrom(Point newPoint);
+  void setLookAt(Point newPoint);
   void setUp(Vector3 newVector);
   void setFOVX(float newFOV);
   void setFOVY(float newFOV);
   void setDimensions(int heightValue, int widthValue);
 
 private:
-  Vector3 lookFrom = Vector3();
-  Vector3 lookAt = Vector3();
-  Vector3 up = Vector3();
+  Point lookFrom;
+  Point lookAt;
+  Vector3 up;
   float fovY;
   float fovX;
   float height;

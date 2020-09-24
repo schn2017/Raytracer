@@ -1,4 +1,4 @@
-
+#pragma once
 class Matrix3{
   public:
     Matrix3(float r0x, float r0y, float r0z,

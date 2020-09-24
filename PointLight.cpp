@@ -2,7 +2,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class Constructor Functions
-PointLight::PointLight(Vector3 newPosition, RGB newColor)
+PointLight::PointLight(Point newPosition, RGB newColor)
 {
   position = newPosition;
   lightColor = newColor;
@@ -25,13 +25,13 @@ RGB PointLight::getLightColor()
   return lightColor;
 }
 
-Vector3 PointLight::getPosition()
+Point PointLight::getPosition()
 {
   return position;
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Set Member Functions
-void PointLight::setPosition(Vector3 newPosition)
+void PointLight::setPosition(Point newPosition)
 {
   position = newPosition;
 }
