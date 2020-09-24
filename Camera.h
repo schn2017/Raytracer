@@ -21,7 +21,7 @@ public:
   float getWidth();
   void calculateFOVX();
 
-  Ray createRay(Vector3 direction);
+  Ray createRay(Vector3 direction, Matrix4 inverseViewMatrix);
   void setLookFrom(Point newPoint);
   void setLookAt(Point newPoint);
   void setUp(Vector3 newVector);

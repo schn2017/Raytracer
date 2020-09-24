@@ -37,7 +37,9 @@ Matrix4 MathHelper::adjugateMatrix4X4(Matrix4 m1)
   {
     for (int j = 0; j < 4; j++)
     {
-      float determinant = pow(-1, i + j) *  MathHelper::determinant(MathHelper::determinantSubArray3X3(m1, i, j));
+      //std::cout << "i " << i << ", j" << j;
+      float determinant = pow(-1, i + j) *  MathHelper::determinant(MathHelper::determinantSubArray3X3(m1, j, i));
+      //std::cout <<"The determinant is " << determinant<<"\n\n";
       adjugateMatrix.setElement(i, j, determinant);
     }
   }
@@ -139,6 +141,10 @@ Matrix3 MathHelper::determinantSubArray3X3(Matrix4 m1, int row, int column)
       }
     }
   }
+
+  //std::cout << " 3x3 SubArray\n";
+  //subMatrix.print();
+
   return subMatrix;
 }
 
@@ -160,7 +166,13 @@ float MathHelper::dot(Vector4 v1, Vector4 v2)
 Matrix4 MathHelper::inverseMatrix4(Matrix4 m1)
 {
   float reciprocalDeterminant = 1 / determinantMatrix4(m1);
+
+  //std::cout << "The determinant is " + std::to_string(1/reciprocalDeterminant) + "\n";
+
   Matrix4 adjugateMatrix = MathHelper::adjugateMatrix4X4(m1);
+
+  //std::cout << "AdjugateMatrix\n";
+  adjugateMatrix.print();
   adjugateMatrix = MathHelper::scalarMultiply(reciprocalDeterminant, adjugateMatrix);
 
   return adjugateMatrix;
@@ -421,6 +433,6 @@ Matrix4 MathHelper::transpose(Matrix4 m1)
       transposeMatrix.setElement(j, i, m1.getElement(i, j));
     }
   }
-  
+
   return transposeMatrix;
 }

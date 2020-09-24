@@ -162,18 +162,30 @@ TEST_CASE("MathHelper: Dot Product - Vector4")
 
 TEST_CASE("MathHelper: Inverse Matrix 4X4")
 {
-  Matrix4 testMatrix = Matrix4(1, 1, 1, -1,
+  Matrix4 testMatrix1 = Matrix4(1, 1, 1, -1,
                                1, 1, -1, 1,
                                1, -1, 1, 1,
                               -1, 1, 1, 1);
 
-  Matrix4 inverse = MathHelper::inverseMatrix4(testMatrix);
-  Matrix4 expectedMatrix = Matrix4(0.25, 0.25, 0.25, -0.25,
+  Matrix4 testMatrix2 = Matrix4(1, 0, 0, 0,
+                                0, 1, 0, 0,
+                                0, 0, 1, -30,
+                                0, 0, 0, 1);
+
+  Matrix4 inverse1 = MathHelper::inverseMatrix4(testMatrix1);
+  Matrix4 inverse2 = MathHelper::inverseMatrix4(testMatrix2);
+  Matrix4 expectedMatrix1 = Matrix4(0.25, 0.25, 0.25, -0.25,
                                    0.25, 0.25, -0.25, 0.25,
                                    0.25, -0.25, 0.25, 0.25,
                                   -0.25, 0.25, 0.25, 0.25);
 
-  REQUIRE(inverse.isEqual(expectedMatrix) == true);
+  Matrix4 expectedMatrix2 = Matrix4(1, 0, 0, 0,
+                                    0, 1, 0, 0,
+                                    0, 0, 1, 30,
+                                    0, 0, 0, 1);
+
+  REQUIRE(inverse1.isEqual(expectedMatrix1) == true);
+  REQUIRE(inverse2.isEqual(expectedMatrix2) == true);
 }
 
 TEST_CASE("MathHelper: Magnitude - Vector3")

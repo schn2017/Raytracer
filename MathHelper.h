@@ -5,6 +5,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "math.h"
+#include <string>
 #include <iostream>
 
 #define PI 3.14159265

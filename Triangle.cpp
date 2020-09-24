@@ -61,7 +61,6 @@ void Triangle::setP3(Point newPoint)
 bool Triangle::intersect(Ray &cameraRay)
 {
   //std::cout << "Triangle Intersect" << "\n";
-  /*
   Vector3 A = p2 - p1;
   //std::cout << "A ";
 //  A.toString();
@@ -77,7 +76,7 @@ bool Triangle::intersect(Ray &cameraRay)
   //std::cout << "Normal ";
   //triangleNormal.toString();
 
-  float numerator = MathHelper::dot(A, triangleNormal) - MathHelper::dot(cameraRay.getOrigin(), triangleNormal);
+  float numerator = MathHelper::dot(A, triangleNormal) - MathHelper::dot(cameraRay.getOrigin() - Point(0,0,0), triangleNormal);
   float denominator = MathHelper::dot(cameraRay.getDirection(), triangleNormal);
 
   if (denominator == 0)
@@ -96,7 +95,7 @@ bool Triangle::intersect(Ray &cameraRay)
   }
 
   cameraRay.setT(distance);
-  Vector3 intersectionPoint = cameraRay.getIntersectionPoint();
+  Point intersectionPoint = cameraRay.getIntersectionPoint();
   //std::cout << "The intersection point is ";
   //intersectionPoint.toString();
 
@@ -156,7 +155,7 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //std::cout << "W: " << w << "\n";
 
-  //std::cout << "\nINTERSECTION\n";*/
+  //std::cout << "\nINTERSECTION\n";
   return true;
 }
 ////////////////////////////////////////////////////////////////////////////////

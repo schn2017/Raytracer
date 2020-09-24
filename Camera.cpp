@@ -14,9 +14,12 @@ Camera::Camera()
 {
 }
 
-Ray Camera::createRay(Vector3 direction)
+Ray Camera::createRay(Vector3 direction, Matrix4 inverseViewMatrix)
 {
-  return Ray(lookFrom, direction);
+  Point ori = inverseViewMatrix * lookFrom;
+  Vector3 dir = MathHelper::normalize(inverseViewMatrix * direction);
+
+  return Ray(ori, dir);
 }
 
 Vector3 Camera::convertSampleToCameraView(Sample sample)

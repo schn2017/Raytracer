@@ -121,7 +121,7 @@ bool Scene::readScene(const char *filename)
                                  objectParameters[6], objectParameters[7],
                                  objectParameters[8], objectParameters[9]);
 
-            //viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
+            viewMatrix = Transform::lookAt(sceneCamera.getLookFrom(), sceneCamera.getLookAt(), sceneCamera.getUp());
 
           }
 
@@ -379,6 +379,9 @@ void Scene::renderScene()
   }
   cout << "\n";*/
 
+  Matrix4 inverseViewMatrix = MathHelper::inverseMatrix4(viewMatrix);
+  cout << "inverseViewMatrix\n";
+  inverseViewMatrix.print();
   applyViewMatrix();
 
   film = Pixels(height, width);
@@ -395,13 +398,14 @@ void Scene::renderScene()
 
     Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
 
-    Ray cameraRay = sceneCamera.createRay(rayDirection);
+    Ray cameraRay = sceneCamera.createRay(rayDirection, inverseViewMatrix);
+    cout << cameraRay.toString();
 
-    if(sampleCount > sampleTotalCount * .1)
+    /*if(sampleCount > sampleTotalCount * .1)
     {
       cout << "[]";
       sampleCount = 0;
-    }
+    }*/
 
     RGB pixelColor = tracer.getColor(cameraRay);
     film.addColor(pixelColor);
@@ -421,13 +425,13 @@ void Scene::applyViewMatrix()
 
   for(int i = 0; i < objects.size(); i++)
   {
-    cout << "\nModel Matrix\n";
-    objects[i].getTransform().print();
-    Matrix4 modelViewMatrix = MathHelper::multiply(viewMatrix, objects[i].getTransform());
+    //cout << "\nModel Matrix\n";
+    //objects[i].getTransform().print();
+    //Matrix4 modelViewMatrix = MathHelper::multiply(viewMatrix, objects[i].getTransform());
 
-    cout << "\nModel View Matrix\n";
-    modelViewMatrix.print();
-    objects[i].setTransform(modelViewMatrix);
+    //cout << "\nModel View Matrix\n";
+    //modelViewMatrix.print();
+    //objects[i].setTransform(modelViewMatrix);
     objects[i].applyTransform();
   }
 }

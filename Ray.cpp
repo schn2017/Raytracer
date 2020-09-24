@@ -32,10 +32,7 @@ Point Ray::getIntersectionPoint()
   return origin + dir;
 }
 
-void Ray::toString()
+std::string Ray::toString()
 {
-  //std::cout<< "Ray: Origin @ ";
-  //origin.toString();
-  //std::cout << "Direction @ ";
-  //direction.toString();
+  return "Ray\n\tOrigin at " + origin.toString() + "\tDirection at " + direction.toString();
 }

@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
+Matrix4 Transform::lookAt(Point eye, Point center, Vector3 up)
 {
 
   Vector3 w = MathHelper::normalize(eye - center);
@@ -15,7 +15,7 @@ Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
                                                    -1 * eye.getY(),
                                                    -1 * eye.getZ());
 
-  return MathHelper::multiply(translationMatrix, rotationMatrix);
+  return rotationMatrix * translationMatrix;
 }
 
 Matrix4 Transform::perspective(float fovy, float aspect, float zNear, float zFar)

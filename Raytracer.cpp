@@ -44,9 +44,9 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
 
-        //surfaceNormal = sphere.calculateSurfaceNormal(hitRay.getIntersectionPoint());
+        surfaceNormal = sphere.calculateSurfaceNormal(hitRay.getIntersectionPoint());
 
-        //intersection.setSurfaceNormal(surfaceNormal);
+        intersection.setSurfaceNormal(surfaceNormal);
         intersections.push_back(intersection);
       }
     }

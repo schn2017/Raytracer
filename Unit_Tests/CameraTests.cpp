@@ -39,7 +39,12 @@ TEST_CASE("Camera: Create A Primary Ray")
 {
   Camera cam = Camera(1, 2, 3, 4, 5, 6, 7, 8, 9, 30);
   Vector3 direction = Vector3(0,0,1);
-  Ray cameraRay = cam.createRay(direction);
+  Matrix4 identity =  Matrix4(1, 0, 0, 0,
+                              0, 1, 0, 0,
+                              0, 0, 1, 0,
+                              0, 0, 0, 1);
+
+  Ray cameraRay = cam.createRay(direction, identity);
 
   REQUIRE((cameraRay.getOrigin() == Point(1, 2, 3)) == true);
   REQUIRE(cameraRay.getDirection().isEqual(direction) == true);

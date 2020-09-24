@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MathHelper.h"
+#include <string>
 
 class Ray
 {
@@ -11,7 +12,7 @@ public:
   Vector3 getDirection();
   void setT(float value);
   float getT();
-  void toString();
+  std::string toString();
 
 private:
   Point origin;

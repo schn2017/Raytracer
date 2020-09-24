@@ -60,6 +60,7 @@ void Matrix3::print()
     {
     std::cout << elements[i][j] << " ";
     }
+  std::cout<< "\n";
   }
-  std::cout<< "\n ";
+  std::cout<< "\n";
 }
