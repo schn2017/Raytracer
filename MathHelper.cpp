@@ -165,14 +165,25 @@ float MathHelper::dot(Vector4 v1, Vector4 v2)
 
 Matrix4 MathHelper::inverseMatrix4(Matrix4 m1)
 {
-  float reciprocalDeterminant = 1 / determinantMatrix4(m1);
+  float determinant = determinantMatrix4(m1);
 
-  //std::cout << "The determinant is " + std::to_string(1/reciprocalDeterminant) + "\n";
+  if (determinant == 0)
+  {
+    return Matrix4(1, 0, 0, 0,
+                   0, 1, 0, 0,
+                   0, 0, 1, 0,
+                   0, 0, 0, 1);
+  }
+
+  float reciprocalDeterminant = 1 / determinant;
+  std::cout << "The determinant is " + std::to_string(1/reciprocalDeterminant) + "\n";
+
+
 
   Matrix4 adjugateMatrix = MathHelper::adjugateMatrix4X4(m1);
 
   //std::cout << "AdjugateMatrix\n";
-  adjugateMatrix.print();
+  //adjugateMatrix.print();
   adjugateMatrix = MathHelper::scalarMultiply(reciprocalDeterminant, adjugateMatrix);
 
   return adjugateMatrix;

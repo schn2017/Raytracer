@@ -8,6 +8,7 @@ Triangle::Triangle(Point vertex1, Point vertex2, Point vertex3)
   p2 = vertex2;
   p3 = vertex3;
   state = true;
+  normal = calculateSurfaceNormal();
 }
 
 Triangle::Triangle()
@@ -40,6 +41,12 @@ Point Triangle::getP3()
 {
   return p3;
 }
+
+Vector3 Triangle::getNormal()
+{
+  return normal;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //Set Member Functions
 void Triangle::setP1(Point newPoint)
@@ -72,12 +79,12 @@ bool Triangle::intersect(Ray &cameraRay)
   //std::cout << "C ";
   Vector3 surfaceNormal = C;
 //  C.toString();
-  Vector3 triangleNormal = MathHelper::normalize(C);
+  Vector3 triangleNormal = normal;
   //std::cout << "Normal ";
   //triangleNormal.toString();
 
-  float numerator = MathHelper::dot(A, triangleNormal) - MathHelper::dot(cameraRay.getOrigin() - Point(0,0,0), triangleNormal);
-  float denominator = MathHelper::dot(cameraRay.getDirection(), triangleNormal);
+  float numerator = MathHelper::dot(A, surfaceNormal) - MathHelper::dot(cameraRay.getOrigin() - Point(0,0,0), surfaceNormal);
+  float denominator = MathHelper::dot(cameraRay.getDirection(), surfaceNormal);
 
   if (denominator == 0)
   {
@@ -168,16 +175,16 @@ Vector3 Triangle::calculateSurfaceNormal()
 }
 ////////////////////////////////////////////////////////////////////////////////
 void Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
-{/*
-    v1 = MathHelper::transformPoint3(modelViewMatrix, v1);
-    v2 = MathHelper::transformPoint3(modelViewMatrix, v2);
-    v3 = MathHelper::transformPoint3(modelViewMatrix, v3);*/
+{
+    p1 = modelViewMatrix * p1;
+    p2 = modelViewMatrix * p2;
+    p3 = modelViewMatrix * p3;
+    normal = MathHelper::normalize(MathHelper::inverseMatrix4(modelViewMatrix) * normal);
+    std::cout << toString();
+
 }
 //
 std::string Triangle::toString()
 {
   return "Triangle \nVertex 1: " + p1.toString() + "Vertex 2: " + p2.toString() + "Vertex 3: " + p3.toString();
-
-
-
 }

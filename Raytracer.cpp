@@ -60,7 +60,7 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
 
-        surfaceNormal = triangle.calculateSurfaceNormal();
+        surfaceNormal = triangle.getNormal();
 
         intersection.setSurfaceNormal(surfaceNormal);
         intersections.push_back(intersection);
@@ -119,7 +119,7 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
         float maxnDotH = MathHelper::max(nDotH, 0);
         RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
 
-      //  cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
+        //cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
         //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
         //cout << "color - " << color.toString();

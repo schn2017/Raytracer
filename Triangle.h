@@ -24,6 +24,7 @@ public:
   bool intersect(Ray &cameraRay);
   //Method Definition to calculate the surface normal given a point
   Vector3 calculateSurfaceNormal();
+  Vector3 getNormal();
   void applyModelViewMatrix(Matrix4 modelViewMatrix);
   std::string toString();
 private:
@@ -33,6 +34,7 @@ private:
   //Point3 v2Normal;
   Point p3;
   //Point3 v3Normal;
+  Vector3 normal;
   bool state;
   float u;
   float v;

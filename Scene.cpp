@@ -399,7 +399,7 @@ void Scene::renderScene()
     Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
 
     Ray cameraRay = sceneCamera.createRay(rayDirection, inverseViewMatrix);
-    cout << cameraRay.toString();
+    //cout << cameraRay.toString();
 
     /*if(sampleCount > sampleTotalCount * .1)
     {
