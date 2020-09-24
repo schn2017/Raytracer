@@ -14,6 +14,11 @@ Materials::Materials(RGB diff, RGB spec, float shiny, RGB emiss)
 
 }
 
+RGB Materials::getAmbient()
+{
+  return ambient;
+}
+
 float Materials::getShininess()
 {
   return shininess;
@@ -32,6 +37,11 @@ RGB Materials::getEmission()
 RGB Materials::getSpecular()
 {
   return specular;
+}
+
+void Materials::setAmbient(RGB value)
+{
+  ambient = value;
 }
 
 void Materials::setDiffuse(RGB value)

@@ -103,6 +103,7 @@ bool Scene::readScene(const char *filename)
           {
             RGB ambientLight = RGB( objectParameters[0], objectParameters[1], objectParameters[2]);
             sceneLights.setAmbientLight(ambientLight);
+            material.setAmbient(ambientLight);
           }
         }
         else if (command == "attenuation")
@@ -421,7 +422,7 @@ void Scene::renderScene()
 //Render Scene Helper Functions
 void Scene::applyViewMatrix()
 {
-  sceneLights.applyViewMatrix(viewMatrix);
+  //sceneLights.applyViewMatrix(viewMatrix);
 
   for(int i = 0; i < objects.size(); i++)
   {

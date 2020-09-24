@@ -179,12 +179,12 @@ void Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
     p1 = modelViewMatrix * p1;
     p2 = modelViewMatrix * p2;
     p3 = modelViewMatrix * p3;
-    normal = MathHelper::normalize(MathHelper::inverseMatrix4(modelViewMatrix) * normal);
-    std::cout << toString();
+    //normal = MathHelper::normalize(MathHelper::inverseMatrix4(modelViewMatrix) * normal);
+    //std::cout << toString();
 
 }
 //
 std::string Triangle::toString()
 {
-  return "Triangle \nVertex 1: " + p1.toString() + "Vertex 2: " + p2.toString() + "Vertex 3: " + p3.toString();
+  return "Triangle \nVertex 1: " + p1.toString() + "Vertex 2: " + p2.toString() + "Vertex 3: " + p3.toString() + "Normal: " + normal.toString();
 }

@@ -12,13 +12,16 @@ public:
   RGB getDiffuse();
   RGB getSpecular();
   RGB getEmission();
+  RGB getAmbient();
 
+  void setAmbient(RGB value);
   void setDiffuse(RGB value);
   void setEmission(RGB value);
   void setShininess(float value);
   void setSpecular(RGB value);
 
 private:
+  RGB ambient;
   RGB diffuse;
   RGB specular;
   float shininess;

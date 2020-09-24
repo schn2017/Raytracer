@@ -55,7 +55,7 @@ Intersection Raytracer::traceRay(Ray &hitRay)
       //std::cout << "Triangle found!\n";
       if (triangle.intersect(hitRay) == true)
       {
-        //std::cout << "HIT!\n";
+        std::cout << "HIT!\n";
         distance = hitRay.getT();
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
