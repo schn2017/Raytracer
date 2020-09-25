@@ -189,7 +189,7 @@ Point Matrix4::operator*(Point point)
 
 }
 
-Vector3 Matrix4::operator*(Vector3 &v1)
+Vector3 Matrix4::operator*(Vector3 v1)
 {
   float x = v1.getX() * elements[0][0]
             + v1.getY() * elements[0][1]

@@ -6,6 +6,7 @@ Camera::Camera(float lookFromX, float lookFromY, float lookFromZ,
 {
   lookFrom = Point(lookFromX, lookFromY, lookFromZ);
   lookAt = Point(lookAtX, lookAtY, lookAtZ);
+  //up = MathHelper::normalize(Transform::up(Vector3(upX, upY, upZ), Vector3(0, 0, 1)));
   up = MathHelper::normalize(Vector3(upX, upY, upZ));
   fovY = fovYAxis;
 }

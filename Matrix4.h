@@ -25,7 +25,7 @@ public:
   bool isEqual(Matrix4 other);
   //operator overrides
   Point operator*(Point point);
-  Vector3 operator*(Vector3 &v1);
+  Vector3 operator*(Vector3 v1);
   Matrix4 operator*(Matrix4 &otherMatrix);
   Matrix4 operator+(Matrix4 &otherMatrix);
 private:

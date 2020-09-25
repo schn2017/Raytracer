@@ -373,12 +373,12 @@ void Scene::renderScene()
   //cout << "Projection Matrix\n";
   //projectionMatrix.print();
 
-  //cout << "Number of vertices: " << vertices.size() << "\n";
-  /*for (int i = 0; i < vertices.size(); i++)
+  cout << "Number of vertices: " << vertices.size() << "\n";
+  for (int i = 0; i < vertices.size(); i++)
   {
     cout<< "Vertex: " << vertices[i].toString();
   }
-  cout << "\n";*/
+  cout << "\n";
 
   Matrix4 inverseViewMatrix = MathHelper::inverseMatrix4(viewMatrix);
   cout << "inverseViewMatrix\n";

@@ -18,7 +18,8 @@ RGB Raytracer::getColor(Ray hitRay)
   Intersection rayIntersection = traceRay(hitRay);
   if (rayIntersection.getState() == true)
   {
-    color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
+    //color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
+    color = color + rayIntersection.getMaterials().getAmbient() + traceLightRays(hitRay, rayIntersection);
   }
 
   return color;
@@ -55,12 +56,12 @@ Intersection Raytracer::traceRay(Ray &hitRay)
       //std::cout << "Triangle found!\n";
       if (triangle.intersect(hitRay) == true)
       {
-        std::cout << "HIT!\n";
+        //std::cout << "HIT!\n";
         distance = hitRay.getT();
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
 
-        surfaceNormal = triangle.getNormal();
+        surfaceNormal = triangle.calculateSurfaceNormal();
 
         intersection.setSurfaceNormal(surfaceNormal);
         intersections.push_back(intersection);
