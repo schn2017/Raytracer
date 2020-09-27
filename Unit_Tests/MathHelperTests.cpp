@@ -94,33 +94,16 @@ TEST_CASE("MathHelper: Determinant Sub Array 2X2")
 {
   Matrix3 testMatrix = Matrix3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-  float testArray[4];
 
-  // 1 2 3
-  // 4 5 6
-  // 7 8 9
+  float determinant1 = MathHelper::determinantSubArray2X2(testMatrix, 0, 0);
 
-  MathHelper::determinantSubArray2X2(testMatrix, 0, 0, testArray);
+  float determinant2 = MathHelper::determinantSubArray2X2(testMatrix, 0, 1);
 
-  REQUIRE(testArray[0] == 5);
-  REQUIRE(testArray[1] == 6);
-  REQUIRE(testArray[2] == 8);
-  REQUIRE(testArray[3] == 9);
+  float determinant3 = MathHelper::determinantSubArray2X2(testMatrix, 0, 2);
 
-  MathHelper::determinantSubArray2X2(testMatrix, 0, 1, testArray);
-
-  REQUIRE(testArray[0] == 4);
-  REQUIRE(testArray[1] == 6);
-  REQUIRE(testArray[2] == 7);
-  REQUIRE(testArray[3] == 9);
-
-  MathHelper::determinantSubArray2X2(testMatrix, 0, 2, testArray);
-
-  REQUIRE(testArray[0] == 4);
-  REQUIRE(testArray[1] == 5);
-  REQUIRE(testArray[2] == 7);
-  REQUIRE(testArray[3] == 8);
-
+  REQUIRE(determinant1 == -3);
+  REQUIRE(determinant2 == -6);
+  REQUIRE(determinant3 == -3);
 }
 
 TEST_CASE("MathHelper: Determinant Sub Array 3X3")
@@ -162,6 +145,7 @@ TEST_CASE("MathHelper: Dot Product - Vector4")
 
 TEST_CASE("MathHelper: Inverse Matrix 4X4")
 {
+  std::cout << "Starting inverse test!\n";
   Matrix4 testMatrix1 = Matrix4(1, 1, 1, -1,
                                1, 1, -1, 1,
                                1, -1, 1, 1,
@@ -172,8 +156,19 @@ TEST_CASE("MathHelper: Inverse Matrix 4X4")
                                 0, 0, 1, -30,
                                 0, 0, 0, 1);
 
+  Matrix4 testMatrix3 = Matrix4(1, 0, 0, 0,
+                                0, 0.25, 0, 0,
+                                0, 0, 0.25, 0.5,
+                                0, 0, 0, 1);
+
+  std::cout << "1\n";
   Matrix4 inverse1 = MathHelper::inverseMatrix4(testMatrix1);
+  std::cout << "2\n";
   Matrix4 inverse2 = MathHelper::inverseMatrix4(testMatrix2);
+  std::cout << "3\n";
+  Matrix4 inverse3 = MathHelper::inverseMatrix4(testMatrix3);
+
+
   Matrix4 expectedMatrix1 = Matrix4(0.25, 0.25, 0.25, -0.25,
                                    0.25, 0.25, -0.25, 0.25,
                                    0.25, -0.25, 0.25, 0.25,
@@ -184,8 +179,15 @@ TEST_CASE("MathHelper: Inverse Matrix 4X4")
                                     0, 0, 1, 30,
                                     0, 0, 0, 1);
 
+
+  Matrix4 expectedMatrix3 = Matrix4(1, 0, 0, 0,
+                                    0, 4, 0, 0,
+                                    0, 0, 4, -2,
+                                    0, 0, 0, 1);
+
   REQUIRE(inverse1.isEqual(expectedMatrix1) == true);
   REQUIRE(inverse2.isEqual(expectedMatrix2) == true);
+  REQUIRE(inverse3.isEqual(expectedMatrix3) == true);
 }
 
 TEST_CASE("MathHelper: Magnitude - Vector3")

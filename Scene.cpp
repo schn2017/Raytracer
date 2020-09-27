@@ -402,11 +402,11 @@ void Scene::renderScene()
     Ray cameraRay = sceneCamera.createRay(rayDirection, inverseViewMatrix);
     //cout << cameraRay.toString();
 
-    /*if(sampleCount > sampleTotalCount * .1)
+    if(sampleCount > sampleTotalCount * .1)
     {
-      cout << "[]";
+      cout << "[]\n";
       sampleCount = 0;
-    }*/
+    }
 
     RGB pixelColor = tracer.getColor(cameraRay);
     film.addColor(pixelColor);

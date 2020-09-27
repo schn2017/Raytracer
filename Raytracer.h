@@ -22,5 +22,5 @@ private:
 
   Intersection traceRay(Ray &hitRay);
   Intersection findClosestIntersection(vector<Intersection> intersections);
-  RGB traceLightRays(Ray hitRay, Intersection intersection);  
+  RGB traceLightRays(Intersection intersection);  
 };

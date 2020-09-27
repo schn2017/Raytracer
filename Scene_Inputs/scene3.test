@@ -28,18 +28,18 @@ pushTransform
 ambient .7 .7 1
 
 scale 2 1 .25
-tri 0 1 5
-tri 0 5 4
-tri 3 7 6
-tri 3 6 2
-tri 1 2 6
-tri 1 6 5
-tri 0 7 3
-tri 0 4 7
-tri 0 3 2
-tri 0 2 1
-tri 4 5 6
-tri 4 6 7
+#tri 0 1 5
+#tri 0 5 4
+#tri 3 7 6
+#tri 3 6 2
+#tri 1 2 6
+#tri 1 6 5
+#tri 0 7 3
+#tri 0 4 7
+#tri 0 3 2
+#tri 0 2 1
+#tri 4 5 6
+#tri 4 6 7
 
 popTransform
 pushTransform
@@ -52,18 +52,18 @@ ambient .7 .7 .4
 translate -1.75 -.8 -.25
 translate 0 0 -2.0
 scale 0.15 0.15 2.0
-tri 0 1 5
-tri 0 5 4
-tri 3 7 6
-tri 3 6 2
-tri 1 2 6
-tri 1 6 5
-tri 0 7 3
-tri 0 4 7
-tri 0 3 2
-tri 0 2 1
-tri 4 5 6
-tri 4 6 7
+#tri 0 1 5
+#tri 0 5 4
+#tri 3 7 6
+#tri 3 6 2
+#tri 1 2 6
+#tri 1 6 5
+#tri 0 7 3
+#tri 0 4 7
+#tri 0 3 2
+#tri 0 2 1
+#tri 4 5 6
+#tri 4 6 7
 
 # leg 2: Note that I'm only changing a single translation command.
 
@@ -72,18 +72,18 @@ pushTransform
 translate +1.75 -.8 -.25
 translate 0 0 -2.0
 scale 0.15 0.15 2.0
-tri 0 1 5
-tri 0 5 4
-tri 3 7 6
-tri 3 6 2
-tri 1 2 6
-tri 1 6 5
-tri 0 7 3
-tri 0 4 7
-tri 0 3 2
-tri 0 2 1
-tri 4 5 6
-tri 4 6 7
+#tri 0 1 5
+#tri 0 5 4
+#tri 3 7 6
+#tri 3 6 2
+#tri 1 2 6
+#tri 1 6 5
+#tri 0 7 3
+#tri 0 4 7
+#tri 0 3 2
+#tri 0 2 1
+#tri 4 5 6
+#tri 4 6 7
 
 # leg 3: Note that I'm only changing a single translation command.
 
@@ -92,18 +92,18 @@ pushTransform
 translate +1.75 +.8 -.25
 translate 0 0 -2.0
 scale 0.15 0.15 2.0
-tri 0 1 5
-tri 0 5 4
-tri 3 7 6
-tri 3 6 2
-tri 1 2 6
-tri 1 6 5
-tri 0 7 3
-tri 0 4 7
-tri 0 3 2
-tri 0 2 1
-tri 4 5 6
-tri 4 6 7
+#tri 0 1 5
+#tri 0 5 4
+#tri 3 7 6
+#tri 3 6 2
+#tri 1 2 6
+#tri 1 6 5
+#tri 0 7 3
+#tri 0 4 7
+#tri 0 3 2
+#tri 0 2 1
+#tri 4 5 6
+#tri 4 6 7
 
 # leg 4: Note that I'm only changing a single translation command.
 
@@ -112,18 +112,18 @@ pushTransform
 translate -1.75 +.8 -.25
 translate 0 0 -2.0
 scale 0.15 0.15 2.0
-tri 0 1 5
-tri 0 5 4
-tri 3 7 6
-tri 3 6 2
-tri 1 2 6
-tri 1 6 5
-tri 0 7 3
-tri 0 4 7
-tri 0 3 2
-tri 0 2 1
-tri 4 5 6
-tri 4 6 7
+#tri 0 1 5
+#tri 0 5 4
+#tri 3 7 6
+#tri 3 6 2
+#tri 1 2 6
+#tri 1 6 5
+#tri 0 7 3
+#tri 0 4 7
+#tri 0 3 2
+#tri 0 2 1
+#tri 4 5 6
+#tri 4 6 7
 
 
 # Now draw the spheres

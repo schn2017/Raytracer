@@ -19,8 +19,9 @@ public:
   static Matrix4 adjugateMatrix4X4(Matrix4 m1);
   static float determinant(Matrix3 m1);
   static float determinantMatrix4(Matrix4 m1);
-  static void determinantSubArray2X2(Matrix3 m1, int row, int column, float array[4]);
+  static float determinantSubArray2X2(Matrix3 m1, int row, int column);
   static Matrix3 determinantSubArray3X3(Matrix4 m1, int row, int column);
+  static float distance(Point p1, Point p2);
   static float dot(Vector3 v1, Vector3 v2);
   static float dot(Vector4 v1, Vector4 v2);
   static Vector3 cross(Vector3 v1, Vector3 v2);

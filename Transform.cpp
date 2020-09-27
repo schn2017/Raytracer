@@ -15,7 +15,7 @@ Matrix4 Transform::lookAt(Point eye, Point center, Vector3 up)
                                                    -1 * eye.getY(),
                                                    -1 * eye.getZ());
 
-  return rotationMatrix * translationMatrix;
+  return translationMatrix * rotationMatrix;
 }
 
 Matrix4 Transform::perspective(float fovy, float aspect, float zNear, float zFar)

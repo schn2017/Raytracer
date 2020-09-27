@@ -92,7 +92,7 @@ bool Triangle::intersect(Ray &cameraRay)
 
   float t = MathHelper::dot(v1v3, qvec) * invDet;
   cameraRay.setT(t);
-  std::cout << "The distance is " << t <<"\n";
+  //std::cout << "The distance is " << t <<"\n";
 
   //return true;
 
@@ -188,7 +188,7 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //std::cout << "W: " << w << "\n";
 
-  std::cout << "\nINTERSECTION\n";
+  //std::cout << "\nINTERSECTION\n";
   return true;
 }
 ////////////////////////////////////////////////////////////////////////////////

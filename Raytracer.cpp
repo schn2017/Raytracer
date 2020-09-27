@@ -19,7 +19,7 @@ RGB Raytracer::getColor(Ray hitRay)
   if (rayIntersection.getState() == true)
   {
     //color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
-    color = color + rayIntersection.getMaterials().getAmbient() + traceLightRays(hitRay, rayIntersection);
+    color = color + rayIntersection.getMaterials().getAmbient() + traceLightRays(rayIntersection);
   }
 
   return color;
@@ -39,15 +39,29 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
     if (sphere.getState() == true)
     {
-      if (sphere.intersect(hitRay) == true)
+      //std::cout << "Transform\n";
+      //objects[i].getTransform().print();
+      Matrix4 inverseTransform = MathHelper::inverseMatrix4(objects[i].getTransform());
+      //std::cout << "Inverse Transform\n";
+      //inverseTransform.print();
+
+      Point transformedOrigin = inverseTransform * hitRay.getOrigin();
+      Vector3 transformedDirection = inverseTransform  * hitRay.getDirection();
+
+      Ray transformedRay = Ray(transformedOrigin, transformedDirection);
+
+      if (sphere.intersect(transformedRay) == true)
       {
-        distance = hitRay.getT();
+        Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
+        Point intersectionPoint = objects[i].getTransform() * transformedRay.getIntersectionPoint();
+        distance = MathHelper::distance(hitRay.getOrigin(), intersectionPoint);
+        
+        surfaceNormal = sphere.calculateSurfaceNormal(normalPoint);
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
-
-        surfaceNormal = sphere.calculateSurfaceNormal(hitRay.getIntersectionPoint());
-
         intersection.setSurfaceNormal(surfaceNormal);
+        intersection.setIntersectionPoint(intersectionPoint);
+
         intersections.push_back(intersection);
       }
     }
@@ -80,7 +94,7 @@ Intersection Raytracer::traceRay(Ray &hitRay)
   }
 }
 
-RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
+RGB Raytracer::traceLightRays(Intersection intersection)
 {
   RGB diffuse = intersection.getMaterials().getDiffuse();
   RGB emission = intersection.getMaterials().getEmission();
@@ -96,7 +110,7 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
     if (sceneLights.getLightSource(i).getPointLight().getState() == true)
     {
       PointLight pointLight = sceneLights.getLightSource(i).getPointLight();
-      Point origin = hitRay.getIntersectionPoint();
+      Point origin = intersection.getIntersectionPoint();
 
       Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
 
