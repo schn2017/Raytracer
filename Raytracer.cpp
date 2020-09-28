@@ -46,16 +46,20 @@ Intersection Raytracer::traceRay(Ray &hitRay)
       //inverseTransform.print();
 
       Point transformedOrigin = inverseTransform * hitRay.getOrigin();
-      Vector3 transformedDirection = inverseTransform  * hitRay.getDirection();
+      Vector3 transformedDirection = MathHelper::normalize(inverseTransform  * hitRay.getDirection());
 
       Ray transformedRay = Ray(transformedOrigin, transformedDirection);
 
       if (sphere.intersect(transformedRay) == true)
       {
+        //Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
         Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
         Point intersectionPoint = objects[i].getTransform() * transformedRay.getIntersectionPoint();
         distance = MathHelper::distance(hitRay.getOrigin(), intersectionPoint);
-        
+
+        std::cout << "The intersection point is " + intersectionPoint.toString();
+        std::cout << "The calculated distance is " << distance << " The original distance was " << transformedRay.getT() << "\n";
+
         surfaceNormal = sphere.calculateSurfaceNormal(normalPoint);
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
