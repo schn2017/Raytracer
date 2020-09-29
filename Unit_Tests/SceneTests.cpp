@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Scene.h"
+#include "./Source/Scene.h"
 
 TEST_CASE("Scene: Open Scene Input Text File")
 {

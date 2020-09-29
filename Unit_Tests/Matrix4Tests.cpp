@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "Matrix3.h"
-#include "Matrix4.h"
+#include "./Source/Matrix3.h"
+#include "./Source/Matrix4.h"
 
 TEST_CASE("Matrix4: Construction - All Floats")
 {

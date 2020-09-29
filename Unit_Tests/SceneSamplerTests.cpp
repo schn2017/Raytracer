@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "SceneSampler.h"
+#include "./Source/SceneSampler.h"
 
 TEST_CASE("SceneSampler: Construction")
 {

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Ray.h"
+#include "./Source/Ray.h"
 
 TEST_CASE("Ray: Construction")
 {

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Intersection.h"
+#include "./Source/Intersection.h"
 
 TEST_CASE("Intersection - Constructors")
 {

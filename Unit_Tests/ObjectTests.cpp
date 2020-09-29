@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Object.h"
+#include "./Source/Object.h"
 
 TEST_CASE("Object: Set and Get Object Properties")
 {

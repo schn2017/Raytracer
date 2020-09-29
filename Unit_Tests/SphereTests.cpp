@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Sphere.h"
+#include "./Source/Sphere.h"
 
 TEST_CASE("Sphere: Construction")
 {

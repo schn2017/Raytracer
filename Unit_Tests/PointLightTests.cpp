@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "PointLight.h"
+#include "./Source/PointLight.h"
 
 TEST_CASE("Point Light: Constructor")
 {

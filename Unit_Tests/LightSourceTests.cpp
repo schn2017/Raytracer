@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "LightSource.h"
+#include "./Source/LightSource.h"
 
 TEST_CASE("Light Source: Add Point Light")
 {

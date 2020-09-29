@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "MathHelper.h"
+#include "./Source/MathHelper.h"
 
 TEST_CASE("MathHelper: Addition - Matrix3")
 {

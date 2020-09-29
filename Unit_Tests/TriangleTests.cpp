@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Triangle.h"
+#include "./Source/Triangle.h"
 
 TEST_CASE("Triangle: Construction")
 {

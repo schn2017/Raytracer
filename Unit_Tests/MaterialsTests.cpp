@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Materials.h"
+#include "./Source/Materials.h"
 
 TEST_CASE("Materials: Constructor")
 {

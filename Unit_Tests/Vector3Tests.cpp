@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Vector3.h"
+#include "./Source/Vector3.h"
 
 TEST_CASE("Vector3: Construction")
 {

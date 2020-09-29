@@ -1,9 +1,10 @@
 CXX = g++
 VPATH = ./Unit_Tests
+PATH = ./Source/
 CXXFLAGS = -Wall -g -std=c++11
 INCFLAGS = -I./
 LDFLAGS = -lfreeimage
-RM = rm -f
+RM = /bin/rm -f
 
 main: main.o Camera.o Intersection.o Lighting.o LightSource.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o Point.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
@@ -12,77 +13,77 @@ main: main.o Camera.o Intersection.o Lighting.o LightSource.o Materials.o MathHe
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
 
-main.o: main.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c main.cpp
+main.o: ./Source/main.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c  $(PATH)main.cpp
 
-Camera.o: Camera.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Camera.cpp
+Camera.o: ./Source/Camera.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Camera.cpp
 
-Intersection.o: Intersection.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Intersection.cpp
+Intersection.o: ./Source/Intersection.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Intersection.cpp
 
-Lighting.o: Lighting.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Lighting.cpp
+Lighting.o: ./Source/Lighting.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Lighting.cpp
 
-LightSource.o: LightSource.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c LightSource.cpp
+LightSource.o: ./Source/LightSource.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)LightSource.cpp
 
-Materials.o: Materials.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Materials.cpp
+Materials.o: ./Source/Materials.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Materials.cpp
 
-MathHelper.o: MathHelper.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c MathHelper.cpp
+MathHelper.o: ./Source/MathHelper.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)MathHelper.cpp
 
-matrix3.o: Matrix3.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Matrix3.cpp
+matrix3.o: ./Source/Matrix3.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Matrix3.cpp
 
-matrix4.o: Matrix4.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Matrix4.cpp
+matrix4.o: ./Source/Matrix4.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Matrix4.cpp
 
-object.o: Object.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Object.cpp
+object.o: ./Source/Object.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Object.cpp
 
-Point.o: Point.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Point.cpp
+Point.o: ./Source/Point.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Point.cpp
 
-PointLight.o: PointLight.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c PointLight.cpp
+PointLight.o: ./Source/PointLight.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)PointLight.cpp
 
-pixels.o: Pixels.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Pixels.cpp
+pixels.o: ./Source/Pixels.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Pixels.cpp
 
-ray.o: Ray.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Ray.cpp
+ray.o: ./Source/Ray.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Ray.cpp
 
-raytracer.o: Raytracer.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Raytracer.cpp
+raytracer.o: ./Source/Raytracer.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Raytracer.cpp
 
-rgb.o: RGB.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c RGB.cpp
+rgb.o: ./Source/RGB.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)RGB.cpp
 
-sample.o: Sample.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Sample.cpp
+sample.o: ./Source/Sample.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Sample.cpp
 
-scene.o: Scene.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Scene.cpp
+scene.o: ./Source/Scene.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Scene.cpp
 
-scenesampler.o: SceneSampler.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c SceneSampler.cpp
+scenesampler.o: ./Source/SceneSampler.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)SceneSampler.cpp
 
-sphere.o: Sphere.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Sphere.cpp
+sphere.o: ./Source/Sphere.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Sphere.cpp
 
-transform.o: Transform.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Transform.cpp
+transform.o: ./Source/Transform.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Transform.cpp
 
-triangle.o: Triangle.cpp
-		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Triangle.cpp
+triangle.o: ./Source/Triangle.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Triangle.cpp
 
-vector3.o: Vector3.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Vector3.cpp
+vector3.o: ./Source/Vector3.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Vector3.cpp
 
-vector4.o: Vector4.cpp
-	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Vector4.cpp
+vector4.o: ./Source/Vector4.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(PATH)Vector4.cpp
 
 ################################## Test Suite ##################################
 
@@ -155,7 +156,7 @@ PointTests.o: PointTests.cpp
 PointLightTests.o: PointLightTests.cpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PointLightTests.cpp
 
-PixelsTests.o: Pixels.cpp
+PixelsTests.o: PixelsTests.cpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PixelsTests.cpp
 
 RayTests.o: RayTests.cpp

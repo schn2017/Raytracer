@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Pixels.h"
+#include "./Source/Pixels.h"
 
 TEST_CASE("Pixels: Adding Color Samples")
 {

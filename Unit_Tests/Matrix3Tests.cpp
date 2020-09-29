@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Matrix3.h"
+#include "./Source/Matrix3.h"
 
 TEST_CASE("Matrix3: Construction - All floats")
 {

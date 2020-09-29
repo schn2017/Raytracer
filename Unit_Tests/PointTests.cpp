@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Point.h"
+#include "./Source/Point.h"
 
 TEST_CASE("Point: Construction")
 {

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "RGB.h"
+#include "./Source/RGB.h"
 
 TEST_CASE("RGB: Construction")
 {

@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Raytracer.h"
+#include "./Source/Raytracer.h"
 
 TEST_CASE("Raytracer: Constructor")
 {

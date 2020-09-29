@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "Camera.h"
+#include "./Source/Camera.h"
 
 TEST_CASE("Camera: Construction")
 {
