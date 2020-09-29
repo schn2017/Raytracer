@@ -17,7 +17,7 @@ Renders scenes using the Phong Illumination model, linear transforms, multiple l
 ![](Rendered_Images/image6.png)
 #### Rendering Three Spheres, One Point Light Source
 ![](Rendered_Images/image7.png)
-#### Rendering Three Spheres, Shadows added
+#### Rendering Three Spheres, Shadows Implemented
 ![](Rendered_Images/image8.png)
-#### Rendering Spheres and Triangles with shadow rays
+#### Rendering Spheres and Triangle, Shadows Implemented
 ![](Rendered_Images/image9.png)
