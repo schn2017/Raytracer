@@ -29,6 +29,9 @@ TEST_CASE("Vector3: Comparison")
   REQUIRE(v1.isEqual(v2) == true);
   REQUIRE(v2.isEqual(v1) == true);
   REQUIRE(v1.isEqual(v3) == false);
+
+  REQUIRE((v1 == v2) == true);
+  REQUIRE((v1 == v3) == false);
 }
 
 TEST_CASE("Vector3: Scalar Multiplication")

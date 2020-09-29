@@ -18,7 +18,8 @@ RGB Raytracer::getColor(Ray hitRay)
   Intersection rayIntersection = traceRay(hitRay);
   if (rayIntersection.getState() == true)
   {
-    color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
+    //color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
+    color = color + rayIntersection.getMaterials().getAmbient() + traceLightRays(rayIntersection);
   }
 
   return color;
@@ -27,7 +28,6 @@ RGB Raytracer::getColor(Ray hitRay)
 Intersection Raytracer::traceRay(Ray &hitRay)
 {
   int numberOfObjects = objects.size();
-  float minT = 0;
   float distance = 0;
   //Intersection intersection = Intersection();
   vector<Intersection> intersections;
@@ -39,15 +39,33 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
     if (sphere.getState() == true)
     {
-      if (sphere.intersect(hitRay) == true)
+      //std::cout << "Transform\n";
+      //objects[i].getTransform().print();
+      Matrix4 inverseTransform = MathHelper::inverseMatrix4(objects[i].getTransform());
+      //std::cout << "Inverse Transform\n";
+      //inverseTransform.print();
+
+      Point transformedOrigin = inverseTransform * hitRay.getOrigin();
+      Vector3 transformedDirection = MathHelper::normalize(inverseTransform  * hitRay.getDirection());
+
+      Ray transformedRay = Ray(transformedOrigin, transformedDirection);
+
+      if (sphere.intersect(transformedRay) == true)
       {
-        distance = hitRay.getT();
+        //Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
+        Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
+        Point intersectionPoint = objects[i].getTransform() * transformedRay.getIntersectionPoint();
+        distance = MathHelper::distance(hitRay.getOrigin(), intersectionPoint);
+
+        std::cout << "The intersection point is " + intersectionPoint.toString();
+        std::cout << "The calculated distance is " << distance << " The original distance was " << transformedRay.getT() << "\n";
+
+        surfaceNormal = sphere.calculateSurfaceNormal(normalPoint);
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
-
-        surfaceNormal = sphere.calculateSurfaceNormal(hitRay.getIntersectionPoint());
-
         intersection.setSurfaceNormal(surfaceNormal);
+        intersection.setIntersectionPoint(intersectionPoint);
+
         intersections.push_back(intersection);
       }
     }
@@ -80,7 +98,7 @@ Intersection Raytracer::traceRay(Ray &hitRay)
   }
 }
 
-RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
+RGB Raytracer::traceLightRays(Intersection intersection)
 {
   RGB diffuse = intersection.getMaterials().getDiffuse();
   RGB emission = intersection.getMaterials().getEmission();
@@ -88,7 +106,6 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
   float shininess = intersection.getMaterials().getShininess();
   Vector3 surfaceNormal = intersection.getSurfaceNormal();
   RGB color = RGB(0, 0, 0);
-  bool lightFound = false;
 
   int numberOfLights = sceneLights.getLightSources().size();
 
@@ -97,13 +114,14 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
     if (sceneLights.getLightSource(i).getPointLight().getState() == true)
     {
       PointLight pointLight = sceneLights.getLightSource(i).getPointLight();
-      Vector3 origin = hitRay.getIntersectionPoint();
-      Vector3 cameraDirection = MathHelper::normalize(hitRay.getOrigin() - origin);
-      Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
-      RGB lightColor = pointLight.getLightColor();
+      Point origin = intersection.getIntersectionPoint();
 
-      //cout<< "LightColor - ";
-      //lightColor.print();
+      Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
+
+      //cout << "Ray - Origin: " + origin.toString();
+      //cout << "Ray - Direction: " + direction.toString();
+
+      RGB lightColor = pointLight.getLightColor();
 
       Ray lightRay = Ray(origin + direction, direction);
       Intersection rayIntersection = traceRay(lightRay);
@@ -123,12 +141,15 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
         //cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
         //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
+        //cout << "color - " << color.toString();
       }
-
+      else
+      {
+        //out << "HIT!";
+      }
     }
-
   }
-
+  //cout << "color - " << color.toString();
   return color;
 }
 
@@ -141,6 +162,7 @@ RGB Raytracer::traceLightRays(Ray hitRay, Intersection intersection)
       if (i == 0)
       {
         minT = intersections[0].getDistance();
+        minIntersection = 0;
       }
       else
       {

@@ -4,9 +4,12 @@ Matrix3 MathHelper::add(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 sum = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    sum.setElement(i, m1.getElements()[i] + m2.getElements()[i]);
+    for (int j = 0; j < 3; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i, j) + m2.getElement(i, j));
+    }
   }
 
   return sum;
@@ -16,12 +19,32 @@ Matrix4 MathHelper::add(Matrix4 m1, Matrix4 m2)
 {
   Matrix4 sum = Matrix4();
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    sum.setElement(i, m1.getElements()[i] + m2.getElements()[i]);
+    for (int j = 0; j < 4; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i, j) + m2.getElement(i, j));
+    }
   }
 
   return sum;
+}
+
+Matrix4 MathHelper::adjugateMatrix4X4(Matrix4 m1)
+{
+  Matrix4 adjugateMatrix = Matrix4();
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 4; j++)
+    {
+      //std::cout << "i " << i << ", j" << j << "\n";
+      float determinant = pow(-1, i + j) *  MathHelper::determinant(MathHelper::determinantSubArray3X3(m1, j, i));
+      //std::cout <<"The determinant is " << determinant<<"\n\n";
+      adjugateMatrix.setElement(i, j, determinant);
+    }
+  }
+
+  return adjugateMatrix;
 }
 
 Vector3 MathHelper::cross(Vector3 v1, Vector3 v2)
@@ -37,6 +60,109 @@ Vector3 MathHelper::cross(Vector3 v1, Vector3 v2)
   return Vector3(i, j, k);
 }
 
+float MathHelper::determinant(Matrix3 m1)
+{
+    float sum = 0;
+
+    for (int i = 0; i < 3; i++)
+    {
+      float determinant = MathHelper::determinantSubArray2X2(m1, 0, i);
+      //std::cout << "The determinant is " << determinant << "\n";
+      //std::cout << "The deteminant will be multiplied by " << m1.getElement(0, i) << "\n";
+      float value = m1.getElement(0, i) *  determinant;
+
+      if (i == 1)
+      {
+        value *= -1;
+
+      }
+
+      sum = value + sum;
+    }
+
+    //std::cout << "The sum is " << sum << "\n";
+
+    return sum;
+}
+
+float MathHelper::determinantMatrix4(Matrix4 m1)
+{
+  Matrix3 a11 = MathHelper::determinantSubArray3X3(m1, 0, 0);
+  float determinantA11 = MathHelper::determinant(a11) * m1.getElement(0, 0);
+
+  Matrix3 a21 = MathHelper::determinantSubArray3X3(m1, 1, 0);
+  float determinantA21 = -1 * MathHelper::determinant(a21) * m1.getElement(1, 0);
+
+  Matrix3 a31 = MathHelper::determinantSubArray3X3(m1, 2, 0);
+  float determinantA31 = MathHelper::determinant(a31) * m1.getElement(2, 0);
+
+  Matrix3 a41 = MathHelper::determinantSubArray3X3(m1, 3, 0);
+  float determinantA41 = -1 * MathHelper::determinant(a41) * m1.getElement(3, 0);
+
+  float totalDeterminant = determinantA11 + determinantA21 + determinantA31 + determinantA41;
+
+  return totalDeterminant;
+}
+
+float MathHelper::determinantSubArray2X2(Matrix3 m1, int row, int column)
+{
+  int count = 0;
+  float array[4];
+  for (int i = 0; i < 3; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      if (i != row && j != column)
+      {
+        array[count] = m1.getElement(i, j);
+        count++;
+      }
+    }
+  }
+
+  return (array[0] * array[3]) - (array[1] * array[2]);
+
+}
+
+Matrix3 MathHelper::determinantSubArray3X3(Matrix4 m1, int row, int column)
+{
+  Matrix3 subMatrix = Matrix3();
+  int r = 0;
+  int c = 0;
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 4; j++)
+    {
+      if (i != row && j != column)
+      {
+        if (c == 3)
+        {
+          r++;
+          c = 0;
+        }
+
+        subMatrix.setElement(r, c, m1.getElement(i, j));
+        c++;
+      }
+    }
+  }
+
+  //std::cout << " 3x3 SubArray " << row << " " << column << "\n";
+  //subMatrix.print();
+
+  return subMatrix;
+}
+
+float MathHelper::distance(Point p1, Point p2)
+{
+  float x = p1.getX() - p2.getX();
+  float y = p1.getY() - p2.getY();
+  float z = p1.getZ() - p2.getZ();
+
+
+  return sqrt((x * x) + (y * y) + (z * z));
+}
+
 float MathHelper::dot(Vector3 v1, Vector3 v2)
 {
   return (v1.getX() * v2.getX())
@@ -50,6 +176,21 @@ float MathHelper::dot(Vector4 v1, Vector4 v2)
           + (v1.getY() * v2.getY())
           + (v1.getZ() * v2.getZ())
           + (v1.getW() * v2.getW()));
+}
+
+Matrix4 MathHelper::inverseMatrix4(Matrix4 m1)
+{
+  Matrix4 adjugateMatrix = MathHelper::adjugateMatrix4X4(m1);
+  float determinant = determinantMatrix4(m1);
+  float reciprocalDeterminant = 1 / determinant;
+  //std::cout << "AdjugateMatrix\n";
+  //adjugateMatrix.print();
+  adjugateMatrix = MathHelper::scalarMultiply(reciprocalDeterminant, adjugateMatrix);
+
+  //std::cout << "Inverse Matrix \n";
+  //adjugateMatrix.print();
+
+  return adjugateMatrix;
 }
 
 float MathHelper::magnitude(Vector3 v1)
@@ -83,19 +224,19 @@ Matrix3 MathHelper::multiply(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 product = Matrix3();
 
-  int row = -1, col = -1;
+  //int row = -1, col = -1;
   float value = 0;
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    col = i % 3;
-    row = (i / 3) + (2 * (i / 3));
+    for (int j = 0; j < 3; j++)
+    {
+      value = m1.getElement(i, 0) * m2.getElement(0, j)
+              + m1.getElement(i, 1) * m2.getElement(1, j)
+              + m1.getElement(i, 2) * m2.getElement(2, j);
 
-    value = (m1.getElements()[row] * m2.getElements()[col])
-            +(m1.getElements()[row + 1] * m2.getElements()[col + 3])
-            +(m1.getElements()[row + 2] * m2.getElements()[col + 6]);
-
-    product.setElement(i, value);
+      product.setElement(i, j, value);
+    }
   }
 
   return product;
@@ -105,20 +246,19 @@ Matrix4 MathHelper::multiply(Matrix4 m1, Matrix4 m2)
 {
   Matrix4 product = Matrix4();
 
-  int row = -1, col = -1;
   float value = 0;
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    col = i % 4;
-    row = (i / 4) * 4;
+    for (int j = 0; j < 4; j++)
+    {
+      value = m1.getElement(i, 0) * m2.getElement(0, j)
+              + m1.getElement(i, 1) * m2.getElement(1, j)
+              + m1.getElement(i, 2) * m2.getElement(2, j)
+              + m1.getElement(i, 3) * m2.getElement(3, j);
 
-    value = (m1.getElements()[row] * m2.getElements()[col])
-            +(m1.getElements()[row + 1] * m2.getElements()[col + 4])
-            +(m1.getElements()[row + 2] * m2.getElements()[col + 8])
-            +(m1.getElements()[row + 3] * m2.getElements()[col + 12]);
-
-    product.setElement(i, value);
+      product.setElement(i, j, value);
+    }
   }
 
   return product;
@@ -126,7 +266,18 @@ Matrix4 MathHelper::multiply(Matrix4 m1, Matrix4 m2)
 
 Vector3 MathHelper::multiply(Matrix3 m1, Vector3 v1)
 {
-  float x = (m1.getElements()[0] * v1.getX())
+  float dimensions[3];
+
+  for (int i = 0; i < 3; i++)
+  {
+      dimensions[i] = m1.getElement(i, 0) * v1.getX()
+                      + m1.getElement(i, 1) * v1.getY()
+                      + m1.getElement(i, 2) * v1.getZ();
+  }
+
+
+
+  /*float x = (m1.getElements()[0] * v1.getX())
             + (m1.getElements()[1] * v1.getY())
             + (m1.getElements()[2] * v1.getZ());
   float y = (m1.getElements()[3] * v1.getX())
@@ -136,29 +287,30 @@ Vector3 MathHelper::multiply(Matrix3 m1, Vector3 v1)
             + (m1.getElements()[7] * v1.getY())
             + (m1.getElements()[8] * v1.getZ());
 
-  return Vector3(x, y, z);
+  return Vector3(x, y, z);*/
+  return Vector3(dimensions[0], dimensions[1], dimensions[2]);
 }
 
 
 
 Vector4 MathHelper::multiply(Matrix4 m1, Vector4 v1)
 {
-  float x = (m1.getElements()[0] * v1.getX())
-            + (m1.getElements()[1] * v1.getY())
-            + (m1.getElements()[2] * v1.getZ())
-            + (m1.getElements()[3] *v1.getW());
-  float y = (m1.getElements()[4] * v1.getX())
-            + (m1.getElements()[5] * v1.getY())
-            + (m1.getElements()[6] * v1.getZ())
-            + (m1.getElements()[7] *v1.getW());
-  float z = (m1.getElements()[8] * v1.getX())
-            + (m1.getElements()[9] * v1.getY())
-            + (m1.getElements()[10] * v1.getZ())
-            + (m1.getElements()[11] *v1.getW());
-  float w = (m1.getElements()[12] * v1.getX())
-            + (m1.getElements()[13] * v1.getY())
-            + (m1.getElements()[14] * v1.getZ())
-            + (m1.getElements()[15] *v1.getW());
+  float x = (m1.getElement(0, 0) * v1.getX())
+            + (m1.getElement(0, 1) * v1.getY())
+            + (m1.getElement(0, 2) * v1.getZ())
+            + (m1.getElement(0, 3) * v1.getW());
+  float y = (m1.getElement(1, 0) * v1.getX())
+            + (m1.getElement(1, 1) * v1.getY())
+            + (m1.getElement(1, 2) * v1.getZ())
+            + (m1.getElement(1, 3) * v1.getW());
+  float z = (m1.getElement(2, 0) * v1.getX())
+            + (m1.getElement(2, 1) * v1.getY())
+            + (m1.getElement(2, 2) * v1.getZ())
+            + (m1.getElement(2, 3) * v1.getW());
+  float w = (m1.getElement(3, 0) * v1.getX())
+            + (m1.getElement(3, 1) * v1.getY())
+            + (m1.getElement(3, 2) * v1.getZ())
+            + (m1.getElement(3, 3) * v1.getW());
 
   return Vector4(x, y, z , w);
 }
@@ -192,9 +344,12 @@ Matrix3 MathHelper::scalarMultiply(float scalar, Matrix3 m1)
 {
   Matrix3 product = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    product.setElement(i, m1.getElements()[i] * scalar);
+    for (int j = 0; j < 3; j++)
+    {
+      product.setElement(i, j, m1.getElement(i,j) * scalar);
+    }
   }
 
   return product;
@@ -204,9 +359,12 @@ Matrix4 MathHelper::scalarMultiply(float scalar, Matrix4 m1)
 {
   Matrix4 product = Matrix4();
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    product.setElement(i, m1.getElements()[i] * scalar);
+    for (int j = 0; j < 4; j++)
+    {
+      product.setElement(i, j, m1.getElement(i, j) * scalar);
+    }
   }
 
   return product;
@@ -217,9 +375,12 @@ Matrix3 MathHelper::sub(Matrix3 m1, Matrix3 m2)
 {
   Matrix3 sum = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    sum.setElement(i, m1.getElements()[i] - m2.getElements()[i]);
+    for (int j = 0; j < 3; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i,j) - m2.getElement(i,j));
+    }
   }
 
   return sum;
@@ -229,9 +390,12 @@ Matrix4 MathHelper::sub(Matrix4 m1, Matrix4 m2)
 {
   Matrix4 sum = Matrix4();
 
-  for (int i = 0; i < 16; i++)
+  for (int i = 0; i < 4; i++)
   {
-    sum.setElement(i, m1.getElements()[i] - m2.getElements()[i]);
+    for (int j = 0; j < 4; j++)
+    {
+      sum.setElement(i, j, m1.getElement(i,j) - m2.getElement(i,j));
+    }
   }
 
   return sum;
@@ -271,4 +435,19 @@ Vector3 MathHelper::transformVector3(Matrix4 m1, Vector3 v1)
   return Vector3(transformationVector.getX() / transformationVector.getW(),
               transformationVector.getY() / transformationVector.getW(),
               transformationVector.getZ() / transformationVector.getW());
+}
+
+Matrix4 MathHelper::transpose(Matrix4 m1)
+{
+  Matrix4 transposeMatrix = Matrix4();
+
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 4; j++)
+    {
+      transposeMatrix.setElement(j, i, m1.getElement(i, j));
+    }
+  }
+
+  return transposeMatrix;
 }

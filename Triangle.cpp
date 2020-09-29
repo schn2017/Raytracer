@@ -2,12 +2,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 //Class Constructor Functions
-Triangle::Triangle(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
+Triangle::Triangle(Point vertex1, Point vertex2, Point vertex3)
 {
-  v1 = vertex1;
-  v2 = vertex2;
-  v3 = vertex3;
+  p1 = vertex1;
+  p2 = vertex2;
+  p3 = vertex3;
   state = true;
+  normal = calculateSurfaceNormal();
 }
 
 Triangle::Triangle()
@@ -26,58 +27,90 @@ void Triangle::changeState(bool &newState)
   state = newState;
 }
 
-Vector3 Triangle::getV1()
+Point Triangle::getP1()
 {
-  return v1;
+  return p1;
 }
 
-Vector3 Triangle::getV2()
+Point Triangle::getP2()
 {
-  return v2;
+  return p2;
 }
 
-Vector3 Triangle::getV3()
+Point Triangle::getP3()
 {
-  return v3;
+  return p3;
 }
+
+Vector3 Triangle::getNormal()
+{
+  return normal;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //Set Member Functions
-void Triangle::setV1(Vector3 newVector)
+void Triangle::setP1(Point newPoint)
 {
-  v1 = newVector;
+  p1 = newPoint;
 }
 
-void Triangle::setV2(Vector3 newVector)
+void Triangle::setP2(Point newPoint)
 {
-  v2 = newVector;
+  p2 = newPoint;
 }
 
-void Triangle::setV3(Vector3 newVector)
+void Triangle::setP3(Point newPoint)
 {
-  v3 = newVector;
+  p3 = newPoint;
 }
 ////////////////////////////////////////////////////////////////////////////////
 //Method to determine if ray intersects Triangle
 bool Triangle::intersect(Ray &cameraRay)
 {
-  //std::cout << "Triangle Intersect" << "\n";
+  float kEpsilon = 0.000001f;
+  Vector3 v1v2 = p2 - p1;
+  Vector3 v1v3 = p3 - p1;
+  Vector3 pvec = MathHelper::cross(cameraRay.getDirection(), v1v3);
+  float det = MathHelper::dot(v1v2, pvec);
 
-  Vector3 A = v2 - v1;
-  //std::cout << "A ";
-//  A.toString();
-  Vector3 B = v3 - v1;
-  //std::cout << "B ";
-  //B.toString();
+  if (det < kEpsilon)
+  {
+    return false;
+  }
+
+  float invDet = 1 / det;
+  Vector3 tvec = cameraRay.getOrigin() - p1;
+
+  float u = MathHelper::dot(tvec, pvec) * invDet;
+
+  if (u < 0 || u > 1) return false;
+
+  Vector3 qvec = MathHelper::cross(tvec, v1v2);
+  float v = MathHelper::dot(cameraRay.getDirection(), qvec) * invDet;
+
+  if (v < 0 || v > 1) return false;
+
+  float t = MathHelper::dot(v1v3, qvec) * invDet;
+  cameraRay.setT(t);
+  //std::cout << "The distance is " << t <<"\n";
+
+  //return true;
+
+  //std::cout << "Triangle Intersect" << "\n";
+  Vector3 A = p2 - p1;
+  //std::cout << "A " + A.toString();
+  Vector3 B = p3 - p1;
+  //std::cout << "B " + B.toString();
 
   Vector3 C = MathHelper::cross(A, B);
-  //std::cout << "C ";
+  //std::cout << "C " + C.toString();
   Vector3 surfaceNormal = C;
 //  C.toString();
-  Vector3 triangleNormal = MathHelper::normalize(C);
+  /*Vector3 triangleNormal = MathHelper::normalize(C);
   //std::cout << "Normal ";
   //triangleNormal.toString();
 
-  float numerator = MathHelper::dot(A, triangleNormal) - MathHelper::dot(cameraRay.getOrigin(), triangleNormal);
+  float numerator = MathHelper::dot(A, triangleNormal) - MathHelper::dot(cameraRay.getOrigin() - Point(0,0,0), triangleNormal);
   float denominator = MathHelper::dot(cameraRay.getDirection(), triangleNormal);
 
   if (denominator == 0)
@@ -86,30 +119,29 @@ bool Triangle::intersect(Ray &cameraRay)
   }
 
   float distance = numerator / denominator;
-  //std::cout << "The numerator is " << numerator << "\n";
-  //std::cout << "The denominator is " << denominator << "\n";
-  //std::cout << "The distance is " << distance << "\n";
+  std::cout << "The numerator is " << numerator << "\n";
+  std::cout << "The denominator is " << denominator << "\n";
+  std::cout << "The distance is " << distance << "\n";
 
   if (distance < 0)
   {
     return false;
   }
 
-  cameraRay.setT(distance);
-  Vector3 intersectionPoint = cameraRay.getIntersectionPoint();
-  //std::cout << "The intersection point is ";
-  //intersectionPoint.toString();
+  cameraRay.setT(distance);*/
+  Point intersectionPoint = cameraRay.getIntersectionPoint();
+  //std::cout << "The intersection point is " + intersectionPoint.toString();
 
   float paralleogramArea = MathHelper::magnitude(MathHelper::cross(A, B));
   float triangleArea = paralleogramArea / 2;
 
-  //std::cout << "\nThe area of the paralleogram is " << paralleogramArea << "\n";
+  ////std::cout << "\nThe area of the paralleogram is " << paralleogramArea << "\n";
   //std::cout << "The area of the triangle is " << triangleArea << "\n";
 
   //Edge 1
   //std::cout << "\nEDGE 1\n";
-  Vector3 edge = v2 - v1;
-  Vector3 edgeToPoint = intersectionPoint - v1;
+  Vector3 edge = p2 - p1;
+  Vector3 edgeToPoint = intersectionPoint - p1;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -122,8 +154,8 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //Edge2
   //std::cout << "\nEDGE 2\n";
-  edge = v3 - v2;
-  edgeToPoint = intersectionPoint - v2;
+  edge = p3 - p2;
+  edgeToPoint = intersectionPoint - p2;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -135,8 +167,8 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //Edge3
   //std::cout << "\nEDGE 3\n";
-  edge = v1 - v3;
-  edgeToPoint = intersectionPoint - v3;
+  edge = p1 - p3;
+  edgeToPoint = intersectionPoint - p3;
   //edge.toString();
   //edgeToPoint.toString();
   C = MathHelper::cross(edge, edgeToPoint);
@@ -144,7 +176,7 @@ bool Triangle::intersect(Ray &cameraRay)
   //C.toString();
   //std::cout << "The area of the triangle is " << MathHelper::magnitude(C) << "\n";
   v = (MathHelper::magnitude(C) / 2) / triangleArea;
-//  std::cout << "V: " << v << "\n";
+  //std::cout << "V: " << v << "\n";
 
   w = 1 - u - v;
 
@@ -158,19 +190,27 @@ bool Triangle::intersect(Ray &cameraRay)
 
   //std::cout << "\nINTERSECTION\n";
   return true;
-};
+}
 ////////////////////////////////////////////////////////////////////////////////
 Vector3 Triangle::calculateSurfaceNormal()
 {
-  Vector3 A = v2 - v1;
-  Vector3 B = v3 - v1;
+  Vector3 A = p2 - p1;
+  Vector3 B = p3 - p1;
 
   return MathHelper::normalize(MathHelper::cross(A, B));
 }
 ////////////////////////////////////////////////////////////////////////////////
 void Triangle::applyModelViewMatrix(Matrix4 modelViewMatrix)
 {
-    v1 = MathHelper::transformVector3(modelViewMatrix, v1);
-    v2 = MathHelper::transformVector3(modelViewMatrix, v2);
-    v3 = MathHelper::transformVector3(modelViewMatrix, v3);
+    p1 = modelViewMatrix * p1;
+    p2 = modelViewMatrix * p2;
+    p3 = modelViewMatrix * p3;
+    //normal = MathHelper::normalize(MathHelper::inverseMatrix4(modelViewMatrix) * normal);
+    //std::cout << toString();
+
+}
+//
+std::string Triangle::toString()
+{
+  return "Triangle \nVertex 1: " + p1.toString() + "Vertex 2: " + p2.toString() + "Vertex 3: " + p3.toString() + "Normal: " + normal.toString();
 }

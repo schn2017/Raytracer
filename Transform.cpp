@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
+Matrix4 Transform::lookAt(Point eye, Point center, Vector3 up)
 {
 
   Vector3 w = MathHelper::normalize(eye - center);
@@ -11,13 +11,11 @@ Matrix4 Transform::lookAt(Vector3 eye, Vector3 center, Vector3 up)
                                    w.getX(), w.getY(), w.getZ(), 0,
                                    0, 0, 0, 1);
 
-  rotationMatrix.print();
-
   Matrix4 translationMatrix = Transform::translate(-1 * eye.getX(),
                                                    -1 * eye.getY(),
                                                    -1 * eye.getZ());
 
-  return MathHelper::multiply(translationMatrix, rotationMatrix);
+  return translationMatrix * rotationMatrix;
 }
 
 Matrix4 Transform::perspective(float fovy, float aspect, float zNear, float zFar)
@@ -46,14 +44,18 @@ Matrix4 Transform::scale(float sx, float sy, float sz)
 Matrix3 Transform::rotate(float degrees, Vector3 axis)
 {
   Vector3 newAxis = MathHelper::normalize(axis);
-  Matrix3 identity = Matrix3(1, 0, 0, 0, 1, 0, 0, 0, 1);
+  Matrix3 identity = Matrix3(1, 0, 0,
+                             0, 1, 0,
+                             0, 0, 1);
+
 	float angle = MathHelper::radians(degrees);
 
-	Matrix3 k = Matrix3(0, newAxis.getZ(), -1 * newAxis.getY(),
-								-1 * newAxis.getZ(), 0, newAxis.getX(),
-								newAxis.getY(), -1 * newAxis.getX(), 0);
+	Matrix3 k = Matrix3(0, -1 * newAxis.getZ(), newAxis.getY(),
+								      newAxis.getZ(), 0, -1 * newAxis.getX(),
+								      -1 * newAxis.getY(), newAxis.getX(), 0);
 
 	Matrix3 kSquared = MathHelper::multiply(k, k);
+  identity = MathHelper::scalarMultiply(cos(angle), identity);
 
 	Matrix3 rotation = MathHelper::add(identity, MathHelper::add(MathHelper::scalarMultiply(sin(angle),k), MathHelper::scalarMultiply(1 - cos(angle), kSquared)));
 

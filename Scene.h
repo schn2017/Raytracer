@@ -24,7 +24,7 @@ public:
   float getWidth();
   Lighting getLighting();
   stack<Matrix4> getTransformStack();
-  Vector3 getVertex(int element);
+  Point getVertex(int element);
   vector<Object> getObjects();
   vector<Sphere> getSpheres();
   vector<Triangle> getTriangles();
@@ -58,5 +58,5 @@ private:
   vector<Object> objects;
   vector<Sphere> spheres;
   vector<Triangle> triangles;
-  vector<Vector3> vertices;
+  vector<Point> vertices;
 };

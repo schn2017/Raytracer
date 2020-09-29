@@ -4,8 +4,9 @@ Camera::Camera(float lookFromX, float lookFromY, float lookFromZ,
        float lookAtX, float lookAtY, float lookAtZ,
        float upX, float upY, float upZ, float fovYAxis)
 {
-  lookFrom = Vector3(lookFromX, lookFromY, lookFromZ);
-  lookAt = Vector3(lookAtX, lookAtY, lookAtZ);
+  lookFrom = Point(lookFromX, lookFromY, lookFromZ);
+  lookAt = Point(lookAtX, lookAtY, lookAtZ);
+  //up = MathHelper::normalize(Transform::up(Vector3(upX, upY, upZ), Vector3(0, 0, 1)));
   up = MathHelper::normalize(Vector3(upX, upY, upZ));
   fovY = fovYAxis;
 }
@@ -14,14 +15,19 @@ Camera::Camera()
 {
 }
 
-Ray Camera::createRay(Vector3 direction)
+Ray Camera::createRay(Vector3 direction, Matrix4 inverseViewMatrix)
 {
-  return Ray(lookFrom, direction);
+  //Point ori = inverseViewMatrix * lookFrom;
+  //Vector3 dir = MathHelper::normalize(inverseViewMatrix * direction);
+  Point ori = lookFrom;
+  Vector3 dir = MathHelper::normalize(direction);
+
+  return Ray(ori, dir);
 }
 
 Vector3 Camera::convertSampleToCameraView(Sample sample)
 {
-  Vector3 w = MathHelper::normalize(lookFrom);
+  Vector3 w = MathHelper::normalize(lookFrom - lookAt);
   Vector3 u = MathHelper::normalize(MathHelper::cross(up, w));
   Vector3 v = MathHelper::cross(w, u);
 
@@ -38,12 +44,12 @@ void Camera::calculateFOVX()
   fovX = 2 * atan(tan(MathHelper::radians(fovY / 2)) * (width / height));
 }
 
-Vector3 Camera::getLookFrom()
+Point Camera::getLookFrom()
 {
   return lookFrom;
 }
 
-Vector3 Camera::getLookAt()
+Point Camera::getLookAt()
 {
   return lookAt;
 }
@@ -84,14 +90,14 @@ void Camera::setFOVX(float newFOV)
   fovX = newFOV;
 }
 
-void Camera::setLookFrom(Vector3 newVector)
+void Camera::setLookFrom(Point newPoint)
 {
-  lookFrom = newVector;
+  lookFrom = newPoint;
 }
 
-void Camera::setLookAt(Vector3 newVector)
+void Camera::setLookAt(Point newPoint)
 {
-  lookAt = newVector;
+  lookAt = newPoint;
 }
 
 void Camera::setUp(Vector3 newVector)

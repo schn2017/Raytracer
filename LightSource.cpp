@@ -23,6 +23,6 @@ void LightSource::applyViewMatrix(Matrix4 viewMatrix)
 {
   if (pointLight.getState() == true)
   {
-    pointLight.setPosition(MathHelper::transformVector3(viewMatrix, pointLight.getPosition()));
+    pointLight.setPosition(viewMatrix * pointLight.getPosition());
   }
 }

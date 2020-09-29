@@ -5,9 +5,15 @@ TEST_CASE("Matrix3: Construction - All floats")
 {
   Matrix3 testMatrix = Matrix3(0, 1, 2, 3, 4, 5, 6, 7, 8);
 
-  for (int i = 0; i < 9; i++)
+  int count = 0;
+
+  for (int i = 0; i < 3; i++)
   {
-    REQUIRE(testMatrix.getElements()[i] == i);
+    for (int j = 0; j < 3; j++)
+    {
+      REQUIRE(testMatrix.getElement(i, j) == count);
+      count++;
+    }
   }
 }
 
@@ -15,9 +21,12 @@ TEST_CASE("Matrix3: Construction - No Inputs")
 {
   Matrix3 testMatrix = Matrix3();
 
-  for (int i = 0; i < 9; i++)
+  for (int i = 0; i < 3; i++)
   {
-    REQUIRE(testMatrix.getElements()[i] == 0);
+    for (int j = 0; j < 3; j++)
+    {
+      REQUIRE(testMatrix.getElement(i,j) == 0);
+    }
   }
 
 }
@@ -25,8 +34,8 @@ TEST_CASE("Matrix3: Construction - No Inputs")
 TEST_CASE("Matrix3: Set Elements")
 {
   Matrix3 testMatrix = Matrix3(0, 1, 2, 3, 4, 5, 6, 7, 8);
-  testMatrix.setElement(0, 1);
-  REQUIRE(testMatrix.getElements()[0] == 1);
+  testMatrix.setElement(0, 0, 1);
+  REQUIRE(testMatrix.getElement(0,0) == 1);
 }
 
 TEST_CASE("Matrix3: Comparison")

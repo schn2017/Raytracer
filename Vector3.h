@@ -19,6 +19,7 @@ class Vector3{
     Vector3 operator+(const Vector3 &otherVector);
     Vector3 operator-(const Vector3 &otherVector);
     Vector3 operator*(const float &scalar);
+    bool operator==(Vector3 &otherVector);
   private:
     float x;
     float y;

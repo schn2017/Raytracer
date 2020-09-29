@@ -53,7 +53,7 @@ void Object::applyTransform()
 {
   if (objSphere.getState() == true)
   {
-    objSphere.applyModelViewMatrix(objTransform);
+    //objSphere.applyModelViewMatrix(objTransform);
   }
   else if (objTriangle.getState() == true)
   {

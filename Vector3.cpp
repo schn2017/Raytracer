@@ -72,4 +72,9 @@ Vector3 Vector3::operator*(const float &scalar)
 
   return Vector3(xx, yy, zz);
 }
+
+bool Vector3::operator==(Vector3 &otherVector)
+{
+  return x == otherVector.x && y == otherVector.y && z == otherVector.z;
+}
 ////////////////////////////////////////////////////////////////////////////////

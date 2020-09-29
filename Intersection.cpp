@@ -30,6 +30,11 @@ Materials Intersection::getMaterials()
   return materials;
 }
 
+Point Intersection::getIntersectionPoint()
+{
+  return intersectionPoint;
+}
+
 Vector3 Intersection::getSurfaceNormal()
 {
   return surfaceNormal;
@@ -44,6 +49,11 @@ void Intersection::setState(bool newState)
 void Intersection::setDistance(float newDistance)
 {
   t = newDistance;
+}
+
+void Intersection::setIntersectionPoint(Point newPoint)
+{
+  intersectionPoint = newPoint;
 }
 
 void Intersection::setMaterials(Materials newMaterials)

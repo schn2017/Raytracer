@@ -5,14 +5,14 @@ TEST_CASE("Lighting - Add Light Source/Get Light Source")
 {
   Lighting testLighting = Lighting();
   LightSource testLightSource = LightSource();
-  PointLight testPointLight = PointLight(Vector3(0, 0, 1), RGB(1, 0, 0));
+  PointLight testPointLight = PointLight(Point(0, 0, 1), RGB(1, 0, 0));
 
   testLightSource.setPointLight(testPointLight);
   testLighting.addLightSource(testLightSource);
 
   PointLight testPointLightGet = testLighting.getLightSource(0).getPointLight();
 
-  REQUIRE(testPointLightGet.getPosition().isEqual(Vector3(0, 0, 1)) == true);
+  REQUIRE((testPointLightGet.getPosition() == Point(0, 0, 1)) == true);
   REQUIRE((testPointLightGet.getLightColor() == RGB(1, 0, 0)) == true);
   REQUIRE(testPointLightGet.getState() == true);
 }
@@ -30,7 +30,7 @@ TEST_CASE("Lighting - Apply View Matrix to Lights")
 {
   Lighting testLighting = Lighting();
   LightSource testLightSource = LightSource();
-  PointLight testPointLight = PointLight(Vector3(1, 2, 3), RGB(0, 0, 0));
+  PointLight testPointLight = PointLight(Point(1, 2, 3), RGB(0, 0, 0));
 
   Matrix4 testMatrix = Matrix4(2, 0, 2, 0,
                                1, 2, 3, 4,

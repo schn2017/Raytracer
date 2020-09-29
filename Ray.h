@@ -1,20 +1,21 @@
 #pragma once
 
 #include "MathHelper.h"
+#include <string>
 
 class Ray
 {
 public:
-  Ray(Vector3 ori, Vector3 dir);
-  Vector3 getIntersectionPoint();
-  Vector3 getOrigin();
+  Ray(Point ori, Vector3 dir);
+  Point getIntersectionPoint();
+  Point getOrigin();
   Vector3 getDirection();
   void setT(float value);
   float getT();
-  void toString();
+  std::string toString();
 
 private:
-  Vector3 origin;
+  Point origin;
   Vector3 direction;
   float t;
 };

@@ -1,4 +1,4 @@
-
+#pragma once
 class Matrix3{
   public:
     Matrix3(float r0x, float r0y, float r0z,
@@ -6,10 +6,10 @@ class Matrix3{
             float r2x, float r2y, float r2z);
     Matrix3();
 
-    float * getElements();
-    void setElement(int elementNumber, float value);
+    float getElement(int row, int column);
+    void setElement(int row, int column, float value);
     void print();
     bool isEqual(Matrix3 other);
   private:
-    float elements[9];
+    float elements[3][3];
 };

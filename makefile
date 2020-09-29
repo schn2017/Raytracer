@@ -5,13 +5,13 @@ INCFLAGS = -I./
 LDFLAGS = -lfreeimage
 RM = rm -f
 
-main: main.o Camera.o Intersection.o Lighting.o LightSource.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
+main: main.o Camera.o Intersection.o Lighting.o LightSource.o Materials.o MathHelper.o materials.o matrix3.o matrix4.o object.o Point.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 			scenesampler.o sphere.o transform.o triangle.o vector3.o vector4.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o main main.o Camera.o Intersection.o Lighting.o LightSource.o MathHelper.o materials.o matrix3.o matrix4.o object.o\
-	 																 PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
+	 																 Point.o PointLight.o pixels.o ray.o raytracer.o rgb.o sample.o scene.o \
 																	 scenesampler.o sphere.o transform.o\
 																	 triangle.o vector3.o vector4.o\
-																	 
+
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c main.cpp
 
@@ -41,6 +41,9 @@ matrix4.o: Matrix4.cpp
 
 object.o: Object.cpp
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Object.cpp
+
+Point.o: Point.cpp
+	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c Point.cpp
 
 PointLight.o: PointLight.cpp
 	$(CXX) $(CXXFLAGS) $(INCFLAGS) -c PointLight.cpp
@@ -85,7 +88,7 @@ vector4.o: Vector4.cpp
 
 tests: TestSuite.o CameraTests.o Camera.o IntersectionTests.o Intersection.o LightingTests.o Lighting.o LightSourceTests.o LightSource.o MaterialsTests.o Materials.o \
 			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
-			 matrix4.o ObjectTests.o object.o	PointLightTests.o PointLight.o PixelsTests.o pixels.o \
+			 matrix4.o ObjectTests.o object.o	PointTests.o Point.o PointLightTests.o PointLight.o PixelsTests.o pixels.o \
 			 RayTests.o ray.o RaytracerTests.o raytracer.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
 			 scenesampler.o SceneTests.o Scene.o SphereTests.o sphere.o \
 			 TransformTests.o transform.o TriangleTests.o triangle.o Vector3Tests.o \
@@ -101,6 +104,7 @@ tests: TestSuite.o CameraTests.o Camera.o IntersectionTests.o Intersection.o Lig
 	Matrix3Tests.o matrix3.o \
 	Matrix4Tests.o matrix4.o \
 	ObjectTests.o object.o \
+	PointTests.o Point.o \
 	PointLightTests.o PointLight.o \
 	PixelsTests.o pixels.o \
 	RayTests.o ray.o \
@@ -144,6 +148,9 @@ Matrix4Tests.o: Matrix4Tests.cpp
 
 ObjectTests.o: ObjectTests.cpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/ObjectTests.cpp
+
+PointTests.o: PointTests.cpp
+		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PointTests.cpp
 
 PointLightTests.o: PointLightTests.cpp
 		$(CXX) $(CXXFLAGS) $(INCFLAGS) -c $(VPATH)/PointLightTests.cpp

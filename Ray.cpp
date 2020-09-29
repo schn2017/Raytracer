@@ -1,6 +1,6 @@
 #include "Ray.h"
 
-Ray::Ray(Vector3 ori, Vector3 dir)
+Ray::Ray(Point ori, Vector3 dir)
 {
   origin = ori;
   direction = dir;
@@ -11,7 +11,7 @@ Vector3 Ray::getDirection()
   return direction;
 }
 
-Vector3 Ray::getOrigin()
+Point Ray::getOrigin()
 {
   return origin;
 }
@@ -26,15 +26,13 @@ void Ray::setT(float value)
   t = value;
 }
 
-Vector3 Ray::getIntersectionPoint()
+Point Ray::getIntersectionPoint()
 {
-  return origin + (direction * t);
+  Vector3 dir = direction * t;
+  return origin + dir;
 }
 
-void Ray::toString()
+std::string Ray::toString()
 {
-  //std::cout<< "Ray: Origin @ ";
-  //origin.toString();
-  //std::cout << "Direction @ ";
-  //direction.toString();
+  return "Ray\n\tOrigin at " + origin.toString() + "\tDirection at " + direction.toString();
 }

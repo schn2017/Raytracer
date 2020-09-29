@@ -37,7 +37,7 @@ Lighting Scene::getLighting()
   return sceneLights;
 }
 
-Vector3 Scene::getVertex(int element)
+Point Scene::getVertex(int element)
 {
   return vertices[element];
 }
@@ -103,6 +103,7 @@ bool Scene::readScene(const char *filename)
           {
             RGB ambientLight = RGB( objectParameters[0], objectParameters[1], objectParameters[2]);
             sceneLights.setAmbientLight(ambientLight);
+            material.setAmbient(ambientLight);
           }
         }
         else if (command == "attenuation")
@@ -174,7 +175,7 @@ bool Scene::readScene(const char *filename)
 
           if (validCommand)
           {
-            Vector3 position = Vector3(objectParameters[0], objectParameters[1], objectParameters[2]);
+            Point position = Point(objectParameters[0], objectParameters[1], objectParameters[2]);
             RGB pointLightColor = RGB(objectParameters[3], objectParameters[4], objectParameters[5]);
             //pointLightColor.print();
             PointLight newPointLight = PointLight(position, pointLightColor);
@@ -317,7 +318,7 @@ bool Scene::readScene(const char *filename)
           validCommand = readSceneValues(s, 3, objectParameters);
           if (validCommand)
           {
-            vertices.push_back(Vector3(objectParameters[0], objectParameters[1], objectParameters[2]));
+            vertices.push_back(Point(objectParameters[0], objectParameters[1], objectParameters[2]));
           }
         }
         else if (command == "vertexnormal")
@@ -360,7 +361,6 @@ void Scene::renderScene()
   sceneCamera.calculateFOVX();
   cout << "Camera Information:\nLookFrom: " + sceneCamera.getLookFrom().toString();
   cout << "LookAt: " + sceneCamera.getLookAt().toString();
-  cout << "LookAt: " + sceneCamera.getLookAt().toString();
   cout << "Up: " +   sceneCamera.getUp().toString();
   cout << "FOVY: " << sceneCamera.getFOVY() << " FOVX: " << sceneCamera.getFOVX() << "\n\n";
 
@@ -380,6 +380,9 @@ void Scene::renderScene()
   }
   cout << "\n";
 
+  Matrix4 inverseViewMatrix = MathHelper::inverseMatrix4(viewMatrix);
+  cout << "inverseViewMatrix\n";
+  inverseViewMatrix.print();
   applyViewMatrix();
 
   film = Pixels(height, width);
@@ -396,11 +399,12 @@ void Scene::renderScene()
 
     Vector3 rayDirection = sceneCamera.convertSampleToCameraView(sample);
 
-    Ray cameraRay = sceneCamera.createRay(rayDirection);
+    Ray cameraRay = sceneCamera.createRay(rayDirection, inverseViewMatrix);
+    //cout << cameraRay.toString();
 
     if(sampleCount > sampleTotalCount * .1)
     {
-      cout << "[]";
+      cout << "[]\n";
       sampleCount = 0;
     }
 
@@ -418,12 +422,17 @@ void Scene::renderScene()
 //Render Scene Helper Functions
 void Scene::applyViewMatrix()
 {
-  sceneLights.applyViewMatrix(viewMatrix);
+  //sceneLights.applyViewMatrix(viewMatrix);
 
   for(int i = 0; i < objects.size(); i++)
   {
-    objects[i].applyTransform();
-    objects[i].setTransform(viewMatrix);
+    //cout << "\nModel Matrix\n";
+    //objects[i].getTransform().print();
+    //Matrix4 modelViewMatrix = MathHelper::multiply(viewMatrix, objects[i].getTransform());
+
+    //cout << "\nModel View Matrix\n";
+    //modelViewMatrix.print();
+    //objects[i].setTransform(modelViewMatrix);
     objects[i].applyTransform();
   }
 }
