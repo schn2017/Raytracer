@@ -22,4 +22,4 @@ Renders scenes using the Phong Illumination model, linear transforms, multiple l
 #### Rendering Spheres and Triangle, Shadows Implemented
 ![](Rendered_Images/image9.png)
 #### Rendering A More Complex Scene, Desk, Each Primitive Assigned A Color, No Lighting
-![](Rendered_Images/scene1.png)
+![](Rendered_Images/Scene1.png)
