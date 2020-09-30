@@ -55,11 +55,8 @@ Matrix3 Transform::rotate(float degrees, Vector3 axis)
 								      -1 * newAxis.getY(), newAxis.getX(), 0);
 
 	Matrix3 kSquared = MathHelper::multiply(k, k);
-  identity = MathHelper::scalarMultiply(cos(angle), identity);
 
-	Matrix3 rotation = MathHelper::add(identity, MathHelper::add(MathHelper::scalarMultiply(sin(angle),k), MathHelper::scalarMultiply(1 - cos(angle), kSquared)));
-
-	return rotation;
+  return (identity) + (k * sin(angle)) + (kSquared * (1 - cos(angle)));
 }
 
 Matrix4 Transform::translate(float tx, float ty, float tz)
@@ -70,21 +67,4 @@ Matrix4 Transform::translate(float tx, float ty, float tz)
                                       0, 0, 0, 1);
 
   return translationMatrix;
-}
-
-// Normalize the up direction and construct a coordinate frame.
-/*void Transform::up(float degrees, Vector3& eye, Vector3& up)
-{
-	Vector3 findAxis = MathHelper::cross(eye,up);
-	up = MathHelper::multiply(Transform::rotate(degrees, MathHelper::normalize(findAxis)), up);
-	eye = MathHelper::multiply(Transform::rotate(degrees, MathHelper::normalize(findAxis)), eye);
-}*/
-
-
-Vector3 Transform::up(Vector3 up, Vector3 zvec)
-{
-  Vector3 x = MathHelper::cross(up, zvec);
-  Vector3 y = MathHelper::cross(zvec, x);
-  Vector3 ret = MathHelper::normalize(y);
-  return ret;
 }

@@ -64,3 +64,50 @@ void Matrix3::print()
   }
   std::cout<< "\n";
 }
+
+Matrix3 Matrix3::operator+(Matrix3 otherMatrix)
+{
+  Matrix3 sum = Matrix3();
+
+  for (int i = 0; i < 3; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      sum.setElement(i, j, elements[i][j] + otherMatrix.getElement(i, j));
+    }
+  }
+
+  return sum;
+}
+
+Matrix3 Matrix3::operator*(float value)
+{
+  Matrix3 product = Matrix3();
+
+  for (int i = 0; i < 3; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      product.setElement(i, j, elements[i][j] * value);
+    }
+  }
+
+  return product;
+}
+
+bool Matrix3::operator==(Matrix3 otherMatrix)
+{
+  for (int i = 0; i < 3; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      float m1Element = floor(elements[i][j] * 1000.0 + 0.5) / 1000.0;
+      float m2Element = floor(otherMatrix.getElement(i, j) * 1000.0 + 0.5) / 1000.0;
+      if (m1Element != m2Element)
+      {
+        return false;
+      }
+    }
+  }
+  return true;
+}
