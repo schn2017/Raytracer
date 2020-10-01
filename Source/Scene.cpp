@@ -387,7 +387,7 @@ void Scene::renderScene()
 
   film = Pixels(height, width);
   sampler = SceneSampler(height, width);
-  tracer = Raytracer(objects, sceneLights);
+  tracer = Raytracer(objects, sceneLights, depth);
   float sampleTotalCount = height * width;
   int sampleCount = 0;
 

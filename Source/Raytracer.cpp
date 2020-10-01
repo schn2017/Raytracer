@@ -1,16 +1,20 @@
 #include "Raytracer.h"
 
+////////////////////////////////////////////////////////////////////////////////
+// Class Constructor Functions
 Raytracer::Raytracer()
 {
 
 }
 
-Raytracer::Raytracer(vector<Object> objectVector, Lighting lights)
+Raytracer::Raytracer(vector<Object> objectVector, Lighting lights, int recursionDepth)
 {
   objects = objectVector;
   sceneLights = lights;
+  depth = recursionDepth;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Method to get color of a camera ray intersection
 RGB Raytracer::getColor(Ray hitRay)
 {
   RGB color = RGB(0, 0, 0);
@@ -24,12 +28,12 @@ RGB Raytracer::getColor(Ray hitRay)
 
   return color;
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Method to trace a ray to determine if it intersects objects
 Intersection Raytracer::traceRay(Ray &hitRay)
 {
   int numberOfObjects = objects.size();
   float distance = 0;
-  //Intersection intersection = Intersection();
   vector<Intersection> intersections;
   Vector3 surfaceNormal;
   for (int i = 0; i < numberOfObjects; i++)
@@ -39,12 +43,8 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
     if (sphere.getState() == true)
     {
-      //std::cout << "Transform\n";
-      //objects[i].getTransform().print();
-      Matrix4 inverseTransform = MathHelper::inverseMatrix4(objects[i].getTransform());
-      //std::cout << "Inverse Transform\n";
-      //inverseTransform.print();
 
+      Matrix4 inverseTransform = MathHelper::inverseMatrix4(objects[i].getTransform());
       Point transformedOrigin = inverseTransform * hitRay.getOrigin();
       Vector3 transformedDirection = MathHelper::normalize(inverseTransform  * hitRay.getDirection());
 
@@ -52,7 +52,6 @@ Intersection Raytracer::traceRay(Ray &hitRay)
 
       if (sphere.intersect(transformedRay) == true)
       {
-        //Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
         Point normalPoint = MathHelper::transpose(objects[i].getTransform()) * transformedRay.getIntersectionPoint();
         Point intersectionPoint = objects[i].getTransform() * transformedRay.getIntersectionPoint();
         distance = MathHelper::distance(hitRay.getOrigin(), intersectionPoint);
@@ -71,10 +70,8 @@ Intersection Raytracer::traceRay(Ray &hitRay)
     }
     else if (triangle.getState() == true)
     {
-      //std::cout << "Triangle found!\n";
       if (triangle.intersect(hitRay) == true)
       {
-        //std::cout << "HIT!\n";
         distance = hitRay.getT();
 
         Intersection intersection = Intersection(distance, objects[i].getMaterials());
@@ -97,7 +94,8 @@ Intersection Raytracer::traceRay(Ray &hitRay)
     return intersection;
   }
 }
-
+////////////////////////////////////////////////////////////////////////////////
+// Method to trace a ray to determine if it intersects objects
 RGB Raytracer::traceLightRays(Intersection intersection)
 {
   RGB diffuse = intersection.getMaterials().getDiffuse();
@@ -118,9 +116,6 @@ RGB Raytracer::traceLightRays(Intersection intersection)
 
       Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
 
-      //cout << "Ray - Origin: " + origin.toString();
-      //cout << "Ray - Direction: " + direction.toString();
-
       RGB lightColor = pointLight.getLightColor();
 
       Ray lightRay = Ray(origin + direction, direction);
@@ -133,27 +128,19 @@ RGB Raytracer::traceLightRays(Intersection intersection)
         RGB lambert = lightColor * (diffuse * maxnDotL);
         Vector3 r = (direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal));
         Vector3 halfAngle = MathHelper::normalize(direction + r);
-        //float nDotH = MathHelper::dot(surfaceNormal, cameraDirection);
         float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
         float maxnDotH = MathHelper::max(nDotH, 0);
         RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
 
-        //cout << "nDotL " << nDotL << " Max " << maxnDotL << "\n";
-        //cout << "nDotH " << nDotH << " Max " << maxnDotH << "\n";
         color = color + lambert + phong;
-        //cout << "color - " << color.toString();
-      }
-      else
-      {
-        //out << "HIT!";
       }
     }
   }
-  //cout << "color - " << color.toString();
   return color;
 }
-
-  Intersection Raytracer::findClosestIntersection(vector<Intersection> intersections)
+////////////////////////////////////////////////////////////////////////////////
+// Method to find find intersecion with the lowest distance value
+Intersection Raytracer::findClosestIntersection(vector<Intersection> intersections)
   {
     float minT = 0;
     float minIntersection = 0;
@@ -176,3 +163,8 @@ RGB Raytracer::traceLightRays(Intersection intersection)
 
     return intersections[minIntersection];
   }
+////////////////////////////////////////////////////////////////////////////////
+RGB Raytracer::traceReflactionRay(Ray &ray)
+{
+
+}
