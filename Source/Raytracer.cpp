@@ -56,8 +56,8 @@ Intersection Raytracer::traceRay(Ray &hitRay)
         Point intersectionPoint = objects[i].getTransform() * transformedRay.getIntersectionPoint();
         distance = MathHelper::distance(hitRay.getOrigin(), intersectionPoint);
 
-        std::cout << "The intersection point is " + intersectionPoint.toString();
-        std::cout << "The calculated distance is " << distance << " The original distance was " << transformedRay.getT() << "\n";
+        //std::cout << "The intersection point is " + intersectionPoint.toString();
+        //std::cout << "The calculated distance is " << distance << " The original distance was " << transformedRay.getT() << "\n";
 
         surfaceNormal = sphere.calculateSurfaceNormal(normalPoint);
 
@@ -164,7 +164,35 @@ Intersection Raytracer::findClosestIntersection(vector<Intersection> intersectio
     return intersections[minIntersection];
   }
 ////////////////////////////////////////////////////////////////////////////////
-RGB Raytracer::traceReflactionRay(Ray &ray)
+//
+RGB Raytracer::traceReflactionRay(Ray &ray, int recursionDepth)
 {
+  if (recursionDepth == -1)
+  {
+    std::cout << "Reflection Recursion done!\n"
+    return RGB(0, 0, 0);
+  }
+  else
+  {
+    // trace ray to get reflection materials
+    Intersection reflectionPoint = traceRay(ray);
+
+    if (reflectionPoint.getState() == false)
+    {
+      std::cout << "Reflection Not found"
+      return RGB(0, 0, 0);
+    }
+    // create new ray from interesection point
+    Point origin = reflectionPoint.getIntersectionPoint();
+    Vector3 direction = Vector3(0, 0, 0);
+
+    Ray nextReflectionRay = Ray(origin, direction);
+
+    // pass new ray to recursive call
+    // color += reflectivity  * color of reflectedRay
+    // reflectivity comes materials from object intersection
+
+    return traceReflactionRay(nextReflectionRay, recursionDepth - 1);
+  }
 
 }

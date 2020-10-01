@@ -28,7 +28,7 @@ private:
   Intersection findClosestIntersection(vector<Intersection> intersections);
   //Method definition to trace a ray to determine if it intersects objects
   RGB traceLightRays(Intersection intersection);
-  RGB traceReflactionRay(Ray &ray);
+  RGB traceReflactionRay(Ray &ray, int recursionDepth);
 
 
 };
