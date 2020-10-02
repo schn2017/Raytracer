@@ -64,7 +64,7 @@ Vector3 Vector3::operator-(const Vector3 &otherVector)
   return Vector3(xx, yy, zz);
 }
 
-Vector3 Vector3::operator*(const float &scalar)
+Vector3 Vector3::operator*(float scalar)
 {
   float xx = x * scalar;
   float yy = y * scalar;

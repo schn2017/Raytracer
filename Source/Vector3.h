@@ -18,7 +18,7 @@ class Vector3{
     //Operator Overides
     Vector3 operator+(const Vector3 &otherVector);
     Vector3 operator-(const Vector3 &otherVector);
-    Vector3 operator*(const float &scalar);
+    Vector3 operator*(float scalar);
     bool operator==(Vector3 &otherVector);
   private:
     float x;

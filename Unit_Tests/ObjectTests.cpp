@@ -5,7 +5,7 @@ TEST_CASE("Object: Set and Get Object Properties")
 {
   Object testObject = Object();
 
-  Materials testMaterials = Materials(RGB(0, 0, 0), RGB(1, 1, 1), 10, RGB(2, 2, 2));
+  Materials testMaterials = Materials(RGB(0, 0, 0), RGB(1, 1, 1), 10, RGB(2, 2, 2), 1);
   Sphere testSphere = Sphere(1, 2, 3, 4);
   Triangle testTriangle = Triangle(Point(0, 0, 0), Point(1, 1, 1), Point(-1, -1, -1));
   Matrix4 testMatrix = Matrix4(1, 0, 0, 0,
@@ -23,6 +23,7 @@ TEST_CASE("Object: Set and Get Object Properties")
   REQUIRE( (testObject.getMaterials().getEmission() == RGB(2, 2, 2)) == true);
   REQUIRE( testObject.getMaterials().getShininess() == 10);
   REQUIRE( (testObject.getMaterials().getSpecular() == RGB(1, 1, 1)) == true);
+  REQUIRE( testObject.getMaterials().getReflectivity() == 1);
 
   // Testing Sphere
   REQUIRE((testObject.getSphere().getPosition() == Point(1, 2, 3)) == true);

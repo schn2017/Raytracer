@@ -7,23 +7,33 @@ Raytracer::Raytracer()
 
 }
 
-Raytracer::Raytracer(vector<Object> objectVector, Lighting lights, int recursionDepth)
+Raytracer::Raytracer(vector<Object> objectVector, Lighting lights)
 {
   objects = objectVector;
+
+ for(int i = 0; i < objects.size(); i++)
+ {
+   std::cout << "The reflectivity is " << objects[i].getMaterials().getReflectivity() << "\n";
+   std::cout << "The ambient is " << objects[i].getMaterials().getAmbient().toString() << "\n";
+ }
+
   sceneLights = lights;
-  depth = recursionDepth;
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Method to get color of a camera ray intersection
-RGB Raytracer::getColor(Ray hitRay)
+RGB Raytracer::getColor(Ray hitRay, int recursionDepth)
 {
   RGB color = RGB(0, 0, 0);
 
   Intersection rayIntersection = traceRay(hitRay);
   if (rayIntersection.getState() == true)
   {
+    float reflectivity = rayIntersection.getMaterials().getReflectivity();
+    //std::cout << "The reflectivity is " << reflectivity << "\n";
     //color = color + sceneLights.getAmbientLight() + traceLightRays(hitRay, rayIntersection);
-    color = color + rayIntersection.getMaterials().getAmbient() + traceLightRays(rayIntersection);
+    color = color + rayIntersection.getMaterials().getAmbient()
+                  + traceLightRays(rayIntersection)
+                  + traceReflectionRay(hitRay, rayIntersection, recursionDepth);
   }
 
   return color;
@@ -113,15 +123,16 @@ RGB Raytracer::traceLightRays(Intersection intersection)
     {
       PointLight pointLight = sceneLights.getLightSource(i).getPointLight();
       Point origin = intersection.getIntersectionPoint();
-
+      float distanceFromIntersectionToLight = MathHelper::distance(origin, pointLight.getPosition());
       Vector3 direction = MathHelper::normalize(pointLight.getPosition() - origin);
 
       RGB lightColor = pointLight.getLightColor();
-
-      Ray lightRay = Ray(origin + direction, direction);
+      Vector3 offset = direction * 0.0025;
+      Ray lightRay = Ray(origin + offset, direction);
       Intersection rayIntersection = traceRay(lightRay);
+      float rayToIntersectionDistance = MathHelper::distance(origin, rayIntersection.getIntersectionPoint());
       color = color + emission;
-      if (rayIntersection.getState() == false)
+      if (rayIntersection.getState() == false || distanceFromIntersectionToLight < rayToIntersectionDistance)
       {
         float nDotL = MathHelper::dot(surfaceNormal, direction);
         float maxnDotL = MathHelper::max(nDotL, 0);
@@ -165,34 +176,38 @@ Intersection Raytracer::findClosestIntersection(vector<Intersection> intersectio
   }
 ////////////////////////////////////////////////////////////////////////////////
 //
-RGB Raytracer::traceReflactionRay(Ray &ray, int recursionDepth)
+RGB Raytracer::traceReflectionRay(Ray ray, Intersection rayIntersection, int recursionDepth)
 {
   if (recursionDepth == -1)
   {
-    std::cout << "Reflection Recursion done!\n"
+    //std::cout << "Reflection Recursion done!\n";
     return RGB(0, 0, 0);
   }
   else
   {
-    // trace ray to get reflection materials
-    Intersection reflectionPoint = traceRay(ray);
-
-    if (reflectionPoint.getState() == false)
-    {
-      std::cout << "Reflection Not found"
-      return RGB(0, 0, 0);
-    }
     // create new ray from interesection point
-    Point origin = reflectionPoint.getIntersectionPoint();
-    Vector3 direction = Vector3(0, 0, 0);
+    Point reflectionRayOrigin = rayIntersection.getIntersectionPoint();
+    Vector3 originalRayDirection = ray.getDirection();
+    Vector3 surfaceNormal = rayIntersection.getSurfaceNormal();
+    Vector3 reflectionRayDirection = MathHelper::normalize(originalRayDirection
+                                                           + (surfaceNormal * MathHelper::dot(originalRayDirection, surfaceNormal)));
 
-    Ray nextReflectionRay = Ray(origin, direction);
+    Ray nextReflectionRay = Ray(reflectionRayOrigin + reflectionRayDirection, reflectionRayDirection);
+    float reflectivity = rayIntersection.getMaterials().getReflectivity();
+    if (reflectivity == 0)
+    {
+      return RGB(0,0,0);
+    }
+    else
+    {
+      //std::cout << "The reflectivity is " << reflectivity << "\n";
+    }
 
-    // pass new ray to recursive call
-    // color += reflectivity  * color of reflectedRay
-    // reflectivity comes materials from object intersection
+    RGB color = getColor(nextReflectionRay, recursionDepth - 1);
+    color = color * rayIntersection.getMaterials().getReflectivity();
+  //  std::cout << "The reflected color is " + color.toString();
 
-    return traceReflactionRay(nextReflectionRay, recursionDepth - 1);
+    return color;
   }
 
 }

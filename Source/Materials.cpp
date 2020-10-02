@@ -2,16 +2,21 @@
 
 Materials::Materials()
 {
-
+  ambient = RGB(0, 0, 0);
+  diffuse = RGB(0, 0, 0);
+  specular = RGB(0, 0, 0);
+  shininess = 0;
+  emission = RGB(0, 0, 0);
+  reflectivity = 0;
 }
 
-Materials::Materials(RGB diff, RGB spec, float shiny, RGB emiss)
+Materials::Materials(RGB diff, RGB spec, float shiny, RGB emiss, float reflect)
 {
   diffuse = diff;
   specular = spec;
   shininess = shiny;
   emission = emiss;
-
+  reflectivity = reflect;
 }
 
 RGB Materials::getAmbient()
@@ -34,6 +39,11 @@ RGB Materials::getEmission()
   return emission;
 }
 
+float Materials::getReflectivity()
+{
+  return reflectivity;
+}
+
 RGB Materials::getSpecular()
 {
   return specular;
@@ -52,6 +62,11 @@ void Materials::setDiffuse(RGB value)
 void Materials::setEmission(RGB value)
 {
   emission = value;
+}
+
+void Materials::setReflectivity(float value)
+{
+  reflectivity = value;
 }
 
 void Materials::setShininess(float value)

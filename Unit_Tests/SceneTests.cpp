@@ -51,7 +51,7 @@ TEST_CASE("Scene: Read Scene Input - Depth")
   const char * fileNamePass = "Scene_Inputs/scene1Cam4.test";
   sceneTest.readScene(fileNamePass);
 
-  REQUIRE(sceneTest.getDepth() ==  10);
+  REQUIRE(sceneTest.getRecursionDepth() ==  10);
 }
 
 TEST_CASE("Scene: Read Scene Input - Vertices")

@@ -26,6 +26,7 @@ pushTransform
 # intersection test.
 
 ambient .7 .7 1
+reflectivity .2
 
 scale 2 1 .25
 tri 0 1 5

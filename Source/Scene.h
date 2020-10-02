@@ -19,7 +19,7 @@ public:
 
   // Get Member Definitions
   Camera getCamera();
-  int getDepth();
+  int getRecursionDepth();
   float getHeight();
   float getWidth();
   Lighting getLighting();
@@ -46,7 +46,7 @@ public:
 
 private:
   Camera sceneCamera;
-  int depth;
+  int recursionDepth;
   float height;
   float width;
   Lighting sceneLights;

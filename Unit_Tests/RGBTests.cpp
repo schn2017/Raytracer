@@ -41,3 +41,13 @@ TEST_CASE("RGB: Comparisons != Override")
   REQUIRE( (color1 != color3) == false);
   REQUIRE( (color1 != color2) == true);
 }
+
+TEST_CASE("RGB:: RGB * Scalar Multiplication Override")
+{
+  RGB testRGB1 = RGB(20, 30, 40);
+  RGB testRGB2 = RGB(253, 100, 200);
+  REQUIRE( ((testRGB1 * 0) == RGB(0, 0, 0)) == true);
+  REQUIRE( ((testRGB2 * 0) == RGB(0, 0, 0)) == true);
+
+
+}
