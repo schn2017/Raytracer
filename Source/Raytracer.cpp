@@ -137,7 +137,7 @@ RGB Raytracer::traceLightRays(Intersection intersection)
         float nDotL = MathHelper::dot(surfaceNormal, direction);
         float maxnDotL = MathHelper::max(nDotL, 0);
         RGB lambert = lightColor * (diffuse * maxnDotL);
-        Vector3 r = (direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal));
+        Vector3 r = MathHelper::normalize((direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal) * 2));
         Vector3 halfAngle = MathHelper::normalize(direction + r);
         float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
         float maxnDotH = MathHelper::max(nDotH, 0);
@@ -190,7 +190,7 @@ RGB Raytracer::traceReflectionRay(Ray ray, Intersection rayIntersection, int rec
     Vector3 originalRayDirection = ray.getDirection();
     Vector3 surfaceNormal = rayIntersection.getSurfaceNormal();
     Vector3 reflectionRayDirection = MathHelper::normalize(originalRayDirection
-                                                           + (surfaceNormal * MathHelper::dot(originalRayDirection, surfaceNormal)));
+                                                           - (surfaceNormal * MathHelper::dot(originalRayDirection, surfaceNormal)) * 2);
 
     Ray nextReflectionRay = Ray(reflectionRayOrigin + reflectionRayDirection, reflectionRayDirection);
     float reflectivity = rayIntersection.getMaterials().getReflectivity();
