@@ -91,7 +91,7 @@ tests: TestSuite.o CameraTests.o Camera.o IntersectionTests.o Intersection.o Lig
 			 MathHelperTests.o MathHelper.o Matrix3Tests.o matrix3.o Matrix4Tests.o \
 			 matrix4.o ObjectTests.o object.o	PointTests.o Point.o PointLightTests.o PointLight.o PixelsTests.o pixels.o \
 			 RayTests.o ray.o RaytracerTests.o raytracer.o RGBTests.o rgb.o SampleTests.o sample.o SceneSamplerTests.o \
-			 scenesampler.o SceneTests.o Scene.o SphereTests.o sphere.o \
+			 scenesampler.o SceneTests.o scene.o SphereTests.o sphere.o \
 			 TransformTests.o transform.o TriangleTests.o triangle.o Vector3Tests.o \
 			 vector3.o Vector4Tests.o vector4.o
 

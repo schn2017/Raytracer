@@ -12,9 +12,9 @@ Camera Scene::getCamera()
   return sceneCamera;
 }
 
-int Scene::getDepth()
+int Scene::getRecursionDepth()
 {
-  return depth;
+  return recursionDepth;
 }
 
 float Scene::getHeight()
@@ -154,7 +154,7 @@ bool Scene::readScene(const char *filename)
           validCommand = readSceneValues(s, 1, objectParameters);
           if (validCommand)
           {
-            depth = objectParameters[0];
+            recursionDepth = objectParameters[0];
           }
         }
         else if (command == "maxverts")
@@ -199,6 +199,17 @@ bool Scene::readScene(const char *filename)
         {
           transformStack.push(transformStack.top());
         }
+        else if (command == "reflectivity")
+        {
+          validCommand = readSceneValues(s, 1, objectParameters);
+          if (validCommand)
+          {
+            float reflectivity = objectParameters[0];
+            std::cout << "The reflectivity is " << reflectivity << "\n";
+            material.setReflectivity(reflectivity);
+          }
+        }
+
         else if (command == "rotate")
         {
           validCommand = readSceneValues(s, 4, objectParameters);
@@ -357,6 +368,12 @@ bool Scene::readSceneValues(stringstream &s, const int numvals, float * values)
 //Render Scene Method
 void Scene::renderScene()
 {
+  for(int i = 0; i < objects.size(); i++)
+  {
+    std::cout << "The reflectivity is " << objects[i].getMaterials().getReflectivity() << "\n";
+    std::cout << "The ambient is " << objects[i].getMaterials().getAmbient().toString() << "\n";
+  }
+
   sceneCamera.setDimensions(height, width);
   sceneCamera.calculateFOVX();
   cout << "Camera Information:\nLookFrom: " + sceneCamera.getLookFrom().toString();
@@ -408,7 +425,7 @@ void Scene::renderScene()
       sampleCount = 0;
     }
 
-    RGB pixelColor = tracer.getColor(cameraRay);
+    RGB pixelColor = tracer.getColor(cameraRay, recursionDepth);
     film.addColor(pixelColor);
     sampleCount++;
   }

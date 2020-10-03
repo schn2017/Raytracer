@@ -12,15 +12,22 @@ using namespace std;
 class Raytracer
 {
 public:
+  //Constructors
   Raytracer();
   Raytracer(vector<Object> objectVector, Lighting lights);
-  RGB getColor(Ray hitRay);
+  //Method definition to get color of a camera ray intersection
+  RGB getColor(Ray hitRay, int recursionDepth);
 
 private:
   vector<Object> objects;
   Lighting sceneLights;
-
+  //Method definition to trace a ray to determine if it intersects objects
   Intersection traceRay(Ray &hitRay);
+  //Method definition to find find intersecion with the lowest distance value
   Intersection findClosestIntersection(vector<Intersection> intersections);
-  RGB traceLightRays(Intersection intersection);  
+  //Method definition to trace a ray to determine if it intersects objects
+  RGB traceLightRays(Intersection intersection);
+  RGB traceReflectionRay(Ray ray, Intersection rayIntersection, int recursionDepth);
+
+
 };

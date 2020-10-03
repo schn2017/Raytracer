@@ -1,0 +1,26 @@
+size 1000 1000
+
+depth 5
+
+camera 0 0 20 0 0 0 0 1 0 100
+point 0 0 100 1 1 1
+
+ambient 0.1 0.1 0.1
+diffuse 1 0 0
+specular 1 1 1
+reflectivity 0.9
+shininess 50
+sphere 0 0 0 2
+
+
+diffuse 0 1 0
+sphere 0 5 0 2
+
+diffuse 0 0 1
+sphere 0 -5 0 2
+
+diffuse 1 1 0
+sphere -5 0 0 2
+
+diffuse 0 1 1
+sphere 5 0 0 2

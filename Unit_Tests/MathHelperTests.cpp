@@ -145,7 +145,6 @@ TEST_CASE("MathHelper: Dot Product - Vector4")
 
 TEST_CASE("MathHelper: Inverse Matrix 4X4")
 {
-  std::cout << "Starting inverse test!\n";
   Matrix4 testMatrix1 = Matrix4(1, 1, 1, -1,
                                1, 1, -1, 1,
                                1, -1, 1, 1,
@@ -161,11 +160,9 @@ TEST_CASE("MathHelper: Inverse Matrix 4X4")
                                 0, 0, 0.25, 0.5,
                                 0, 0, 0, 1);
 
-  std::cout << "1\n";
+
   Matrix4 inverse1 = MathHelper::inverseMatrix4(testMatrix1);
-  std::cout << "2\n";
   Matrix4 inverse2 = MathHelper::inverseMatrix4(testMatrix2);
-  std::cout << "3\n";
   Matrix4 inverse3 = MathHelper::inverseMatrix4(testMatrix3);
 
 
