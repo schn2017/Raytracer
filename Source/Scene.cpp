@@ -209,7 +209,16 @@ bool Scene::readScene(const char *filename)
             material.setReflectivity(reflectivity);
           }
         }
-
+        else if (command == "refractiveIndex")
+        {
+          validCommand = readSceneValues(s, 1, objectParameters);
+          if (validCommand)
+          {
+            float refractiveIndex = objectParameters[0];
+            std::cout << "The refractive index is " << refractiveIndex << "\n";
+            material.setRefactiveIndex(refractiveIndex);
+          }
+        }
         else if (command == "rotate")
         {
           validCommand = readSceneValues(s, 4, objectParameters);

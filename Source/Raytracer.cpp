@@ -199,7 +199,7 @@ RGB Raytracer::traceReflectionRay(Ray ray, Intersection rayIntersection, int rec
     float reflectivity = rayIntersection.getMaterials().getReflectivity();
 
     RGB color = getColor(nextReflectionRay, recursionDepth - 1);
-    color = color * rayIntersection.getMaterials().getReflectivity();
+    color = color * reflectivity;
     return color;
   }
 }
@@ -220,6 +220,12 @@ RGB Raytracer::traceRefractionRay(Ray ray, Intersection rayIntersection, int rec
   {
     return RGB(0, 0, 0);
   }
+
+  float refractionIndex = rayIntersection.getMaterials().getRefractiveIndex();
+  Ray refractionRay = Ray(Point(0, 0, 0), Vector3(1, 0, 0));
+  RGB color = getColor(refractionRay, recursionDepth - 1);
+  color = color * refractionIndex;
+  return color;
 }
 
 Ray createRefractionRay(Vector3 direction, Intersection rayIntersection)

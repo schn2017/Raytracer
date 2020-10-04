@@ -44,6 +44,11 @@ float Materials::getReflectivity()
   return reflectivity;
 }
 
+float Materials::getRefractiveIndex()
+{
+  return refractiveIndex;
+}
+
 RGB Materials::getSpecular()
 {
   return specular;
@@ -67,6 +72,11 @@ void Materials::setEmission(RGB value)
 void Materials::setReflectivity(float value)
 {
   reflectivity = value;
+}
+
+void Materials::setRefactiveIndex(float value)
+{
+  refractiveIndex = value;
 }
 
 void Materials::setShininess(float value)

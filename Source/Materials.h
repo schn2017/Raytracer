@@ -14,11 +14,13 @@ public:
   RGB getEmission();
   RGB getAmbient();
   float getReflectivity();
+  float getRefractiveIndex();  
 
   void setAmbient(RGB value);
   void setDiffuse(RGB value);
   void setEmission(RGB value);
   void setReflectivity(float value);
+  void setRefactiveIndex(float value);
   void setShininess(float value);
   void setSpecular(RGB value);
 
@@ -29,4 +31,5 @@ private:
   float shininess;
   RGB emission;
   float reflectivity;
+  float refractiveIndex;
 };
