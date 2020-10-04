@@ -27,7 +27,11 @@ private:
   Intersection findClosestIntersection(vector<Intersection> intersections);
   //Method definition to trace a ray to determine if it intersects objects
   RGB traceLightRays(Intersection intersection);
+  float calculateLambertCoefficient(Vector3 surfaceNormal, Vector3 direction);
+  float calculatePhongCoefficient(Vector3 surfaceNormal, Vector3 direction);
+
   RGB traceReflectionRay(Ray ray, Intersection rayIntersection, int recursionDepth);
-
-
+  Ray createReflectionRay(Vector3 direction, Intersection rayIntersection);
+  RGB traceRefractionRay(Ray ray, Intersection rayIntersection, int recursionDepth);
+  Ray createRefractionRay(Vector3 direction, Intersection rayIntersection);
 };

@@ -134,21 +134,32 @@ RGB Raytracer::traceLightRays(Intersection intersection)
       color = color + emission;
       if (rayIntersection.getState() == false || distanceFromIntersectionToLight < rayToIntersectionDistance)
       {
-        float nDotL = MathHelper::dot(surfaceNormal, direction);
-        float maxnDotL = MathHelper::max(nDotL, 0);
-        RGB lambert = lightColor * (diffuse * maxnDotL);
-        Vector3 r = MathHelper::normalize((direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal) * 2));
-        Vector3 halfAngle = MathHelper::normalize(direction + r);
-        float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
-        float maxnDotH = MathHelper::max(nDotH, 0);
-        RGB phong = lightColor * (specular * pow(maxnDotH, shininess));
-
+        RGB lambert = lightColor * (diffuse * calculateLambertCoefficient(surfaceNormal,direction));
+        RGB phong = lightColor * (specular * calculatePhongCoefficient(surfaceNormal, direction));
         color = color + lambert + phong;
       }
     }
   }
   return color;
 }
+
+float Raytracer::calculateLambertCoefficient(Vector3 surfaceNormal, Vector3 direction)
+{
+  float nDotL = MathHelper::dot(surfaceNormal, direction);
+  return MathHelper::max(nDotL, 0);
+}
+
+float Raytracer::calculatePhongCoefficient(Vector3 surfaceNormal, Vector3 direction)
+{
+  Vector3 r = MathHelper::normalize((direction) + (surfaceNormal * MathHelper::dot(direction, surfaceNormal) * 2));
+  Vector3 halfAngle = MathHelper::normalize(direction + r);
+  float nDotH = MathHelper::dot(surfaceNormal, halfAngle);
+  return MathHelper::max(nDotH, 0);
+}
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Method to find find intersecion with the lowest distance value
 Intersection Raytracer::findClosestIntersection(vector<Intersection> intersections)
@@ -180,34 +191,38 @@ RGB Raytracer::traceReflectionRay(Ray ray, Intersection rayIntersection, int rec
 {
   if (recursionDepth == -1)
   {
-    //std::cout << "Reflection Recursion done!\n";
     return RGB(0, 0, 0);
   }
   else
   {
-    // create new ray from interesection point
-    Point reflectionRayOrigin = rayIntersection.getIntersectionPoint();
-    Vector3 originalRayDirection = ray.getDirection();
-    Vector3 surfaceNormal = rayIntersection.getSurfaceNormal();
-    Vector3 reflectionRayDirection = MathHelper::normalize(originalRayDirection
-                                                           - (surfaceNormal * MathHelper::dot(originalRayDirection, surfaceNormal)) * 2);
-
-    Ray nextReflectionRay = Ray(reflectionRayOrigin + reflectionRayDirection, reflectionRayDirection);
+    Ray nextReflectionRay = createReflectionRay(ray.getDirection(), rayIntersection);
     float reflectivity = rayIntersection.getMaterials().getReflectivity();
-    if (reflectivity == 0)
-    {
-      return RGB(0,0,0);
-    }
-    else
-    {
-      //std::cout << "The reflectivity is " << reflectivity << "\n";
-    }
 
     RGB color = getColor(nextReflectionRay, recursionDepth - 1);
     color = color * rayIntersection.getMaterials().getReflectivity();
-  //  std::cout << "The reflected color is " + color.toString();
-
     return color;
   }
+}
+
+Ray Raytracer::createReflectionRay(Vector3 direction, Intersection rayIntersection)
+{
+  Point reflectionRayOrigin = rayIntersection.getIntersectionPoint();
+  Vector3 originalRayDirection = direction;
+  Vector3 surfaceNormal = rayIntersection.getSurfaceNormal();
+  Vector3 reflectionRayDirection = MathHelper::normalize(originalRayDirection
+                                                         - (surfaceNormal * MathHelper::dot(originalRayDirection, surfaceNormal)) * 2);
+  return Ray(reflectionRayOrigin + reflectionRayDirection, reflectionRayDirection);
+}
+
+RGB Raytracer::traceRefractionRay(Ray ray, Intersection rayIntersection, int recursionDepth)
+{
+  if (recursionDepth == -1)
+  {
+    return RGB(0, 0, 0);
+  }
+}
+
+Ray createRefractionRay(Vector3 direction, Intersection rayIntersection)
+{
 
 }
